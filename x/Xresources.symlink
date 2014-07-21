@@ -1,0 +1,111 @@
+! terminal colors ------------------------------------------------------------
+! Solarized color scheme for the X Window System
+!
+! http://ethanschoonover.com/solarized
+
+
+! Common
+
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green         #859900
+
+
+! Dark
+
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
+
+
+! Light
+
+! #define S_base03        #fdf6e3
+! #define S_base02        #eee8d5
+! #define S_base01        #93a1a1
+! #define S_base00        #839496
+! #define S_base0         #657b83
+! #define S_base1         #586e75
+! #define S_base2         #073642
+! #define S_base3         #002b36
+
+
+! To only apply colors to your terminal, for example, prefix
+! the color assignment statement with its name. Example:
+!
+! URxvt*background:            S_base03
+
+*background:              S_base03
+*foreground:              S_base0
+*fading:                  40
+*fadeColor:               S_base03
+*cursorColor:             S_base1
+*pointerColorBackground:  S_base01
+*pointerColorForeground:  S_base1
+
+*color0:                  S_base02
+*color1:                  S_red
+*color2:                  S_green
+*color3:                  S_yellow
+*color4:                  S_blue
+*color5:                  S_magenta
+*color6:                  S_cyan
+*color7:                  S_base2
+*color8:                  S_base03
+*color9:                  S_orange
+*color10:                 S_base01
+*color11:                 S_base00
+*color12:                 S_base0
+*color13:                 S_violet
+*color14:                 S_base1
+*color15:                 S_base3
+
+! Xcursor --------------------------------------------------------------------
+Xcursor.theme: Vanilla-DMZ-AA
+Xcursor.size:  40
+
+! Xft settings ---------------------------------------------------------------
+Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight
+
+! xterm ----------------------------------------------------------------------
+
+xterm*VT100.geometry:     80x25
+
+xterm*faceName:           Source Code Pro:style=Regular:size=20
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          false
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false
+Xterm*saveLines:          1048576
+xterm*termName:           xterm-256color
+XTerm*locale:             true
+XTerm*metaSendsEscape:    true
+XTerm*altSendsEscape:     true
+XTerm*ttyModes: erase ^?
+XTerm*eightBitInput:      true
+XTerm*eightBitMeta:       true
+
+XTerm.VT100.translations: #override \
+<Key>BackSpace: string(0x7f) \n\
+<Key>Delete:    string(0x1b) string("[3~") \n\
+~Shift ~Alt Ctrl <Key> minus: smaller-vt-font() \n\
+       ~Alt Ctrl <Key> plus: larger-vt-font() \n\
+~Shift ~Alt Ctrl <Key> equal: larger-vt-font() \n
