@@ -6,10 +6,10 @@
 ;; Packages
 (require 'package)
 (package-initialize)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (if nil
     (progn
-      (add-to-list 'package-archives
-                   '("melpa" . "http://melpa.milkbox.net/packages/") t)
       (setq my-onlinep nil)
       (unless
           (condition-case nil
@@ -156,12 +156,11 @@ By default, it's `name'-mode.el."
                                   (rainbow-delimiters-mode +1)))
 
 
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-;;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+;;(autoload 'ghc-init "ghc" nil t)
+;;(autoload 'ghc-debug "ghc" nil t)
+;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'haskell-indent-mode)
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 
 ;; in text mode do spellchecking
 (add-hook 'text-mode-hook 'flyspell-mode)
