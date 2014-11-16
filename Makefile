@@ -1,3 +1,2 @@
 all:
-	cd ~/dotfiles
 	stow */
