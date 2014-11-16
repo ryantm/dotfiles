@@ -16,3 +16,5 @@
 
 [core]
 	excludesfile = /home/ryantm/.gitignore_global
+[push]
+	default = simple
