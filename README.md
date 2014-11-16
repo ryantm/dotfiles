@@ -4,7 +4,7 @@ These are ryantm's configuration files or dotfiles (because the files often begi
 
 # Installation instructions
 
-1. Install [GNU Stow][2] and [GNU Make][3]. GNU Make is probably already installed. Also install [git][4]
+1. Install [GNU Stow][2] and [GNU Make][3]. GNU Make is probably already installed. Also install [git][4].
 1. From your home directory, `git clone https://github.com/ryantm/dotfiles.git`
 2. `cd dotfiles`
 3. `make`
