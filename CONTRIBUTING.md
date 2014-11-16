@@ -10,9 +10,10 @@ Please submit issues and bug reports to the
 
 1. Fork it
 2. Create a branch (`git checkout -b zsh`)
-7. Commit your changes (`git commit -am "Add zsh support"`)
-8. Push to the branch (`git push origin zsh`)
-9. Open a [Pull Request][3]
+3. Make your changes
+4. Commit your changes (`git commit -am "Add zsh support"`)
+5. Push to the branch (`git push origin zsh`)
+6. Open a [Pull Request][3]
 
 [1]:https://github.com/ryantm/dotfiles/issues
 [2]:https://github.com/ryantm/dotfiles/blob/master/LICENSE.md
