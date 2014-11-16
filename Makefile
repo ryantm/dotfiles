@@ -6,3 +6,4 @@ all:
 	stow x
 	stow ruby
 	stow git
+	stow bazaar
