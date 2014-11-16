@@ -45,6 +45,7 @@ if [ -f ~/.bash_functions ]; then
 fi
 
 export EDITOR="emacs"
+export BROWSER="chromium"
 PATH=$PATH:$HOME/bin
 #CDPATH='~/projects'
 
