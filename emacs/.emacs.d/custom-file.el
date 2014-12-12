@@ -19,6 +19,7 @@
  '(fci-rule-color "#073642")
  '(global-auto-revert-mode t)
  '(global-auto-revert-non-file-buffers t)
+ '(global-whitespace-mode t)
  '(haskell-indent-offset 2)
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
@@ -63,4 +64,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(whitespace-newline ((t (:foreground "gray35" :weight ultra-light))))
+ '(whitespace-space ((t (:foreground "grey35" :weight ultra-light)))))
