@@ -142,16 +142,15 @@ By default, it's `name'-mode.el."
      (setq ruby-deep-indent-paren-style nil)
      (define-key ruby-mode-map (kbd "C-x e") 'ruby-send-whole-buffer)
      (define-key ruby-mode-map (kbd "C-x C-e") 'ruby-send-whole-buffer)
-     
      (defun ruby-send-whole-buffer ()
        (interactive)
        (save-buffer)
        (ruby-load-file (buffer-file-name (current-buffer))))))
 
-(add-hook 'emacs-lisp-mode-hook (lambda () 
+(add-hook 'emacs-lisp-mode-hook (lambda ()
                                   (paredit-mode +1)
                                   (rainbow-delimiters-mode +1)))
-(add-hook 'clojure-mode-hook (lambda () 
+(add-hook 'clojure-mode-hook (lambda ()
                                   (paredit-mode +1)
                                   (rainbow-delimiters-mode +1)))
 
@@ -160,7 +159,8 @@ By default, it's `name'-mode.el."
 ;;(autoload 'ghc-debug "ghc" nil t)
 ;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'haskell-indent-mode)
+(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+
 
 ;; in text mode do spellchecking
 (add-hook 'text-mode-hook 'flyspell-mode)
@@ -221,4 +221,3 @@ By default, it's `name'-mode.el."
 
 (require 'rvm)
 (rvm-use-default)
-
