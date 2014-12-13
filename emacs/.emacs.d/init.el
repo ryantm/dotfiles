@@ -159,7 +159,7 @@ By default, it's `name'-mode.el."
 ;;(autoload 'ghc-debug "ghc" nil t)
 ;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'haskell-indentation-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
 
 ;; in text mode do spellchecking
