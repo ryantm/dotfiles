@@ -19,14 +19,14 @@ layout = smartBorders (tiled ||| Mirror tiled ||| Full)
 
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
---spawn "xmobar"
+
 main = do
-       xmonad =<< xmobar
-         (
-           defaultConfig { 
-              modMask = mod4Mask,
-              layoutHook = layout
-              }
-           `additionalKeys`
-           [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
-         )
+  xmonad =<< xmobar
+    (
+      defaultConfig {
+         modMask = mod4Mask,
+         layoutHook = layout
+         }
+      `additionalKeys`
+      [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
+    )
