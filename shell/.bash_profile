@@ -20,7 +20,7 @@ export TRACK_ASSEMBLY_DIRECTORY=~/projects/pololu/track_assembly
 function track_assembly {
  pushd .
  cd ~/projects/pololu/system2_for_track_assembly/website
- RAILS_ENV=preview bundle exec rails runner "script/track/track_assembly.rb" 
+ RAILS_ENV=preview bundle exec rails runner "script/track/track_assembly.rb"
  popd
 }
 
