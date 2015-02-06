@@ -42,7 +42,8 @@
               paredit
               feature-mode
               cus-edit+
-              multi-term))
+              multi-term
+              color-theme-sanityinc-solarized))
 
       (when my-onlinep
         (package-refresh-contents)
