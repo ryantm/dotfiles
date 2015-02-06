@@ -42,8 +42,7 @@
               paredit
               feature-mode
               cus-edit+
-              multi-term
-              rvm))
+              multi-term))
 
       (when my-onlinep
         (package-refresh-contents)
@@ -174,6 +173,3 @@
 ;; Colors and fonts
 (set-frame-parameter nil 'font-backend "xft")
 (set-default-font "Source Code Pro:size=22")
-
-(require 'rvm)
-(rvm-use-default)
