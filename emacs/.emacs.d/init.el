@@ -43,7 +43,8 @@
               feature-mode
               cus-edit+
               multi-term
-              color-theme-sanityinc-solarized))
+              color-theme-sanityinc-solarized
+              nix-mode))
 
       (when my-onlinep
         (package-refresh-contents)
