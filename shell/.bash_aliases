@@ -14,4 +14,3 @@ fi
 alias bcd='rm -Rf *.elc;emacs -Q --eval "(progn (require '"'"'package)(setq load-path (cons \"`pwd`\" load-path))(byte-recompile-directory \"`pwd`\" 0 t)(check-declare-directory \"`pwd`\"))"'
 
 alias dbc='rm -vRf *.elc'
-
