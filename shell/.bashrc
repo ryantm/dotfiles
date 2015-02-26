@@ -78,3 +78,8 @@ unset GIT_SVN
 
 #dircolors
 eval `dircolors ~/.dir_colors`
+
+#ledger
+export LEDGER_FILE=~/ledger/ledger.dat
+export LEDGER_STRICT=true
+export LEDGER_PEDANTIC=true
