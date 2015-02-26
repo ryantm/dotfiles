@@ -39,6 +39,9 @@
               cider
               markdown-mode
               haskell-mode
+              hi2
+              flycheck
+              haskell-flycheck
               yaml-mode
               rainbow-delimiters
               paredit
