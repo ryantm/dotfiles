@@ -34,8 +34,6 @@
               yasnippet
               diminish
               auto-complete
-              clojure-mode
-              clojure-test-mode
               cider
               markdown-mode
               haskell-mode
@@ -48,7 +46,8 @@
               feature-mode
               cus-edit+
               multi-term
-              rvm))
+              color-theme-sanityinc-solarized
+              nix-mode))
 
       (when my-onlinep
         (package-refresh-contents)
@@ -99,45 +98,6 @@
            (function (nth 1 element)))
       (global-set-key (read-kbd-macro keyboard-string) function))))
 
-;; ----------
-;; -- Loading Modules
-;; ----------
-(defun autoload-mode (name regex &optional file)
-  "Automatically loads a language mode
-when opening a file of the appropriate type.
-
-`name' is the name of the mode.
-E.g. for javascript-mode, `name' would be \"javascript\".
-
-`regex' is the regular expression matching filenames of the appropriate type.
-
-`file' is the name of the file
-from which the mode function should be loaded.
-By default, it's `name'-mode.el."
-  (let* ((name-mode (concat name "-mode"))
-         (name-sym (intern name-mode)))
-    (autoload name-sym (or file name-mode)
-      (format "Major mode for editing %s." name) t)
-    (add-to-list 'auto-mode-alist (cons regex name-sym))))
-
-(autoload-mode "tex" "\\.tex$" "auctex")
-(autoload-mode "d" "\\.d[i]?\\'$")
-(autoload-mode "textile" "\\.textile$")
-(autoload-mode "haml" "\\.haml$")
-(autoload-mode "sass" "\\.sass$")
-(autoload-mode "rhtml" "\\.\\(rhtml\\|erb\\)$")
-(autoload-mode "yaml" "\\.ya?ml$")
-(autoload-mode "ruby" "\\(\\.\\(rb\\|rake\\|rjs\\|gemspec\\|thor\\|rhtml\\)\\|Rakefile\\|Capfile\\|Thorfile\\|Gemfile\\|Guardfile\\)$")
-(autoload-mode "css" "\\.css$")
-(autoload-mode "arc" "\\.arc$" "arc")
-(autoload-mode "erlang" "\\.\\([he]rl\\|yaws\\)$" "erlang/erlang")
-(autoload-mode "treetop" "\\.treetop$")
-(autoload-mode "factor" "\\.factor$")
-(autoload-mode "actionscript" "\\.as$")
-(autoload-mode "xml" "\\.\\(swfml\\|xml\\)$")
-(autoload-mode "org" "\\.org$")
-(autoload-mode "haxe" "\\.hx$")
-
 (eval-after-load "ruby-mode"
   '(progn
      (define-key ruby-mode-map (kbd "C-M-l") 'ruby-forward-sexp)
@@ -153,10 +113,6 @@ By default, it's `name'-mode.el."
 (add-hook 'emacs-lisp-mode-hook (lambda ()
                                   (paredit-mode +1)
                                   (rainbow-delimiters-mode +1)))
-(add-hook 'clojure-mode-hook (lambda ()
-                                  (paredit-mode +1)
-                                  (rainbow-delimiters-mode +1)))
-
 
 ;;(autoload 'ghc-init "ghc" nil t)
 ;;(autoload 'ghc-debug "ghc" nil t)
@@ -198,29 +154,27 @@ By default, it's `name'-mode.el."
   `(when (fboundp ,func) ,foo))
 
 ;; Diminish removes modes from your mode line
-(when-available 'diminish
-                (progn
-                  (eval-after-load 'whitespace-mode '(diminish 'whitespace-mode))
-                  (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))))
+(when-available
+ 'diminish
+ (progn
+   (eval-after-load 'whitespace-mode '(diminish 'whitespace-mode))
+   (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))))
 
 ;; Fullscreen magit-status
-(when-available 'magit-svn
-                (progn
-                  (defadvice magit-status (around magit-fullscreen activate)
-                    (window-configuration-to-register :magit-fullscreen)
-                    ad-do-it
-                    (delete-other-windows))
-
-                  (defun magit-quit-session ()
-                    "Restores the previous window configuration and kills the magit buffer"
-                    (interactive)
-                    (kill-buffer)
-                    (jump-to-register :magit-fullscreen))
-                  (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
+(when-available
+ 'magit-svn
+ (progn
+   (defadvice magit-status (around magit-fullscreen activate)
+     (window-configuration-to-register :magit-fullscreen)
+     ad-do-it
+     (delete-other-windows))
+   (defun magit-quit-session ()
+     "Restores the previous window configuration and kills the magit buffer"
+     (interactive)
+     (kill-buffer)
+     (jump-to-register :magit-fullscreen))
+   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
 ;; Colors and fonts
 (set-frame-parameter nil 'font-backend "xft")
 (set-default-font "Source Code Pro:size=22")
-
-(require 'rvm)
-(rvm-use-default)
