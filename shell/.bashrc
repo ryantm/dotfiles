@@ -77,6 +77,7 @@ unset PLINK_PROTOCOL
 unset GIT_SVN
 
 #dircolors
+export SHELL
 eval `dircolors ~/.dir_colors`
 
 #ledger
