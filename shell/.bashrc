@@ -53,12 +53,6 @@ unset GIT_SSH
 unset PLINK_PROTOCOL
 unset GIT_SVN
 
-# Directory colors
-if [ -f ~/.dir_colors ]; then
-    export SHELL
-    eval `dircolors ~/.dir_colors`
-fi
-
 #ledger
 export LEDGER_FILE=~/ledger/ledger.dat
 export LEDGER_STRICT=true
