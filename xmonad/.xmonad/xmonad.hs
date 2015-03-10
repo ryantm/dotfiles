@@ -20,13 +20,15 @@ layout = smartBorders (tiled ||| Mirror tiled ||| Full)
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
-main = do
-  xmonad =<< xmobar
-    (
-      defaultConfig {
-         modMask = mod4Mask,
-         layoutHook = layout
-         }
-      `additionalKeys`
-      [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
-    )
+myConfig =
+  (
+    defaultConfig {
+       modMask = mod4Mask,
+       layoutHook = layout,
+       logHook = dynamicLogWithPP (defaultPP { ppCurrent = wrap "{" "}" } )
+       }
+    `additionalKeys`
+    [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
+  )
+
+main = xmonad =<< xmobar myConfig

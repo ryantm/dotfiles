@@ -3,6 +3,6 @@
 xsetroot -cursor_name left_ptr
 xloadimage -onroot -fullscreen ~/background_images/pololu-valley-hawaii.jpg
 
-exec xmonad
+exec ~/.xmonad/xmonad
 
 
