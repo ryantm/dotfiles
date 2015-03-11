@@ -10,10 +10,7 @@ in rec {
       pkgs.haskellPackages.xmonad
       pkgs.haskellPackages.xmobar
       pkgs.haskellPackages.xmonadContrib ];
-    src = "xmonad.hs";
-    builder =
-    ''
-      ghc xmonad.hs
-    '';
+    src = ./xmonad.hs;
+    builder = ./builder.sh;
   };
 }
