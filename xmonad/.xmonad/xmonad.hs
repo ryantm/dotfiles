@@ -25,7 +25,7 @@ myConfig =
     defaultConfig {
        modMask = mod4Mask,
        layoutHook = layout,
-       logHook = dynamicLogWithPP (defaultPP { ppCurrent = wrap "{" "}" } )
+       logHook = dynamicLogWithPP (xmobarPP { ppCurrent = wrap "{" "}" } )
        }
     `additionalKeys`
     [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
