@@ -20,15 +20,23 @@ layout = smartBorders (tiled ||| Mirror tiled ||| Full)
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
+myXmobarPP = defaultPP { ppCurrent = xmobarColor "yellow" ""
+                       , ppTitle   = xmobarColor "green"  "" . shorten 40
+                       , ppVisible = wrap "(" ")"
+                       , ppLayout = const ""
+                       , ppUrgent  = xmobarColor "red" "yellow"
+                       }
+toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b )
+myXmobar conf = statusBar "xmobar" myXmobarPP toggleStrutsKey conf
+
 myConfig =
   (
     defaultConfig {
        modMask = mod4Mask,
-       layoutHook = layout,
-       logHook = dynamicLogWithPP (xmobarPP { ppCurrent = wrap "{" "}" } )
+       layoutHook = layout
        }
     `additionalKeys`
     [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
   )
 
-main = xmonad =<< xmobar myConfig
+main = xmonad =<< myXmobar myConfig
