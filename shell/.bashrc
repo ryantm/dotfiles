@@ -57,6 +57,3 @@ unset GIT_SVN
 export LEDGER_FILE=~/ledger/ledger.dat
 export LEDGER_STRICT=true
 export LEDGER_PEDANTIC=true
-
-# Reset directory to home directory
-cd
