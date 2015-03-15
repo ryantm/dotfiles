@@ -1,3 +1,4 @@
+{ }:
 let
   pkgs = import <nixpkgs> {};
   stdenv = pkgs.stdenv;
@@ -10,7 +11,10 @@ in rec {
       pkgs.haskellPackages.xmonad
       pkgs.haskellPackages.xmobar
       pkgs.haskellPackages.xmonadContrib ];
+    buildCommand = ''
+      mkdir -p $out/
+      ghc -o $out/xmonad $src
+    '';
     src = ./xmonad.hs;
-    builder = ./builder.sh;
   };
 }
