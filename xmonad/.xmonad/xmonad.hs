@@ -4,7 +4,6 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.Accordion
 import XMonad.Hooks.DynamicLog
 import XMonad.Util.EZConfig
-import XMonad.Hooks.DynamicLog (xmobar)
 
 layout = smartBorders (tiled ||| Mirror tiled ||| Full)
   where
