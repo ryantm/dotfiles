@@ -3,4 +3,4 @@
 xsetroot -cursor_name left_ptr
 xloadimage -onroot -fullscreen ~/background_images/pololu-valley-hawaii.jpg
 
-exec ~/.xmonad/result/xmonad
+exec ~/result/xmonad
