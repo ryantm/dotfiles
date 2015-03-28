@@ -37,13 +37,17 @@
               cider
               markdown-mode
               haskell-mode
+              hi2
+              flycheck
+              haskell-flycheck
               yaml-mode
               rainbow-delimiters
               paredit
               feature-mode
               cus-edit+
               multi-term
-              rvm))
+              color-theme-sanityinc-solarized
+              nix-mode))
 
       (when my-onlinep
         (package-refresh-contents)
@@ -174,6 +178,3 @@
 ;; Colors and fonts
 (set-frame-parameter nil 'font-backend "xft")
 (set-default-font "Source Code Pro:size=22")
-
-(require 'rvm)
-(rvm-use-default)
