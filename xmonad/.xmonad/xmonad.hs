@@ -5,6 +5,7 @@ import XMonad.Layout.Accordion
 import XMonad.Hooks.DynamicLog
 import XMonad.Util.EZConfig
 import XMonad.Hooks.DynamicLog (xmobar)
+import XMonad.Hooks.EwmhDesktops
 
 layout = smartBorders (tiled ||| Mirror tiled ||| Full)
   where
@@ -23,7 +24,9 @@ layout = smartBorders (tiled ||| Mirror tiled ||| Full)
 main = do
   xmonad =<< xmobar
     (
-      defaultConfig {
+      ewmh defaultConfig {
+         handleEventHook =
+            handleEventHook defaultConfig <+> fullscreenEventHook,
          modMask = mod4Mask,
          layoutHook = layout
          }
