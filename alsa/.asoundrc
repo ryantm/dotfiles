@@ -1,0 +1,2 @@
+defaults.ctl.!card "Headset";
+defaults.pcm.!card "Headset";
