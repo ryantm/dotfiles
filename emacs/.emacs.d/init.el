@@ -1,63 +1,112 @@
+(defconst emacs-start-time (current-time))
+(unless noninteractive
+  (message "Loading %s..." load-file-name))
+
 ;; UTF-8
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; Packages
-(require 'package)
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(if nil
-    (progn
-      (setq my-onlinep nil)
-      (unless
-          (condition-case nil
-              (delete-process
-               (make-network-process
-                :name "my-check-internet"
-                :host "elpa.gnu.org"
-                :service 80))
-            (error t))
-        (setq my-onlinep t))
+;;(package-refresh-contents)
 
-      (setq my-packages
-            '(dash
-              expand-region
-              magit
-              multiple-cursors
-              popwin
-              projectile
-              s
-              smex
-              wrap-region
-              yasnippet
-              diminish
-              auto-complete
-              cider
-              markdown-mode
-              haskell-mode
-              hi2
-              flycheck
-              haskell-flycheck
-              yaml-mode
-              rainbow-delimiters
-              paredit
-              feature-mode
-              cus-edit+
-              multi-term
-              color-theme-sanityinc-solarized
-              nix-mode))
+(eval-when-compile
+  (require 'use-package))
 
-      (when my-onlinep
-        (package-refresh-contents)
-        (dolist (p my-packages)
-          (unless (package-installed-p p)
-            (package-install p))))))
+(use-package magit :ensure t)
+
+(use-package whitespace
+  :diminish (global-whitespace-mode
+             whitespace-mode
+             whitespace-newline-mode))
+
+(use-package elisp-slime-nav
+  :ensure t
+  :diminish (elisp-slime-nav-mode))
+
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+
+(use-package cus-edit+
+  :ensure t)
+
+(use-package color-theme-sanityinc-solarized
+  :ensure t)
+
+(use-package multiple-cursors
+  :ensure t)
+
+(use-package diminish
+  :ensure t)
+
+(use-package flycheck
+  :ensure t)
+
+(use-package haskell-mode
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+
+(use-package flycheck-haskell
+  :ensure t)
+
+(use-package hi2
+  :ensure t)
+
+(use-package flycheck
+  :ensure t)
+
+(use-package yaml-mode
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t)
+
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
+
+(use-package flyspell
+ :config
+ (add-hook 'text-mode-hook 'flyspell-mode))
+
+(use-package nix-mode
+  :ensure t)
+
+(use-package ido
+  :demand t
+  :bind (("C-x b" . ido-switch-buffer))
+  :config
+  (ido-mode 'buffer))
+
+(use-package paren
+  :demand t)
+
+(use-package ruby-mode
+  :ensure t
+  :config (progn
+            (setq ruby-deep-indent-paren-style nil)
+            (use-package inf-ruby :ensure t))
+  :init (defun ruby-send-whole-buffer ()
+          (interactive)
+          (save-buffer)
+          (ruby-load-file (buffer-file-name (current-buffer))))
+  :bind (("C-M-l" . ruby-forward-sexp)
+         ("C-M-j" . ruby-backward-sexp)
+         ("C-x e" . ruby-send-whole-buffer)
+         ("C-x C-e" . ruby-send-whole-buffer)))
 
 ;; Customizations
-(setq custom-file "~/.emacs.d/custom-file.el")
-(load custom-file)
+(eval-when-compile
+ (setq custom-file "~/.emacs.d/custom-file.el")
+ (load custom-file))
 
 ;; Write backup and autosave files to their own directories
 (setq backup-directory-alist
@@ -98,36 +147,6 @@
            (function (nth 1 element)))
       (global-set-key (read-kbd-macro keyboard-string) function))))
 
-(eval-after-load "ruby-mode"
-  '(progn
-     (define-key ruby-mode-map (kbd "C-M-l") 'ruby-forward-sexp)
-     (define-key ruby-mode-map (kbd "C-M-j") 'ruby-backward-sexp)
-     (setq ruby-deep-indent-paren-style nil)
-     (define-key ruby-mode-map (kbd "C-x e") 'ruby-send-whole-buffer)
-     (define-key ruby-mode-map (kbd "C-x C-e") 'ruby-send-whole-buffer)
-     (defun ruby-send-whole-buffer ()
-       (interactive)
-       (save-buffer)
-       (ruby-load-file (buffer-file-name (current-buffer))))))
-
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-                                  (paredit-mode +1)
-                                  (rainbow-delimiters-mode +1)))
-
-;;(autoload 'ghc-init "ghc" nil t)
-;;(autoload 'ghc-debug "ghc" nil t)
-;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
-
-;; in text mode do spellchecking
-(add-hook 'text-mode-hook 'flyspell-mode)
-
-(eval-after-load "sql"
-  '(progn
-     (sql-set-product 'mysql)))
-
 (setq enable-local-variables :safe)
 
 ;; Tabs
@@ -137,28 +156,15 @@
           (lambda ()
             (setq tab-width 8)))
 
-;; Expand region
-;(require 'expand-region)
-;(global-set-key (kbd "C-@") 'er/expand-region)
-
-
 ;; Appearance ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-font-lock-mode t)
-(setq inhibit-splash-screen t)
-
 (do-rebindings my-rebinds)
+1(setq inhibit-splash-screen t)
 
 ;; Require libraries for use in initializations
 (defmacro when-available (func foo)
   "*Do something if FUNCTION is available."
   `(when (fboundp ,func) ,foo))
-
-;; Diminish removes modes from your mode line
-(when-available
- 'diminish
- (progn
-   (eval-after-load 'whitespace-mode '(diminish 'whitespace-mode))
-   (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))))
 
 ;; Fullscreen magit-status
 (when-available
@@ -175,6 +181,19 @@
      (jump-to-register :magit-fullscreen))
    (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
-;; Colors and fonts
-(set-frame-parameter nil 'font-backend "xft")
-(set-default-font "Source Code Pro:size=15")
+;;; Post initialization
+
+(when (display-graphic-p)
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            emacs-start-time))))
+    (message "Loading %s...done (%.3fs)" load-file-name elapsed))
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed)))
+            t))
+
+;;; init.el ends here
