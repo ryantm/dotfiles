@@ -177,4 +177,4 @@
 
 ;; Colors and fonts
 (set-frame-parameter nil 'font-backend "xft")
-(set-default-font "Source Code Pro:size=22")
+(set-default-font "Source Code Pro:size=15")
