@@ -22,7 +22,7 @@
  '(global-whitespace-mode t)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
- '(inhibit-startup-screen nil)
+ '(inhibit-startup-screen t)
  '(keyboard-coding-system (quote utf-8-unix))
  '(menu-bar-mode nil)
  '(save-place t nil (saveplace))
