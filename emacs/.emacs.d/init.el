@@ -84,10 +84,12 @@
   :demand t
   :bind (("C-x b" . ido-switch-buffer))
   :config
-  (ido-mode 'buffer))
+  (ido-mode))
 
 (use-package paren
-  :demand t)
+  :demand t
+  :config
+  (show-paren-mode))
 
 (use-package ruby-mode
   :ensure t
