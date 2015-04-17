@@ -14,12 +14,16 @@
 ;;(package-refresh-contents)
 
 (eval-when-compile
+  (defvar use-package-verbose t)
   (require 'use-package))
 
 (require 'bind-key)
 (require 'diminish nil t)
 
-(use-package magit :ensure t)
+(use-package
+  magit
+  :ensure t
+  :bind ("M-C M" . magit-status))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
@@ -31,17 +35,21 @@
   :diminish (elisp-slime-nav-mode))
 
 (use-package paredit
+  :defer t
   :ensure t
   :config
   (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
 
 (use-package cus-edit+
+  :defer t
   :ensure t)
 
 (use-package color-theme-sanityinc-solarized
+  :demand t
   :ensure t)
 
 (use-package multiple-cursors
+  :defer t
   :ensure t)
 
 (use-package diminish
@@ -51,12 +59,14 @@
   :ensure t)
 
 (use-package haskell-mode
+  :mode "\\.l?hs\\'"
   :ensure t
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
 
 (use-package flycheck-haskell
+  :defer t
   :ensure t)
 
 (use-package hi2
@@ -66,10 +76,19 @@
   :ensure t)
 
 (use-package yaml-mode
+  :mode "\\.ya?ml\\'"
   :ensure t)
 
 (use-package markdown-mode
-  :ensure t)
+  :ensure t
+  :mode (("\\`README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"          . markdown-mode)
+         ("\\.markdown\\'"    . markdown-mode)))
+
+(use-package paren
+  :demand t
+  :config
+  (show-paren-mode))
 
 (use-package rainbow-delimiters
   :ensure t
@@ -81,7 +100,8 @@
  (add-hook 'text-mode-hook 'flyspell-mode))
 
 (use-package nix-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.nix\\'")
 
 (use-package ido
   :demand t
@@ -89,33 +109,21 @@
   :config
   (ido-mode))
 
-(use-package paren
-  :demand t
-  :config
-  (show-paren-mode))
-
-;; (use-package ruby-mode
-;;   :ensure t
-;;   :config (progn
-;;             (setq ruby-deep-indent-paren-style nil)
-;;             (use-package inf-ruby :ensure t))
-;;   :init (defun ruby-send-whole-buffer ()
-;;           (interactive)
-;;           (save-buffer)
-;;           (ruby-load-file (buffer-file-name (current-buffer))))
-;;   :bind (("C-M-l" . ruby-forward-sexp)
-;;          ("C-M-j" . ruby-backward-sexp)
-;;          ("C-x e" . ruby-send-whole-buffer)
-;;          ("C-x C-e" . ruby-send-whole-buffer)))
-
 (use-package ruby-mode
   :mode "\\.rb\\'"
   :interpreter "ruby"
-  :config
-  (defun my-ruby-mode-hook ()
-    (require 'inf-ruby))
-
-  (add-hook 'ruby-mode-hook 'my-ruby-mode-hook))
+  :ensure t
+  :config (progn
+            (setq ruby-deep-indent-paren-style nil)
+            (use-package inf-ruby :ensure t))
+  :init (defun ruby-send-whole-buffer ()
+          (interactive)
+          (save-buffer)
+          (ruby-load-file (buffer-file-name (current-buffer)))))
+  ;; :bind (("C-M-l" . ruby-forward-sexp)
+  ;;        ("C-M-j" . ruby-backward-sexp)
+  ;;        ("C-x e" . ruby-send-whole-buffer)
+  ;;        ("C-x C-e" . ruby-send-whole-buffer)))
 
 ;; Customizations
 (setq custom-file (expand-file-name "custom-file" user-emacs-directory))
