@@ -16,6 +16,9 @@
 (eval-when-compile
   (require 'use-package))
 
+(require 'bind-key)
+(require 'diminish nil t)
+
 (use-package magit :ensure t)
 
 (use-package whitespace
@@ -91,24 +94,32 @@
   :config
   (show-paren-mode))
 
+;; (use-package ruby-mode
+;;   :ensure t
+;;   :config (progn
+;;             (setq ruby-deep-indent-paren-style nil)
+;;             (use-package inf-ruby :ensure t))
+;;   :init (defun ruby-send-whole-buffer ()
+;;           (interactive)
+;;           (save-buffer)
+;;           (ruby-load-file (buffer-file-name (current-buffer))))
+;;   :bind (("C-M-l" . ruby-forward-sexp)
+;;          ("C-M-j" . ruby-backward-sexp)
+;;          ("C-x e" . ruby-send-whole-buffer)
+;;          ("C-x C-e" . ruby-send-whole-buffer)))
+
 (use-package ruby-mode
-  :ensure t
-  :config (progn
-            (setq ruby-deep-indent-paren-style nil)
-            (use-package inf-ruby :ensure t))
-  :init (defun ruby-send-whole-buffer ()
-          (interactive)
-          (save-buffer)
-          (ruby-load-file (buffer-file-name (current-buffer))))
-  :bind (("C-M-l" . ruby-forward-sexp)
-         ("C-M-j" . ruby-backward-sexp)
-         ("C-x e" . ruby-send-whole-buffer)
-         ("C-x C-e" . ruby-send-whole-buffer)))
+  :mode "\\.rb\\'"
+  :interpreter "ruby"
+  :config
+  (defun my-ruby-mode-hook ()
+    (require 'inf-ruby))
+
+  (add-hook 'ruby-mode-hook 'my-ruby-mode-hook))
 
 ;; Customizations
-(eval-when-compile
- (setq custom-file "~/.emacs.d/custom-file.el")
- (load custom-file))
+(setq custom-file (expand-file-name "custom-file" user-emacs-directory))
+(load custom-file)
 
 ;; Write backup and autosave files to their own directories
 (setq backup-directory-alist
