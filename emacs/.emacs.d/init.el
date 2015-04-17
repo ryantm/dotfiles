@@ -161,7 +161,7 @@
 ;; Appearance ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-font-lock-mode t)
 (do-rebindings my-rebinds)
-1(setq inhibit-splash-screen t)
+(setq inhibit-splash-screen t)
 
 ;; Require libraries for use in initializations
 (defmacro when-available (func foo)
