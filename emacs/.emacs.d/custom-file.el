@@ -7,7 +7,6 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
- '(auto-revert-verbose nil)
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
@@ -17,9 +16,6 @@
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
- '(global-auto-revert-mode t)
- '(global-auto-revert-non-file-buffers t)
- '(global-whitespace-mode t)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)

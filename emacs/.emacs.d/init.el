@@ -13,32 +13,36 @@
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
 ;;(package-refresh-contents)
 
+;; use-package organizes package configuration
 (eval-when-compile
   (defvar use-package-verbose t)
   (require 'use-package))
 
+;; Shortcut bindings
 (require 'bind-key)
+;; Make minor modes less obvious in mode line
 (require 'diminish nil t)
+;; Use path to uniquely name buffers with the same name
+(require 'uniquify)
 
-(use-package
-  magit
+(use-package autorevert
+  :defer 5
+  :config
+  (setq auto-revert-verbose nil)
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode))
+
+(use-package magit
   :ensure t
   :bind ("M-C M" . magit-status))
 
 (use-package whitespace
+  :defer 5
   :diminish (global-whitespace-mode
              whitespace-mode
-             whitespace-newline-mode))
-
-(use-package elisp-slime-nav
-  :ensure t
-  :diminish (elisp-slime-nav-mode))
-
-(use-package paredit
-  :defer t
-  :ensure t
+             whitespace-newline-mode)
   :config
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+  (global-whitespace-mode))
 
 (use-package cus-edit+
   :defer t
@@ -52,10 +56,8 @@
   :defer t
   :ensure t)
 
-(use-package diminish
-  :ensure t)
-
 (use-package flycheck
+  :defer t
   :ensure t)
 
 (use-package haskell-mode
@@ -63,17 +65,13 @@
   :ensure t
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation))
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
 
-(use-package flycheck-haskell
-  :defer t
-  :ensure t)
-
-(use-package hi2
-  :ensure t)
-
-(use-package flycheck
-  :ensure t)
+  (use-package flycheck-haskell
+    :defer t
+    :ensure t)
+  (use-package hi2
+    :ensure t))
 
 (use-package yaml-mode
   :mode "\\.ya?ml\\'"
@@ -86,18 +84,40 @@
          ("\\.markdown\\'"    . markdown-mode)))
 
 (use-package paren
-  :demand t
+  :defer 5
   :config
   (show-paren-mode))
 
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode))
+(use-package lisp-mode
+  :defer t
+  :preface
+  (defun my-lisp-mode-hook ()
+    (unless lisp-mode-initialized
+      (setq lisp-mode-initialized t)
+      (use-package paredit
+        :ensure t
+        :diminish (paredit-mode))
+      (use-package rainbow-delimiters
+        :ensure t
+        :diminish (rainbow-delimiters-mode))
+      (use-package elisp-slime-nav
+        :ensure t
+        :diminish (elisp-slime-nav-mode))
+      (paredit-mode)
+      (rainbow-delimiters)
+      (elisp-slime-nav)))
+  (add-hook 'lisp-mode 'my-lisp-mode-hook))
 
-(use-package flyspell
- :config
- (add-hook 'text-mode-hook 'flyspell-mode))
+(use-package haml-mode
+  :ensure t
+  :mode "\\.haml\\'"
+  :config
+  (use-package flyspell)
+  (use-package writeroom-mode
+    :ensure t)
+  (add-hook 'haml-mode 'flyspell-mode)
+  (add-hook 'haml-mode 'auto-fill-mode)
+  (add-hook 'haml-mode 'writerooom-mode))
 
 (use-package nix-mode
   :ensure t
@@ -126,8 +146,24 @@
   ;;        ("C-x C-e" . ruby-send-whole-buffer)))
 
 ;; Customizations
+(defconst custom-file-start-time (current-time))
 (setq custom-file (expand-file-name "custom-file" user-emacs-directory))
 (load custom-file)
+
+(when (display-graphic-p)
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            custom-file-start-time))))
+    (message "Loading custom-file...done (%.3fs)" elapsed))
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract
+                                           (current-time)
+                                           custom-file-start-time))))
+                 (message "Loading custom-file...done (%.3fs) [after-init]"
+                          elapsed)))
+            t))
+
 
 ;; Write backup and autosave files to their own directories
 (setq backup-directory-alist
@@ -142,11 +178,9 @@
       (expand-file-name
        (concat user-emacs-directory "autosaves")))
 
-;; Use path to uniquely name buffers with the same name
-(require 'uniquify)
-
 ;; Rebindings
-(global-unset-key (kbd "C-x C-b")) ;;Annoying Key (because it gets in the way of switching buffers)
+(global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
+                                   ;; the way of switching buffers)
 (defvar my-rebinds '(
                      ("C-x C-l" goto-line)
                      ("C-x l" goto-line)
@@ -167,40 +201,20 @@
     (let  ((keyboard-string (nth 0 element))
            (function (nth 1 element)))
       (global-set-key (read-kbd-macro keyboard-string) function))))
+(do-rebindings my-rebinds)
 
 (setq enable-local-variables :safe)
 
-;; Tabs
+;;; Tabs
 (setq indent 2)
 (setq js-indent-level 2)
 (add-hook 'shell-mode-hook
           (lambda ()
             (setq tab-width 8)))
 
-;; Appearance ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Appearance
 (global-font-lock-mode t)
-(do-rebindings my-rebinds)
 (setq inhibit-splash-screen t)
-
-;; Require libraries for use in initializations
-(defmacro when-available (func foo)
-  "*Do something if FUNCTION is available."
-  `(when (fboundp ,func) ,foo))
-
-;; Fullscreen magit-status
-(when-available
- 'magit-svn
- (progn
-   (defadvice magit-status (around magit-fullscreen activate)
-     (window-configuration-to-register :magit-fullscreen)
-     ad-do-it
-     (delete-other-windows))
-   (defun magit-quit-session ()
-     "Restores the previous window configuration and kills the magit buffer"
-     (interactive)
-     (kill-buffer)
-     (jump-to-register :magit-fullscreen))
-   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
 ;;; Post initialization
 
