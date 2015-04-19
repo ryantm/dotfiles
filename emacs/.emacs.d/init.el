@@ -49,7 +49,7 @@
   :ensure t)
 
 (use-package color-theme-sanityinc-solarized
-  :demand t
+  :defer t
   :ensure t)
 
 (use-package multiple-cursors
@@ -147,6 +147,7 @@
 
 ;; Customizations
 (defconst custom-file-start-time (current-time))
+
 (setq custom-file (expand-file-name "custom-file" user-emacs-directory))
 (load custom-file)
 
