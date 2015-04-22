@@ -25,4 +25,5 @@ function track_assembly {
  /opt/pololu_rails_env/preview rails runner "script/track/track_assembly.rb"
  popd
 }
+
 if [ -e /home/ryantm/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ryantm/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

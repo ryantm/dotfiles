@@ -1,5 +1,6 @@
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
+    export SHELL
     eval "`dircolors ~/.dir_colors`"
     alias ls='ls --color=auto'
     alias dir='ls --color=auto --format=vertical'

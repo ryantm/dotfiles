@@ -47,34 +47,13 @@ fi
 export EDITOR="emacs"
 export BROWSER="chromium"
 PATH=$PATH:$HOME/bin
-#CDPATH='~/projects'
-
-#Haskell Cabal
-PATH=$PATH:$HOME/.cabal/bin
-
-# Android (pageturner app)
-export ANDROID_HOME=$HOME/projects/adt-bundle-linux/sdk/
-if [ $(uname -m) == 'x86_64' ]; then
-    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk/jre
-else
-    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386/jre
-fi
-PATH=$HOME/projects/apache-maven-3.0.4/bin:$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-# End Android
-
-# Ruby Version Manager
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-# End Ruby Version Manager
-PATH=$PATH:$HOME/.cask/bin
-PATH=$PATH:/home/ryantm/projects/scala/scala-2.11.1/bin
-#Emacs Version Manager
-#PATH=$PATH:$HOME/.evm/bin
 
 # Unset PuTTY plink connections if set
 unset GIT_SSH
 unset PLINK_PROTOCOL
 unset GIT_SVN
 
-#dircolors
-eval `dircolors ~/.dir_colors`
+#ledger
+export LEDGER_FILE=~/ledger/ledger.dat
+export LEDGER_STRICT=true
+export LEDGER_PEDANTIC=true

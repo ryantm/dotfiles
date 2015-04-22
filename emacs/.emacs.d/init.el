@@ -1,60 +1,170 @@
+(defconst emacs-start-time (current-time))
+(unless noninteractive
+  (message "Loading %s..." load-file-name))
+
 ;; UTF-8
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
 ;; Packages
-(require 'package)
 (package-initialize)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(if nil
-    (progn
-      (setq my-onlinep nil)
-      (unless
-          (condition-case nil
-              (delete-process
-               (make-network-process
-                :name "my-check-internet"
-                :host "elpa.gnu.org"
-                :service 80))
-            (error t))
-        (setq my-onlinep t))
+;;(package-refresh-contents)
 
-      (setq my-packages
-            '(dash
-              expand-region
-              magit
-              multiple-cursors
-              popwin
-              projectile
-              s
-              smex
-              wrap-region
-              yasnippet
-              diminish
-              auto-complete
-              cider
-              markdown-mode
-              haskell-mode
-              yaml-mode
-              rainbow-delimiters
-              paredit
-              feature-mode
-              cus-edit+
-              multi-term
-              color-theme-sanityinc-solarized
-              nix-mode))
+;; use-package organizes package configuration
+(eval-when-compile
+  (defvar use-package-verbose t)
+  (require 'use-package))
 
-      (when my-onlinep
-        (package-refresh-contents)
-        (dolist (p my-packages)
-          (unless (package-installed-p p)
-            (package-install p))))))
+;; Shortcut bindings
+(require 'bind-key)
+;; Make minor modes less obvious in mode line
+(require 'diminish nil t)
+;; Use path to uniquely name buffers with the same name
+(require 'uniquify)
+
+(use-package autorevert
+  :defer 5
+  :config
+  (setq auto-revert-verbose nil)
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode))
+
+(use-package magit
+  :ensure t
+  :bind ("M-C M" . magit-status))
+
+(use-package whitespace
+  :defer 5
+  :diminish (global-whitespace-mode
+             whitespace-mode
+             whitespace-newline-mode)
+  :config
+  (global-whitespace-mode))
+
+(use-package cus-edit+
+  :defer t
+  :ensure t)
+
+(use-package color-theme-sanityinc-solarized
+  :defer t
+  :ensure t)
+
+(use-package multiple-cursors
+  :defer t
+  :ensure t)
+
+(use-package flycheck
+  :defer t
+  :ensure t)
+
+(use-package haskell-mode
+  :mode "\\.l?hs\\'"
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+  (use-package flycheck-haskell
+    :defer t
+    :ensure t)
+  (use-package hi2
+    :ensure t))
+
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'"
+  :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :mode (("\\`README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"          . markdown-mode)
+         ("\\.markdown\\'"    . markdown-mode)))
+
+(use-package paren
+  :defer 5
+  :config
+  (show-paren-mode))
+
+(use-package lisp-mode
+  :defer t
+  :preface
+  (defun my-lisp-mode-hook ()
+    (unless lisp-mode-initialized
+      (setq lisp-mode-initialized t)
+      (use-package paredit
+        :ensure t
+        :diminish (paredit-mode))
+      (use-package rainbow-delimiters
+        :ensure t
+        :diminish (rainbow-delimiters-mode))
+      (use-package elisp-slime-nav
+        :ensure t
+        :diminish (elisp-slime-nav-mode))
+      (paredit-mode)
+      (rainbow-delimiters)
+      (elisp-slime-nav)))
+  (add-hook 'lisp-mode-hook 'my-lisp-mode-hook))
+
+(use-package haml-mode
+  :ensure t
+  :mode "\\.haml\\'"
+  :config
+  (use-package flyspell)
+  (use-package writeroom-mode
+    :ensure t)
+  (add-hook 'haml-mode-hook 'flyspell-mode)
+  (add-hook 'haml-mode-hook 'auto-fill-mode)
+  (add-hook 'haml-mode-hook 'writeroom-mode))
+
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
+
+(use-package ido
+  :demand t
+  :bind (("C-x b" . ido-switch-buffer))
+  :config
+  (ido-mode))
+
+(use-package ruby-mode
+  :mode "\\.rb\\'"
+  :interpreter "ruby"
+  :ensure t
+  :config (progn
+            (setq ruby-deep-indent-paren-style nil)
+            (use-package inf-ruby :ensure t))
+  :init (defun ruby-send-whole-buffer ()
+          (interactive)
+          (save-buffer)
+          (ruby-load-file (buffer-file-name (current-buffer)))))
+  ;; :bind (("C-M-l" . ruby-forward-sexp)
+  ;;        ("C-M-j" . ruby-backward-sexp)
+  ;;        ("C-x e" . ruby-send-whole-buffer)
+  ;;        ("C-x C-e" . ruby-send-whole-buffer)))
 
 ;; Customizations
-(setq custom-file "~/.emacs.d/custom-file.el")
+(defconst custom-file-start-time (current-time))
+
+(setq custom-file (expand-file-name "custom-file" user-emacs-directory))
 (load custom-file)
+
+(when (display-graphic-p)
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            custom-file-start-time))))
+    (message "Loading custom-file...done (%.3fs)" elapsed))
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract
+                                           (current-time)
+                                           custom-file-start-time))))
+                 (message "Loading custom-file...done (%.3fs) [after-init]"
+                          elapsed)))
+            t))
+
 
 ;; Write backup and autosave files to their own directories
 (setq backup-directory-alist
@@ -69,11 +179,9 @@
       (expand-file-name
        (concat user-emacs-directory "autosaves")))
 
-;; Use path to uniquely name buffers with the same name
-(require 'uniquify)
-
 ;; Rebindings
-(global-unset-key (kbd "C-x C-b")) ;;Annoying Key (because it gets in the way of switching buffers)
+(global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
+                                   ;; the way of switching buffers)
 (defvar my-rebinds '(
                      ("C-x C-l" goto-line)
                      ("C-x l" goto-line)
@@ -94,84 +202,34 @@
     (let  ((keyboard-string (nth 0 element))
            (function (nth 1 element)))
       (global-set-key (read-kbd-macro keyboard-string) function))))
-
-(eval-after-load "ruby-mode"
-  '(progn
-     (define-key ruby-mode-map (kbd "C-M-l") 'ruby-forward-sexp)
-     (define-key ruby-mode-map (kbd "C-M-j") 'ruby-backward-sexp)
-     (setq ruby-deep-indent-paren-style nil)
-     (define-key ruby-mode-map (kbd "C-x e") 'ruby-send-whole-buffer)
-     (define-key ruby-mode-map (kbd "C-x C-e") 'ruby-send-whole-buffer)
-     (defun ruby-send-whole-buffer ()
-       (interactive)
-       (save-buffer)
-       (ruby-load-file (buffer-file-name (current-buffer))))))
-
-(add-hook 'emacs-lisp-mode-hook (lambda ()
-                                  (paredit-mode +1)
-                                  (rainbow-delimiters-mode +1)))
-
-;;(autoload 'ghc-init "ghc" nil t)
-;;(autoload 'ghc-debug "ghc" nil t)
-;;(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
-(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
-
-;; in text mode do spellchecking
-(add-hook 'text-mode-hook 'flyspell-mode)
-
-(eval-after-load "sql"
-  '(progn
-     (sql-set-product 'mysql)))
+(do-rebindings my-rebinds)
 
 (setq enable-local-variables :safe)
 
-;; Tabs
+;;; Tabs
 (setq indent 2)
 (setq js-indent-level 2)
 (add-hook 'shell-mode-hook
           (lambda ()
             (setq tab-width 8)))
 
-;; Expand region
-;(require 'expand-region)
-;(global-set-key (kbd "C-@") 'er/expand-region)
-
-
-;; Appearance ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Appearance
 (global-font-lock-mode t)
 (setq inhibit-splash-screen t)
 
-(do-rebindings my-rebinds)
+;;; Post initialization
 
-;; Require libraries for use in initializations
-(defmacro when-available (func foo)
-  "*Do something if FUNCTION is available."
-  `(when (fboundp ,func) ,foo))
+(when (display-graphic-p)
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            emacs-start-time))))
+    (message "Loading %s...done (%.3fs)" load-file-name elapsed))
 
-;; Diminish removes modes from your mode line
-(when-available
- 'diminish
- (progn
-   (eval-after-load 'whitespace-mode '(diminish 'whitespace-mode))
-   (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))))
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed)))
+            t))
 
-;; Fullscreen magit-status
-(when-available
- 'magit-svn
- (progn
-   (defadvice magit-status (around magit-fullscreen activate)
-     (window-configuration-to-register :magit-fullscreen)
-     ad-do-it
-     (delete-other-windows))
-   (defun magit-quit-session ()
-     "Restores the previous window configuration and kills the magit buffer"
-     (interactive)
-     (kill-buffer)
-     (jump-to-register :magit-fullscreen))
-   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
-
-;; Colors and fonts
-(set-frame-parameter nil 'font-backend "xft")
-(set-default-font "Source Code Pro:size=22")
+;;; init.el ends here

@@ -73,7 +73,7 @@ Xft.hintstyle:  hintslight
 
 xterm*VT100.geometry:     80x25
 
-xterm*faceName:           Source Code Pro:style=Regular:size=20
+xterm*faceName:           Source Code Pro:style=Regular:size=12
 xterm*dynamicColors:      true
 xterm*utf8:               2
 xterm*scrollKey:          true
