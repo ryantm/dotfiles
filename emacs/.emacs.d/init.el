@@ -106,7 +106,7 @@
       (paredit-mode)
       (rainbow-delimiters)
       (elisp-slime-nav)))
-  (add-hook 'lisp-mode 'my-lisp-mode-hook))
+  (add-hook 'lisp-mode-hook 'my-lisp-mode-hook))
 
 (use-package haml-mode
   :ensure t
@@ -115,9 +115,9 @@
   (use-package flyspell)
   (use-package writeroom-mode
     :ensure t)
-  (add-hook 'haml-mode 'flyspell-mode)
-  (add-hook 'haml-mode 'auto-fill-mode)
-  (add-hook 'haml-mode 'writerooom-mode))
+  (add-hook 'haml-mode-hook 'flyspell-mode)
+  (add-hook 'haml-mode-hook 'auto-fill-mode)
+  (add-hook 'haml-mode-hook 'writeroom-mode))
 
 (use-package nix-mode
   :ensure t
