@@ -7,10 +7,10 @@ in rec {
     name = "myXmonad";
     buildInputs = [
       stdenv
-      pkgs.haskellPackages.ghc
-      pkgs.haskellPackages.xmonad
-      pkgs.haskellPackages.xmobar
-      pkgs.haskellPackages.xmonadContrib ];
+      (pkgs.haskell.packages.ghc784.ghcWithPackages (pkgs : with pkgs; [
+        xmonad xmonad-contrib xmobar
+      ]))
+    ];
     buildCommand = ''
       mkdir -p $out/
       ghc -o $out/xmonad $src
