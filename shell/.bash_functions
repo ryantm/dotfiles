@@ -56,3 +56,7 @@ function git_personal {
   git_config_user "Ryan Mulligan" "ryan@ryantm.com"
   git_check_user_config
 }
+
+function nix? {
+  sudo nix-env -qa \* -P | fgrep -i "$1"
+}

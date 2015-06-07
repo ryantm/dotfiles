@@ -57,3 +57,6 @@ unset GIT_SVN
 export LEDGER_FILE=~/ledger/ledger.dat
 export LEDGER_STRICT=true
 export LEDGER_PEDANTIC=true
+
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
