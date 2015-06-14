@@ -34,7 +34,9 @@
 
 (use-package magit
   :ensure t
-  :bind ("M-C M" . magit-status))
+  :bind ("M-C M" . magit-status)
+  :init
+  (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (use-package whitespace
   :defer 5
