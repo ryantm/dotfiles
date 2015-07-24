@@ -182,9 +182,14 @@
        (concat user-emacs-directory "autosaves")))
 
 ;; Rebindings
+
+; Macro for browsing a large magit commit history
+(fset 'magit-rtm-down
+   [tab ?n tab ?\C-l ?\C-l])
+
 (global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
                                    ;; the way of switching buffers)
-(defvar my-rebinds '(
+(setq my-rebinds '(
                      ("C-x C-l" goto-line)
                      ("C-x l" goto-line)
                      ("C-x e" eval-last-sexp)
@@ -196,7 +201,8 @@
                      ("<C-mouse-5>" text-scale-decrease)
                      ("C-z" undo)
                      ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep)))
+                     ("C-x C-r" rgrep)
+                     ("<f9>" magit-rtm-down)))
 
 (defun do-rebindings (rebindings)
   (dolist (element rebindings)
