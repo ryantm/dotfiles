@@ -34,7 +34,7 @@
 
 (use-package magit
   :ensure t
-  :bind ("M-C M" . magit-status)
+  :bind ("<f10>" . magit-status)
   :init
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
@@ -196,8 +196,7 @@
                      ("<C-mouse-5>" text-scale-decrease)
                      ("C-z" undo)
                      ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep)
-                     ("C-M-m" magit-status)))
+                     ("C-x C-r" rgrep)))
 
 (defun do-rebindings (rebindings)
   (dolist (element rebindings)
