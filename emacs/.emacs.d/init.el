@@ -25,6 +25,11 @@
 ;; Use path to uniquely name buffers with the same name
 (require 'uniquify)
 
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme))
+
 (use-package autorevert
   :defer 5
   :config
