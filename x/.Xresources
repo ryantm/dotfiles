@@ -82,7 +82,7 @@ xterm*scrollBar:          false
 xterm*jumpScroll:         true
 xterm*multiScroll:        true
 xterm*toolBar:            false
-Xterm*saveLines:          1048576
+xterm*saveLines:          1048576
 xterm*termName:           xterm-256color
 XTerm*locale:             true
 XTerm*metaSendsEscape:    true
