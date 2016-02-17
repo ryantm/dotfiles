@@ -9,13 +9,14 @@
    (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
+ '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
+ '(custom-file "~/.emacs.d/custom-file.el")
  '(custom-safe-themes
    (quote
     ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" default)))
- '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
- '(custom-file "~/.emacs.d/custom-file.el")
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
+ '(git-commit-summary-max-length 80)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)
