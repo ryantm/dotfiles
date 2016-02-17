@@ -1,12 +1,21 @@
 import XMonad
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Tabbed
-import XMonad.Layout.Accordion
-import XMonad.Hooks.DynamicLog
-import XMonad.Util.EZConfig
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Config.Desktop (desktopConfig)
+import XMonad.Hooks.DynamicLog (
+    PP (..)
+  , defaultPP
+  , xmobarColor
+  , wrap
+  , shorten
+  , statusBar
+  )
+import XMonad.Hooks.EwmhDesktops (
+    ewmh
+  , fullscreenEventHook
+  )
+import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Util.EZConfig (additionalKeys)
 
-layout = smartBorders (tiled ||| Mirror tiled ||| Full)
+layout = (smartBorders (tiled ||| Mirror tiled ||| Full))
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
@@ -26,19 +35,19 @@ myXmobarPP = defaultPP { ppCurrent = xmobarColor "yellow" ""
                        , ppLayout = const ""
                        , ppUrgent  = xmobarColor "red" "yellow"
                        }
+
 toggleStrutsKey XConfig{modMask = modm} = (modm, xK_b )
-myXmobar conf = statusBar "xmobar" myXmobarPP toggleStrutsKey conf
+
+myXmobar = statusBar "xmobar" myXmobarPP toggleStrutsKey
 
 myConfig =
-  (
-    ewmh defaultConfig {
-       handleEventHook =
-          handleEventHook defaultConfig <+> fullscreenEventHook,
-       modMask = mod4Mask,
-       layoutHook = layout
-       }
-    `additionalKeys`
-    [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
-  )
+  ewmh (desktopConfig {
+      modMask = mod4Mask
+    , layoutHook = layout
+    , handleEventHook =
+        handleEventHook desktopConfig <+> fullscreenEventHook
+    })
+  `additionalKeys`
+  [ ((mod4Mask, xK_p), spawn "dmenu_run -fn \"Source Code Pro:size=20\"") ]
 
 main = xmonad =<< myXmobar myConfig
