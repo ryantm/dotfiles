@@ -7,7 +7,10 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
- '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups"))))
+ '(auto-save-file-name-transforms
+   (quote
+    (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
+ '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
  '(custom-enabled-themes (quote (sanityinc-solarized-dark)))
