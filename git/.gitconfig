@@ -1,11 +1,9 @@
-[user]
-	name = Ryan Mulligan
-	email = ryan@ryantm.com
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 [alias]
+	review = !sh -c 'git fetch -a && gitk origin/review/$1 --not origin/$2' -
 	unmerged = !git branch -a --no-merged | grep remotes/
 	sync = !git fetch --all --prune && git fetch --tags
 	pushweb = !git push origin web && git push production-preview web && git push files web && git push print-purchase-order web && git push reports web
