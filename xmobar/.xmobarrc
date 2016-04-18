@@ -8,7 +8,7 @@ Config { font = "xft:Source Code Pro:size=20:antialias=true"
        , lowerOnStart = True
        , persistent = False
        , hideOnStart = False
-       , overrideRedirect = True
+       , overrideRedirect = False
        , allDesktops = True
        , commands = [
          Run Date "%a %Y-%m-%d %H:%M" "date" 10,

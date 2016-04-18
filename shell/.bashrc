@@ -58,9 +58,7 @@ export LEDGER_FILE=~/ledger/ledger.dat
 export LEDGER_STRICT=true
 export LEDGER_PEDANTIC=true
 
-case $(hostname -s) in
-    ryantm-dev-1404)
-        source /usr/local/share/chruby/chruby.sh
-        source /usr/local/share/chruby/auto.sh ;;
-    *) ;;
-esac
+if [ $HOSTNAME = "ryantm-dev-1404.pololu.internal" ]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi
