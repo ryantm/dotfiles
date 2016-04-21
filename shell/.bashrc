@@ -54,6 +54,6 @@ unset PLINK_PROTOCOL
 unset GIT_SVN
 
 #ledger
-export LEDGER_FILE=~/ledger/ledger.dat
+export LEDGER_FILE=~/ledger/mulligan.ledger
 export LEDGER_STRICT=true
 export LEDGER_PEDANTIC=true
