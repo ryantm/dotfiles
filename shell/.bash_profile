@@ -21,8 +21,17 @@ unset USERNAME
 export TRACK_ASSEMBLY_DIRECTORY=$POLOLU_DIR/track_assembly
 function track_assembly {
  pushd .
- cd $POLOLU_DIR/system2_for_track_assembly/website
+ cd $POLOLU_DIR/system2_for_track/website
  /opt/pololu_rails_env/preview rails runner "script/track/track_assembly.rb"
+ popd
+}
+
+# Track users permissions
+export TRACK_USERS_PERMISSIONS_DIRECTORY=$POLOLU_DIR/track_users_permissions
+function track_users_permissions {
+ pushd .
+ cd $POLOLU_DIR/system2_for_track/website
+ /opt/pololu_rails_env/preview rails runner "script/track/track_users_permissions.rb"
  popd
 }
 
