@@ -49,7 +49,8 @@
              whitespace-mode
              whitespace-newline-mode)
   :config
-  (global-whitespace-mode))
+  (global-whitespace-mode)
+  (setq whitespace-global-modes '(not dired-mode magit-mode)))
 
 (use-package cus-edit+
   :defer t
