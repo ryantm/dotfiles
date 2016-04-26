@@ -187,6 +187,8 @@
       (expand-file-name
        (concat user-emacs-directory "autosaves")))
 
+(setenv "PAGER" "cat")
+
 ;; Rebindings
 
 ; Macro for browsing a large magit commit history
