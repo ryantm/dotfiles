@@ -187,7 +187,7 @@
       (expand-file-name
        (concat user-emacs-directory "autosaves")))
 
-(setenv "PAGER" "cat")
+(setenv "PAGER" "")
 
 ;; Rebindings
 
