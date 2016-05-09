@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#002b36"))
+ '(ansi-color-names-vector (vector "#839496" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#fdf6e3"))
  '(auto-save-file-name-transforms (quote (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
  '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
  '(column-number-mode t)
