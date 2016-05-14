@@ -1,19 +1,14 @@
 [user]
-	name = Ryan Mulligan
-	email = ryan@ryantm.com
+	useConfigOnly = true
 [color]
 	diff = auto
 	status = auto
 	branch = auto
 [alias]
+	review = !sh -c 'git fetch -a && gitk origin/review/$1 --not origin/$2' -
 	unmerged = !git branch -a --no-merged | grep remotes/
 	sync = !git fetch --all --prune && git fetch --tags
-	pushweb = !git push origin web && git push production-preview web && git push files web && git push print-purchase-order web && git push reports web
-	pushwebcurrent = !git push origin web:dev/paul/web-current
 	delbranch = !sh -c 'git branch -d dev/ryantm/$1 && git push origin :dev/ryantm/$1' -
-	mb = !git checkout web && git pull && git merge --no-ff
-	showchanges = "!echo 'Common commits:'; for i in `git show-branch --merge-base $1 $2`; do git log -1 $i; last=$i; done; TortoiseGitProc.exe /command:log /rev:$last /endrev:$2 /startrev:$last^"
-
 [core]
 	excludesfile = /home/ryantm/.gitignore_global
 [push]

@@ -57,3 +57,8 @@ unset GIT_SVN
 export LEDGER_FILE=~/ledger/mulligan.ledger
 export LEDGER_STRICT=true
 export LEDGER_PEDANTIC=true
+
+if [ $HOSTNAME = "ryantm-dev-1604.pololu.internal" ]; then
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
+fi

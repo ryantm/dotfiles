@@ -10,8 +10,7 @@
 ;; Packages
 (package-initialize)
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-;;(package-refresh-contents)
+             '("melpa-stable" . "https://melpa.org/packages/") t)
 
 ;; use-package organizes package configuration
 (eval-when-compile
@@ -24,6 +23,11 @@
 (require 'diminish nil t)
 ;; Use path to uniquely name buffers with the same name
 (require 'uniquify)
+
+(use-package spu
+  :ensure t
+  :defer 5 ;; defer package loading for 5 second
+  :config (spu-package-upgrade-daily))
 
 (use-package powerline
   :ensure t
@@ -49,7 +53,8 @@
              whitespace-mode
              whitespace-newline-mode)
   :config
-  (global-whitespace-mode))
+  (global-whitespace-mode)
+  (setq whitespace-global-modes '(not dired-mode magit-mode)))
 
 (use-package cus-edit+
   :defer t
@@ -189,6 +194,8 @@
 (setq auto-save-list-file-prefix
       (expand-file-name
        (concat user-emacs-directory "autosaves")))
+
+(setenv "PAGER" "")
 
 ;; Rebindings
 
