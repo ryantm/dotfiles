@@ -84,6 +84,10 @@
   :mode "\\.ya?ml\\'"
   :ensure t)
 
+(use-package ledger-mode
+  :mode "\\.ledger\\'"
+  :ensure t)
+
 (use-package markdown-mode
   :ensure t
   :mode (("\\`README\\.md\\'" . gfm-mode)
