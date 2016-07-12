@@ -16,6 +16,7 @@
     ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
+ '(fci-rule-column 80)
  '(git-commit-summary-max-length 80)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)

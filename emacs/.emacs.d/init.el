@@ -47,6 +47,13 @@
   :init
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
+(use-package fill-column-indicator
+  :ensure t
+  :defer 5
+  :config
+  (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+  (global-fci-mode 1))
+
 (use-package whitespace
   :defer 5
   :diminish (global-whitespace-mode
@@ -54,7 +61,8 @@
              whitespace-newline-mode)
   :config
   (global-whitespace-mode)
-  (setq whitespace-global-modes '(not dired-mode magit-mode)))
+  (setq whitespace-global-modes '(not dired-mode magit-mode))
+  (setq whitespace-style (delete 'lines whitespace-style)))
 
 (use-package cus-edit+
   :defer t
