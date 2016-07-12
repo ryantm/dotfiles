@@ -107,6 +107,9 @@
          ("\\.md\\'"          . markdown-mode)
          ("\\.markdown\\'"    . markdown-mode)))
 
+(use-package markdown-preview-mode
+  :ensure t)
+
 (use-package paren
   :defer 5
   :config
@@ -168,6 +171,10 @@
   ;;        ("C-M-j" . ruby-backward-sexp)
   ;;        ("C-x e" . ruby-send-whole-buffer)
   ;;        ("C-x C-e" . ruby-send-whole-buffer)))
+
+(use-package zeal-at-point
+  :ensure t
+  :bind ("C-c d" . zeal-at-point))
 
 ;; Customizations
 (defconst custom-file-start-time (current-time))
