@@ -144,7 +144,6 @@
     :ensure t)
   (add-hook 'haml-mode-hook 'flyspell-mode)
   (add-hook 'haml-mode-hook 'auto-fill-mode)
-  (add-hook 'haml-mode-hook 'writeroom-mode))
 
 (use-package nix-mode
   :ensure t
