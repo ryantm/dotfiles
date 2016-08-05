@@ -21,6 +21,8 @@
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)
+ '(initial-major-mode (quote fundamental-mode))
+ '(initial-scratch-message nil)
  '(keyboard-coding-system (quote utf-8-unix))
  '(menu-bar-mode nil)
  '(save-place t nil (saveplace))
