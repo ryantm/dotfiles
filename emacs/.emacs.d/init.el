@@ -60,9 +60,10 @@
              whitespace-mode
              whitespace-newline-mode)
   :config
-  (global-whitespace-mode)
   (setq whitespace-global-modes '(not dired-mode magit-mode))
-  (setq whitespace-style (delete 'lines whitespace-style)))
+  (setq whitespace-style (delete 'lines whitespace-style))
+  (global-whitespace-mode))
+
 
 (use-package cus-edit+
   :defer t
@@ -140,8 +141,6 @@
   :mode "\\.haml\\'"
   :config
   (use-package flyspell)
-  (use-package writeroom-mode
-    :ensure t)
   (add-hook 'haml-mode-hook 'flyspell-mode)
   (add-hook 'haml-mode-hook 'auto-fill-mode)
 
