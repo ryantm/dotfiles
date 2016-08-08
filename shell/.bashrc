@@ -46,7 +46,7 @@ fi
 
 export EDITOR="emacs"
 export BROWSER="chromium"
-PATH=$PATH:$HOME/bin
+PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
 # Unset PuTTY plink connections if set
 unset GIT_SSH
