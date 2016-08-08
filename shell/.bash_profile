@@ -11,7 +11,7 @@ fi
 POLOLU_DIR=$HOME/p/pololu
 
 # User specific environment and startup programs
-PATH=$PATH:$HOME/bin:$POLOLU_DIR/system2/bin
+PATH=$PATH:$HOME/bin:$POLOLU_DIR/system2/bin:$HOME/.local/bin
 BASH_ENV=$HOME/.bashrc
 
 export BASH_ENV PATH
