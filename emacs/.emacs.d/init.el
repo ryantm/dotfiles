@@ -110,9 +110,7 @@
   :ensure t
   :mode (("\\`README\\.md\\'" . gfm-mode)
          ("\\.md\\'"          . markdown-mode)
-         ("\\.markdown\\'"    . markdown-mode))
-  :config
-  (add-hook 'markdown-mode-hook 'turn-on-visual-line-mode))
+         ("\\.markdown\\'"    . markdown-mode)))
 
 (use-package markdown-preview-mode
   :ensure t)
