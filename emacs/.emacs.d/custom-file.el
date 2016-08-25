@@ -56,7 +56,8 @@
      (360 . "#cb4b16"))))
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
- '(vc-make-backup-files t))
+ '(vc-make-backup-files t)
+ '(visual-line-fringe-indicators (quote (left-curly-arrow right-curly-arrow))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -12,6 +12,9 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://melpa.org/packages/") t)
 
+(or (package-installed-p 'use-package)
+    (package-install 'use-package))
+
 ;; use-package organizes package configuration
 (eval-when-compile
   (defvar use-package-verbose t)
@@ -51,6 +54,7 @@
   :ensure t
   :defer 5
   :config
+  (setq fci-handle-truncate-lines nil)
   (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
   (global-fci-mode 1))
 
@@ -106,7 +110,9 @@
   :ensure t
   :mode (("\\`README\\.md\\'" . gfm-mode)
          ("\\.md\\'"          . markdown-mode)
-         ("\\.markdown\\'"    . markdown-mode)))
+         ("\\.markdown\\'"    . markdown-mode))
+  :config
+  (add-hook 'markdown-mode-hook 'turn-on-visual-line-mode))
 
 (use-package markdown-preview-mode
   :ensure t)
