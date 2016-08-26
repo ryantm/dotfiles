@@ -12,7 +12,8 @@
 (add-to-list 'package-archives
              '("melpa-stable" . "https://melpa.org/packages/") t)
 
-(or (package-installed-p 'use-package)
+(when (not (package-installed-p 'use-package))
+    (package-refresh-contents)
     (package-install 'use-package))
 
 ;; use-package organizes package configuration
