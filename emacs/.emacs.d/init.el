@@ -85,6 +85,9 @@
   :defer t
   :ensure t)
 
+(use-package c-mode :mode "\\.ino\\'")
+
+
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :ensure t
