@@ -184,7 +184,7 @@
 ;; Customizations
 (defconst custom-file-start-time (current-time))
 
-(setq custom-file (expand-file-name "custom-file" user-emacs-directory))
+(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
 (load custom-file)
 
 (when (display-graphic-p)
