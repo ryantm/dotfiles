@@ -28,6 +28,12 @@
 ;; Use path to uniquely name buffers with the same name
 (require 'uniquify)
 
+
+(use-package bash-completion
+  :ensure t
+  :config
+  (bash-completion-setup))
+
 (use-package spu
   :ensure t
   :defer 5 ;; defer package loading for 5 second
@@ -56,8 +62,10 @@
   :defer 5
   :config
   (setq fci-handle-truncate-lines nil)
-  (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-  (global-fci-mode 1))
+  (add-hook 'ruby-mode-hook 'fci-mode)
+  (add-hook 'haskell-mode-hook 'fci-mode)
+  (add-hook 'emacs-lisp-mode-hook 'fci-mode)
+  (add-hook 'fundamental-mode-hook 'fci-mode))
 
 (use-package whitespace
   :defer 5
@@ -124,25 +132,23 @@
   :config
   (show-paren-mode))
 
-(use-package lisp-mode
+(use-package emacs-lisp-mode
   :defer t
   :preface
-  (defun my-lisp-mode-hook ()
-    (unless lisp-mode-initialized
-      (setq lisp-mode-initialized t)
-      (use-package paredit
-        :ensure t
-        :diminish (paredit-mode))
-      (use-package rainbow-delimiters
-        :ensure t
-        :diminish (rainbow-delimiters-mode))
-      (use-package elisp-slime-nav
-        :ensure t
-        :diminish (elisp-slime-nav-mode))
-      (paredit-mode)
-      (rainbow-delimiters)
-      (elisp-slime-nav)))
-  (add-hook 'lisp-mode-hook 'my-lisp-mode-hook))
+  (defun my-emacs-lisp-mode-hook ()
+    (use-package paredit
+      :ensure t
+      :diminish (paredit-mode))
+    (use-package rainbow-delimiters
+      :ensure t
+      :diminish (rainbow-delimiters-mode))
+    (use-package elisp-slime-nav
+      :ensure t
+      :diminish (elisp-slime-nav-mode))
+    (paredit-mode)
+    (rainbow-delimiters-mode)
+    (elisp-slime-nav-mode))
+  (add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook))
 
 (use-package haml-mode
   :ensure t
@@ -226,16 +232,36 @@
 
 (global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
                                    ;; the way of switching buffers)
+
+; mousewheel and C-+ C-- scrolling
+(defun scale-to (f)
+  (set-face-attribute 'default nil :height
+                      (round f)))
+
+(defun scale-by (f)
+  (scale-to (* f (face-attribute 'default :height))))
+
+(defun scale-up () (interactive)
+  (scale-by 1.1))
+
+(defun scale-down () (interactive)
+  (scale-by (/ 1 1.1)))
+
+(defun scale-reset () (interactive)
+  (scale-to 100))
+
+(global-set-key (kbd "C-=") #'scale-up)
+(global-set-key (kbd "C--") #'scale-down)
+(global-set-key (kbd "C-0") #'scale-reset)
+(global-set-key [C-mouse-4] #'scale-up)
+(global-set-key [C-mouse-5] #'scale-down)
+
 (setq my-rebinds '(
                      ("C-x C-l" goto-line)
                      ("C-x l" goto-line)
                      ("C-x e" eval-last-sexp)
                      ("<C-tab>" next-buffer)
                      ("<C-S-iso-lefttab>" previous-buffer)
-                     ("C-=" text-scale-increase)
-                     ("<C-mouse-4>" text-scale-increase)
-                     ("C--" text-scale-decrease)
-                     ("<C-mouse-5>" text-scale-decrease)
                      ("C-z" undo)
                      ("M-i" ido-goto-symbol)
                      ("C-x C-r" rgrep)
