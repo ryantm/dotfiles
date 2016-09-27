@@ -210,17 +210,26 @@
 
 
 ;; Write backup and autosave files to their own directories
-(setq backup-directory-alist
-      `((".*" . ,(expand-file-name
-                  (concat user-emacs-directory "backups")))))
+(setq
+   backup-by-copying t
+   backup-directory-alist '(("." . "~/.saves"))
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t
+   vc-make-backup-files t)
 
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name
-                (concat user-emacs-directory "autosaves")) t)))
+;; (setq backup-directory-alist
+;;       `((".*" . ,(expand-file-name
+;;                   (concat user-emacs-directory "backups")))))
 
-(setq auto-save-list-file-prefix
-      (expand-file-name
-       (concat user-emacs-directory "autosaves")))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,(expand-file-name
+;;                 (concat user-emacs-directory "autosaves")) t)))
+
+;; (setq auto-save-list-file-prefix
+;;       (expand-file-name
+;;        (concat user-emacs-directory "autosaves")))
 
 (setenv "PAGER" "")
 

@@ -9,6 +9,7 @@
  '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
+ '(create-lockfiles nil)
  '(custom-enabled-themes (quote (sanityinc-solarized-light)))
  '(custom-file "~/.emacs.d/custom-file.el")
  '(custom-safe-themes
@@ -33,6 +34,7 @@
  '(scroll-bar-mode nil)
  '(selection-coding-system (quote utf-8))
  '(send-mail-function (quote mailclient-send-it))
+ '(show-paren-mode t)
  '(tab-width 2)
  '(tool-bar-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
