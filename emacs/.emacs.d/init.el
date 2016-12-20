@@ -132,6 +132,13 @@
   :config
   (show-paren-mode))
 
+(use-package shell
+  :config
+  (defun my-shell-mode-hook ()
+    (setq tab-width 8)
+    (dirtrack-mode))
+  (add-hook 'shell-mode-hook 'my-shell-mode-hook))
+
 (use-package emacs-lisp-mode
   :defer t
   :preface
@@ -288,9 +295,6 @@
 ;;; Tabs
 (setq indent 2)
 (setq js-indent-level 2)
-(add-hook 'shell-mode-hook
-          (lambda ()
-            (setq tab-width 8)))
 
 ;;; Appearance
 (global-font-lock-mode t)

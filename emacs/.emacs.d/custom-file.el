@@ -15,6 +15,7 @@
  '(custom-safe-themes
    (quote
     ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
+ '(dirtrack-list (quote ("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
  '(fci-rule-column 80)
