@@ -26,3 +26,4 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+_byobu_sourced=1 . byobu-launch 2>/dev/null || true
