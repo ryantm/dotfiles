@@ -37,4 +37,7 @@ function track_users_permissions {
 
 if [ -e /home/ryantm/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ryantm/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-byobu_sourced=1 . byobu-launch 2>/dev/null || true
+if [ "$INSIDE_EMACS" = "" ]
+then
+  byobu_sourced=1 . byobu-launch 2>/dev/null || true
+fi
