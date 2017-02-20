@@ -51,9 +51,19 @@
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
+; Macro for browsing a large magit commit history
+(fset 'magit-rtm-down
+   [tab ?n tab ?\C-l ?\C-l])
+
+(fset 'magit-rtm-up
+   [tab ?p tab ?\C-l ?\C-l])
+
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status)
+  :bind (("C-x g" . magit-status)
+         :map magit-status-mode-map
+         ("C-M-n" . magit-rtm-down)
+         ("C-M-p" . magit-rtm-up))
   :init
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
@@ -242,10 +252,6 @@
 
 ;; Rebindings
 
-; Macro for browsing a large magit commit history
-(fset 'magit-rtm-down
-   [tab ?n tab ?\C-l ?\C-l])
-
 (global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
                                    ;; the way of switching buffers)
 
@@ -280,8 +286,7 @@
                      ("<C-S-iso-lefttab>" previous-buffer)
                      ("C-z" undo)
                      ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep)
-                     ("<f9>" magit-rtm-down)))
+                     ("C-x C-r" rgrep)))
 
 (defun do-rebindings (rebindings)
   (dolist (element rebindings)
