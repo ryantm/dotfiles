@@ -149,19 +149,20 @@
     (dirtrack-mode))
   (add-hook 'shell-mode-hook 'my-shell-mode-hook))
 
+  (use-package paredit
+    :ensure t
+    :diminish (paredit-mode))
+  (use-package rainbow-delimiters
+    :ensure t
+    :diminish (rainbow-delimiters-mode))
+  (use-package elisp-slime-nav
+    :ensure t
+    :diminish (elisp-slime-nav-mode))
+
 (use-package emacs-lisp-mode
   :defer t
   :preface
   (defun my-emacs-lisp-mode-hook ()
-    (use-package paredit
-      :ensure t
-      :diminish (paredit-mode))
-    (use-package rainbow-delimiters
-      :ensure t
-      :diminish (rainbow-delimiters-mode))
-    (use-package elisp-slime-nav
-      :ensure t
-      :diminish (elisp-slime-nav-mode))
     (paredit-mode)
     (rainbow-delimiters-mode)
     (elisp-slime-nav-mode))
