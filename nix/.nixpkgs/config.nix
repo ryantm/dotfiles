@@ -12,6 +12,7 @@
     all = with pkgs; buildEnv {  # pkgs is your overriden set of packages itself
       name = "all";
       paths = [
+        openvpn
         chromium
         firefox
         ledger
