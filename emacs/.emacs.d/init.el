@@ -16,6 +16,9 @@
     (package-refresh-contents)
     (package-install 'use-package))
 
+(when (not (window-system))
+  (send-string-to-terminal "\033]12;black\007"))
+
 ;; use-package organizes package configuration
 (eval-when-compile
   (defvar use-package-verbose t)
