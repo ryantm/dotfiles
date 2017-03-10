@@ -31,7 +31,7 @@
 ;; Use path to uniquely name buffers with the same name
 (require 'uniquify)
 
-
+;; broken on nixos
 ;; (use-package bash-completion
 ;;   :ensure t
 ;;   :config
