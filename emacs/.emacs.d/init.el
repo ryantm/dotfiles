@@ -32,20 +32,15 @@
 (require 'uniquify)
 
 
-(use-package bash-completion
-  :ensure t
-  :config
-  (bash-completion-setup))
+;; (use-package bash-completion
+;;   :ensure t
+;;   :config
+;;   (bash-completion-setup))
 
 (use-package spu
   :ensure t
   :defer 5 ;; defer package loading for 5 second
   :config (spu-package-upgrade-daily))
-
-(use-package powerline
-  :ensure t
-  :config
-  (powerline-default-theme))
 
 (use-package autorevert
   :defer 5
