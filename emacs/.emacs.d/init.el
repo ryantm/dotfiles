@@ -16,6 +16,9 @@
     (package-refresh-contents)
     (package-install 'use-package))
 
+(when (not (window-system))
+  (send-string-to-terminal "\033]12;black\007"))
+
 ;; use-package organizes package configuration
 (eval-when-compile
   (defvar use-package-verbose t)
@@ -28,21 +31,16 @@
 ;; Use path to uniquely name buffers with the same name
 (require 'uniquify)
 
-
-(use-package bash-completion
-  :ensure t
-  :config
-  (bash-completion-setup))
+;; broken on nixos
+;; (use-package bash-completion
+;;   :ensure t
+;;   :config
+;;   (bash-completion-setup))
 
 (use-package spu
   :ensure t
   :defer 5 ;; defer package loading for 5 second
   :config (spu-package-upgrade-daily))
-
-(use-package powerline
-  :ensure t
-  :config
-  (powerline-default-theme))
 
 (use-package autorevert
   :defer 5
@@ -51,9 +49,19 @@
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
+; Macro for browsing a large magit commit history
+(fset 'magit-rtm-down
+   [tab ?n tab ?\C-l ?\C-l])
+
+(fset 'magit-rtm-up
+   [tab ?p tab ?\C-l ?\C-l])
+
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status)
+  :bind (("C-x g" . magit-status)
+         :map magit-status-mode-map
+         ("C-M-n" . magit-rtm-down)
+         ("C-M-p" . magit-rtm-up))
   :init
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
@@ -139,19 +147,20 @@
     (dirtrack-mode))
   (add-hook 'shell-mode-hook 'my-shell-mode-hook))
 
+  (use-package paredit
+    :ensure t
+    :diminish (paredit-mode))
+  (use-package rainbow-delimiters
+    :ensure t
+    :diminish (rainbow-delimiters-mode))
+  (use-package elisp-slime-nav
+    :ensure t
+    :diminish (elisp-slime-nav-mode))
+
 (use-package emacs-lisp-mode
   :defer t
   :preface
   (defun my-emacs-lisp-mode-hook ()
-    (use-package paredit
-      :ensure t
-      :diminish (paredit-mode))
-    (use-package rainbow-delimiters
-      :ensure t
-      :diminish (rainbow-delimiters-mode))
-    (use-package elisp-slime-nav
-      :ensure t
-      :diminish (elisp-slime-nav-mode))
     (paredit-mode)
     (rainbow-delimiters-mode)
     (elisp-slime-nav-mode))
@@ -242,10 +251,6 @@
 
 ;; Rebindings
 
-; Macro for browsing a large magit commit history
-(fset 'magit-rtm-down
-   [tab ?n tab ?\C-l ?\C-l])
-
 (global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
                                    ;; the way of switching buffers)
 
@@ -280,8 +285,7 @@
                      ("<C-S-iso-lefttab>" previous-buffer)
                      ("C-z" undo)
                      ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep)
-                     ("<f9>" magit-rtm-down)))
+                     ("C-x C-r" rgrep)))
 
 (defun do-rebindings (rebindings)
   (dolist (element rebindings)
