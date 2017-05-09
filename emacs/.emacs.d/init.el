@@ -283,7 +283,6 @@
                      ("C-x e" eval-last-sexp)
                      ("<C-tab>" next-buffer)
                      ("<C-S-iso-lefttab>" previous-buffer)
-                     ("C-z" undo)
                      ("M-i" ido-goto-symbol)
                      ("C-x C-r" rgrep)))
 
