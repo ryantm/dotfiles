@@ -108,6 +108,7 @@
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :ensure t
+  :bind ("C-c ," . haskell-mode-format-imports)
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
