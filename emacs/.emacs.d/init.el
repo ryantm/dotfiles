@@ -108,6 +108,7 @@
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :ensure t
+  :bind ("C-c ," . haskell-mode-format-imports)
   :config
   (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
@@ -282,7 +283,6 @@
                      ("C-x e" eval-last-sexp)
                      ("<C-tab>" next-buffer)
                      ("<C-S-iso-lefttab>" previous-buffer)
-                     ("C-z" undo)
                      ("M-i" ido-goto-symbol)
                      ("C-x C-r" rgrep)))
 
