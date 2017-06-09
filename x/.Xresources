@@ -1,11 +1,12 @@
-! terminal colors ------------------------------------------------------------
-! Solarized color scheme for the X Window System
-!
-! http://ethanschoonover.com/solarized
-
-
-! Common
-
+! Solarized light color scheme for xterm
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3         #fdf6e3
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
 #define S_red           #dc322f
@@ -15,61 +16,42 @@
 #define S_cyan          #2aa198
 #define S_green         #859900
 
+xterm*background:        S_base3
+xterm*foreground:        S_base00
+xterm*fadeColor:         S_base3
+xterm*cursorColor:       S_base01
+xterm*pointerColorBackground: S_base1
+xterm*pointerColorForeground: S_base01
+xterm*color0:                S_base02
+xterm*color8:                S_base03
+xterm*color1:                S_red
+xterm*color9:                S_orange
+xterm*color2:                S_green
+xterm*color10:               S_base01
+xterm*color3:                S_yellow
+xterm*color11:               S_base00
+xterm*color4:                S_blue
+xterm*color12:               S_base0
+xterm*color5:                S_magenta
+xterm*color13:               S_violet
+xterm*color6:                S_cyan
+xterm*color14:               S_base1
+xterm*color7:                S_base2
+xterm*color15:               S_base3
 
-! Dark
 
-#define S_base03        #002b36
-#define S_base02        #073642
-#define S_base01        #586e75
-#define S_base00        #657b83
-#define S_base0         #839496
-#define S_base1         #93a1a1
-#define S_base2         #eee8d5
-#define S_base3         #fdf6e3
-
-
-! To only apply colors to your terminal, for example, prefix
-! the color assignment statement with its name. Example:
-!
-! URxvt*background:            S_base03
-
-xterm*background:              S_base03
-xterm*foreground:              S_base0
-xterm*fading:                  40
-xterm*fadeColor:               S_base03
-xterm*cursorColor:             S_base1
-xterm*pointerColorBackground:  S_base01
-xterm*pointerColorForeground:  S_base1
-
-xterm*color0:                  S_base02
-xterm*color1:                  S_red
-xterm*color2:                  S_green
-xterm*color3:                  S_yellow
-xterm*color4:                  S_blue
-xterm*color5:                  S_magenta
-xterm*color6:                  S_cyan
-xterm*color7:                  S_base2
-xterm*color8:                  S_base03
-xterm*color9:                  S_orange
-xterm*color10:                 S_base01
-xterm*color11:                 S_base00
-xterm*color12:                 S_base0
-xterm*color13:                 S_violet
-xterm*color14:                 S_base1
-xterm*color15:                 S_base3
-
-! Xcursor --------------------------------------------------------------------
+! Xcursor
 Xcursor.theme: Vanilla-DMZ-AA
 Xcursor.size:  40
 
-! Xft settings ---------------------------------------------------------------
+! Xft settings
 Xft.dpi:        96
 Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
-! xterm ----------------------------------------------------------------------
+! xterm
 
 xterm*VT100.geometry:     80x25
 
@@ -83,15 +65,16 @@ xterm*jumpScroll:         true
 xterm*multiScroll:        true
 xterm*toolBar:            false
 xterm*saveLines:          1048576
+xterm*selectToClipboard:  true
 xterm*termName:           xterm-256color
-XTerm*locale:             true
-XTerm*metaSendsEscape:    true
-XTerm*altSendsEscape:     true
-XTerm*ttyModes: erase ^?
-XTerm*eightBitInput:      true
-XTerm*eightBitMeta:       true
+xterm*locale:             true
+xterm*metaSendsEscape:    true
+xterm*altSendsEscape:     true
+xterm*ttyModes: erase ^?
+xterm*eightBitInput:      true
+xterm*eightBitMeta:       true
 
-XTerm.VT100.translations: #override \
+xterm.VT100.translations: #override \
 <Key>BackSpace: string(0x7f) \n\
 <Key>Delete:    string(0x1b) string("[3~") \n\
 ~Shift ~Alt Ctrl <Key> minus: smaller-vt-font() \n\
