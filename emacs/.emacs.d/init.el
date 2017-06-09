@@ -77,6 +77,7 @@
 
 (use-package whitespace
   :defer 5
+  :bind (("C-c w" . global-whitespace-mode))
   :diminish (global-whitespace-mode
              whitespace-mode
              whitespace-newline-mode)
