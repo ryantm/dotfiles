@@ -173,8 +173,7 @@
   :mode "\\.haml\\'"
   :config
   (use-package flyspell)
-  (add-hook 'haml-mode-hook 'flyspell-mode)
-  (add-hook 'haml-mode-hook 'auto-fill-mode))
+  (add-hook 'haml-mode-hook 'flyspell-mode))
 
 (use-package nix-mode
   :ensure t
