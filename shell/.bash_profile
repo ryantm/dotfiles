@@ -1,6 +1,10 @@
 #
 # ~/.bash_profile
 #
+
+
+setxkbmap -option ctrl:nocaps
+
 SOURCED_BASH_PROFILE=true
 export EDITOR="emacs"
 
