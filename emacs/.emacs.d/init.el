@@ -37,7 +37,7 @@
 ;;   :config
 ;;   (bash-completion-setup))
 
-;; broken
+;; broken in emacs 25
 ;; (use-package spu
 ;;   :ensure t
 ;;   :defer 5 ;; defer package loading for 5 second
