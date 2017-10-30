@@ -83,6 +83,7 @@ xterm.VT100.translations: #override \
 
 
 urxvt.iso14755: false
+urxvt.iso14755_52: false
 urxvt.font: xft:Source Code Pro:style=Regular:size=12
 urxvt.scrollBar: false
 urxvt.saveLines: 1048576
