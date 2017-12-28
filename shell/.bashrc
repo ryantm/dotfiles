@@ -9,7 +9,7 @@ export HISTIGNORE=ls
 export HISTCONTROL=ignoredups
 
 # More colors
-export TERM=xterm-256color
+export TERM=screen-256color
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.

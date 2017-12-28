@@ -31,6 +31,7 @@
         ruby
         python
         evince
+        yubikey-personalization-gui
       ];
     };
   };
