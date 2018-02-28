@@ -33,7 +33,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
+    (helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
  '(save-place t nil (saveplace))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
  '(scroll-bar-mode nil)
