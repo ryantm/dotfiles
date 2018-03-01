@@ -32,6 +32,7 @@
         python
         evince
         yubikey-personalization-gui
+        steam
       ];
     };
   };
