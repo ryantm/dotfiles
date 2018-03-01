@@ -33,7 +33,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
+    (helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
  '(save-place t nil (saveplace))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
  '(scroll-bar-mode nil)
@@ -74,6 +74,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background nil :foreground nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "adobe" :family "Source Code Pro"))))
- '(ledger-font-xact-highlight-face ((t nil)) t)
+ '(ledger-font-xact-highlight-face ((t nil)))
  '(whitespace-newline ((t (:foreground "color-254" :weight ultra-light))))
  '(whitespace-space ((t (:foreground "color-254" :weight ultra-light)))))
