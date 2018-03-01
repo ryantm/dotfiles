@@ -180,11 +180,16 @@
   :ensure t
   :mode "\\.nix\\'")
 
-(use-package ido
+(use-package helm
   :demand t
-  :bind (("C-x b" . ido-switch-buffer))
-  :config
-  (ido-mode))
+  :bind (("C-x C-f" . helm-find-files)
+         ("C-x b" . helm-buffers-list)
+         ("C-x f" . helm-recentf)
+         ("C-SPC" . helm-dabbrev)
+         ("M-y" . helm-show-kill-ring))
+  :config (progn
+            (setq helm-buffers-fuzzy-matching t)
+            (helm-mode 1)))
 
 (use-package ruby-mode
   :mode "\\.rb\\'"
