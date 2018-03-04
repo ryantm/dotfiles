@@ -8,8 +8,9 @@
   # On non-nixos install with
   #   nix-env -iA nixpkgs.all
 
-  packageOverrides = pkgs_: with pkgs_; {  # pkgs_ is the original set of packages
-    all = with pkgs; buildEnv {  # pkgs is your overriden set of packages itself
+  packageOverrides = pkgs_: with pkgs_; {
+
+    all = with pkgs; buildEnv {
       name = "all";
       paths = [
         rxvt_unicode
@@ -35,5 +36,16 @@
         steam
       ];
     };
+
+    haskellTools = with pkgs; buildEnv {
+      name = "haskellTools";
+      paths = [
+        cabal-install
+        cabal2nix
+        haskellPackages.hpack
+      ];
+    };
+
   };
+
 }
