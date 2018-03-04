@@ -40,6 +40,7 @@
  '(selection-coding-system (quote utf-8))
  '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t)
+ '(sort-fold-case t)
  '(tab-width 2)
  '(tool-bar-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
