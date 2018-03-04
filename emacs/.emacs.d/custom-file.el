@@ -18,7 +18,7 @@
  '(custom-file "~/.emacs.d/custom-file.el")
  '(custom-safe-themes
    (quote
-    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
+    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
  '(dirtrack-list (quote ("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
@@ -74,6 +74,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background nil :foreground nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "adobe" :family "Source Code Pro"))))
- '(ledger-font-xact-highlight-face ((t nil)))
+ '(ledger-font-xact-highlight-face ((t nil)) t)
  '(whitespace-newline ((t (:foreground "color-254" :weight ultra-light))))
  '(whitespace-space ((t (:foreground "color-254" :weight ultra-light)))))
