@@ -3,7 +3,7 @@
 #
 
 
-setxkbmap -option ctrl:nocaps
+setxkbmap -option ctrl:nocaps >/dev/null 2>/dev/null
 
 SOURCED_BASH_PROFILE=true
 export EDITOR="emacs"

@@ -182,7 +182,8 @@
 
 (use-package helm
   :demand t
-  :bind (("C-x C-f" . helm-find-files)
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("C-x f" . helm-recentf)
          ("C-SPC" . helm-dabbrev)
