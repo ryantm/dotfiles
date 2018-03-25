@@ -14,7 +14,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
  '(create-lockfiles nil)
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes (quote (sanityinc-solarized-light)))
  '(custom-file "~/.emacs.d/custom-file.el")
  '(custom-safe-themes
    (quote

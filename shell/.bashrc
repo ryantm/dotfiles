@@ -27,7 +27,7 @@ fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
-PS1='\u@\h \w$(__git_ps1)\$ '
+#PS1='\u@\h \w$(__git_ps1)\$ '
 
 # Aliases
 if [ -f ~/.bash_aliases ]; then
