@@ -2,15 +2,18 @@
 # ~/.bash_profile
 #
 
+SOURCED_BASH_PROFILE=true
 
 setxkbmap -option ctrl:nocaps >/dev/null 2>/dev/null
 
-SOURCED_BASH_PROFILE=true
 export EDITOR="emacs"
 
 if [ -f ~/.bashrc ] && [ ! $SOURCED_BASHRC ]; then
     . ~/.bashrc
 fi
+
+SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export SSH_AUTH_SOCK
 
 POLOLU_DIR=$HOME/p/pololu
 
