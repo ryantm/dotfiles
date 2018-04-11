@@ -66,3 +66,13 @@ if [ $HOSTNAME = "ryantm-dev-1604.pololu.internal" ]; then
   # source /usr/local/share/chruby/auto.sh
   . /home/ryantm/.nix-profile/etc/profile.d/nix.sh
 fi
+
+settitle() {
+    printf "\033k$1\033\\"
+}
+
+ssh() {
+    settitle "$*"
+    command ssh "$@"
+    settitle "bash"
+}

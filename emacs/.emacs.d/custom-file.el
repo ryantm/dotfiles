@@ -24,6 +24,7 @@
  '(fci-rule-color "#073642")
  '(fci-rule-column 80)
  '(git-commit-summary-max-length 80)
+ '(global-whitespace-mode t)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)
@@ -36,6 +37,7 @@
     (hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
  '(save-place t nil (saveplace))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
+ '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
  '(selection-coding-system (quote utf-8))
  '(send-mail-function (quote mailclient-send-it))
@@ -68,7 +70,23 @@
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(visual-line-fringe-indicators (quote (left-curly-arrow right-curly-arrow))))
+ '(visual-line-fringe-indicators (quote (left-curly-arrow right-curly-arrow)))
+ '(whitespace-display-mappings
+   (quote
+    ((space-mark 32
+                 [32]
+                 [32])
+     (space-mark 160
+                 [160]
+                 [160])
+     (newline-mark 10
+                   [32 10])
+     (tab-mark 9
+               [32 9]
+               [32 9]))))
+ '(whitespace-style
+   (quote
+    (face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
