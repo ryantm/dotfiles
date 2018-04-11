@@ -35,7 +35,6 @@
  '(package-selected-packages
    (quote
     (hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
- '(save-place t nil (saveplace))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
  '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
@@ -84,6 +83,7 @@
      (tab-mark 9
                [32 9]
                [32 9]))))
+ '(whitespace-global-modes (quote (not dired-mode magit-mode shell-mode)))
  '(whitespace-style
    (quote
     (face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark))))

@@ -83,8 +83,6 @@
              whitespace-mode
              whitespace-newline-mode)
   :config
-  (setq whitespace-global-modes '(not dired-mode magit-mode))
-  (setq whitespace-style (delete 'lines whitespace-style))
   (global-whitespace-mode))
 
 
