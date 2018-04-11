@@ -40,9 +40,9 @@
     haskellTools = with pkgs; buildEnv {
       name = "haskellTools";
       paths = [
-        cabal-install
-        cabal2nix
-        haskellPackages.hpack
+        haskell.packages.ghc841.cabal-install
+        haskell.packages.ghc841.cabal2nix
+        haskell.packages.ghc841.hpack
       ];
     };
 

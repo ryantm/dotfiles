@@ -33,14 +33,14 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
+    (hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
  '(save-place t nil (saveplace))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
  '(scroll-bar-mode nil)
  '(selection-coding-system (quote utf-8))
  '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t)
- '(sort-fold-case t)
+ '(sort-fold-case t t)
  '(tab-width 2)
  '(tool-bar-mode nil)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
