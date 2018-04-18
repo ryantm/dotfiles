@@ -94,5 +94,6 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background nil :foreground nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "adobe" :family "Source Code Pro"))))
  '(ledger-font-xact-highlight-face ((t nil)) t)
+ '(whitespace-line ((t (:background "brightwhite"))))
  '(whitespace-newline ((t (:foreground "color-254" :weight ultra-light))))
  '(whitespace-space ((t (:foreground "color-254" :weight ultra-light)))))

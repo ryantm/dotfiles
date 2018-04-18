@@ -66,16 +66,6 @@
   :init
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
-(use-package fill-column-indicator
-  :ensure t
-  :defer 5
-  :config
-  (setq fci-handle-truncate-lines nil)
-  (add-hook 'ruby-mode-hook 'fci-mode)
-  (add-hook 'haskell-mode-hook 'fci-mode)
-  (add-hook 'emacs-lisp-mode-hook 'fci-mode)
-  (add-hook 'fundamental-mode-hook 'fci-mode))
-
 (use-package whitespace
   :defer 5
   :bind (("C-c w" . global-whitespace-mode))
@@ -186,6 +176,7 @@
          ("C-x f" . helm-recentf)
          ("C-SPC" . helm-dabbrev)
          ("M-y" . helm-show-kill-ring))
+  :diminish (helm-mode)
   :config (progn
             (setq helm-buffers-fuzzy-matching t)
             (helm-mode 1)))
