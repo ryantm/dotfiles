@@ -109,6 +109,10 @@
   (use-package hi2
     :ensure t))
 
+(use-package purescript-mode
+  :mode "\\.purs\\'"
+  :ensure t)
+
 (use-package yaml-mode
   :mode "\\.ya?ml\\'"
   :ensure t)
