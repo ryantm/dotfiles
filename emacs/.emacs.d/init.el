@@ -273,6 +273,7 @@
 (global-set-key (kbd "C-0") #'scale-reset)
 (global-set-key [C-mouse-4] #'scale-up)
 (global-set-key [C-mouse-5] #'scale-down)
+(global-set-key (kbd "M-m") 'mc/edit-lines)
 
 (setq my-rebinds '(
                      ("C-x C-l" goto-line)
