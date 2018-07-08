@@ -1,3 +1,11 @@
+let
+  pinnedNixpkgs =
+    import (fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
+        config = {
+            allowUnfree = true;
+        };
+    };
+in
 {
   allowUnfree = true;
   allowBroken = true;
@@ -37,12 +45,12 @@
       ];
     };
 
-    haskellTools = with pkgs; buildEnv {
+    haskellTools = with pinnedNixpkgs; buildEnv {
       name = "haskellTools";
       paths = [
-        haskell.packages.ghc841.cabal-install
-        haskell.packages.ghc841.cabal2nix
-        haskell.packages.ghc841.hpack
+        haskell.packages.ghc843.cabal-install
+        haskell.packages.ghc843.cabal2nix
+        haskell.packages.ghc843.hpack
       ];
     };
 
