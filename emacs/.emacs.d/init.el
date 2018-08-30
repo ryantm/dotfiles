@@ -178,7 +178,6 @@
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("C-x f" . helm-recentf)
-         ("C-SPC" . helm-dabbrev)
          ("M-y" . helm-show-kill-ring))
   :diminish (helm-mode)
   :config (progn
