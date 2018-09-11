@@ -76,10 +76,6 @@
   (global-whitespace-mode))
 
 
-(use-package cus-edit+
-  :defer t
-  :ensure t)
-
 (use-package color-theme-sanityinc-solarized
   :defer t
   :ensure t)
