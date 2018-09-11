@@ -8,9 +8,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; Packages
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://melpa.org/packages/") t)
 
 (when (not (package-installed-p 'use-package))
     (package-refresh-contents)
