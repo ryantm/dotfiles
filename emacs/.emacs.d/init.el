@@ -151,7 +151,6 @@
     :diminish (elisp-slime-nav-mode))
 
 (use-package emacs-lisp-mode
-  :ensure t
   :defer t
   :preface
   (defun my-emacs-lisp-mode-hook ()

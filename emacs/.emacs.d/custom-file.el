@@ -41,7 +41,7 @@
  '(selection-coding-system (quote utf-8))
  '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t)
- '(sort-fold-case t)
+ '(sort-fold-case t t)
  '(split-height-threshold 9999)
  '(split-width-threshold 9999)
  '(tab-width 2)
