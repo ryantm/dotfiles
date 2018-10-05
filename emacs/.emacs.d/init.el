@@ -8,9 +8,8 @@
 (prefer-coding-system 'utf-8)
 
 ;; Packages
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://melpa.org/packages/") t)
 
 (when (not (package-installed-p 'use-package))
     (package-refresh-contents)
@@ -67,6 +66,7 @@
   (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (use-package whitespace
+  :ensure t
   :defer 5
   :bind (("C-c w" . global-whitespace-mode))
   :diminish (global-whitespace-mode
@@ -75,10 +75,6 @@
   :config
   (global-whitespace-mode))
 
-
-(use-package cus-edit+
-  :defer t
-  :ensure t)
 
 (use-package color-theme-sanityinc-solarized
   :defer t
@@ -131,11 +127,13 @@
   :ensure t)
 
 (use-package paren
+  :ensure t
   :defer 5
   :config
   (show-paren-mode))
 
 (use-package shell
+  :ensure t
   :config
   (defun my-shell-mode-hook ()
     (setq tab-width 8)
@@ -173,12 +171,12 @@
   :mode "\\.nix\\'")
 
 (use-package helm
+  :ensure t
   :demand t
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("C-x f" . helm-recentf)
-         ("C-SPC" . helm-dabbrev)
          ("M-y" . helm-show-kill-ring))
   :diminish (helm-mode)
   :config (progn
@@ -186,9 +184,9 @@
             (helm-mode 1)))
 
 (use-package ruby-mode
+  :ensure t
   :mode "\\.rb\\'"
   :interpreter "ruby"
-  :ensure t
   :config (progn
             (setq ruby-deep-indent-paren-style nil)
             (use-package inf-ruby :ensure t))
