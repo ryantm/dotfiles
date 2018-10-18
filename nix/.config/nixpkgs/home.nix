@@ -1,4 +1,4 @@
-{ pkgs, ... } :
+{ pkgs, config, ... } :
 
 {
   programs.home-manager.enable = true;
@@ -55,6 +55,7 @@
     shellAliases = {
       ls = "ls --color=auto";
       grep = "grep --color=auto";
+      tmux = "tmux -f ~/${config.xdg.configFile.tmux.target}";
     };
 
     initExtra = ''
@@ -133,9 +134,24 @@
   };
 
   home.file = {
+
     ".emacs.d" = {
       source = ./emacs.d;
       recursive = true;
     };
+
+    ".gemrc".text = ''gem: --no-ri --no-rdoc'';
+
   };
+
+  xdg.configFile.tmux = {
+    target = "tmux/tmux.conf";
+    text = ''
+      # Set the prefix to ^z
+      set-option -g prefix C-z
+      bind-key C-z send-prefix
+      set-option -g renumber-windows on
+    '';
+  };
+
 }
