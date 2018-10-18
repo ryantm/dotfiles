@@ -147,7 +147,6 @@
   xdg.configFile.tmux = {
     target = "tmux/tmux.conf";
     text = ''
-      # Set the prefix to ^z
       set-option -g prefix C-z
       bind-key C-z send-prefix
       set-option -g renumber-windows on
