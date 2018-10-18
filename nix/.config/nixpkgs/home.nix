@@ -140,7 +140,8 @@
       recursive = true;
     };
 
-    ".gemrc".text = ''gem: --no-ri --no-rdoc'';
+    ".gemrc".text = "gem: --no-ri --no-rdoc";
+    ".ghc/ghci.conf".text = '':set prompt "\ESC[34mλ> \ESC[m"'';
 
   };
 
