@@ -2,24 +2,16 @@
 (unless noninteractive
   (message "Loading %s..." load-file-name))
 
-;; UTF-8
 (setq locale-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 
-;; Packages
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/") ("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-
-(when (not (package-installed-p 'use-package))
-    (package-refresh-contents)
-    (package-install 'use-package))
-
 (when (not (window-system))
   (send-string-to-terminal "\033]12;black\007"))
 
-;; use-package organizes package configuration
 (eval-when-compile
+  (require 'package)
+  (package-initialize)
   (defvar use-package-verbose t)
   (require 'use-package))
 
@@ -91,19 +83,20 @@
 (use-package c-mode :mode "\\.ino\\'")
 
 
+(use-package flycheck-haskell
+  :hook (haskell-mode . flycheck-haskell-setup)
+  :ensure t)
+
+(use-package hi2
+  :hook (haskell-mode . turn-on-hi2)
+  :ensure t)
+
 (use-package haskell-mode
+  :hook ((haskell-mode . haskell-doc-mode)
+         (haskell-mode . haskell-indentation-mode))
   :mode "\\.l?hs\\'"
   :ensure t
-  :bind ("C-c ," . haskell-mode-format-imports)
-  :config
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-
-  (use-package flycheck-haskell
-    :defer t
-    :ensure t)
-  (use-package hi2
-    :ensure t))
+  :bind ("C-c ," . haskell-mode-format-imports))
 
 (use-package purescript-mode
   :mode "\\.purs\\'"
@@ -124,47 +117,48 @@
          ("\\.markdown\\'"    . markdown-mode)))
 
 (use-package markdown-preview-mode
-  :ensure t)
+  :ensure t
+  :mode (("\\`README\\.md\\'" . gfm-mode)
+         ("\\.md\\'"          . markdown-mode)
+         ("\\.markdown\\'"    . markdown-mode)))
 
 (use-package paren
   :ensure t
-  :defer 5
-  :config
-  (show-paren-mode))
+  :hook (prog-mode . show-paren-mode))
+
+(use-package dirtrack-mode
+  :hook shell-mode)
 
 (use-package shell
+  :commands shell
   :ensure t
   :config
-  (defun my-shell-mode-hook ()
-    (setq tab-width 8)
-    (dirtrack-mode))
-  (add-hook 'shell-mode-hook 'my-shell-mode-hook))
+  (setq tab-width 8))
 
-  (use-package paredit
-    :ensure t
-    :diminish (paredit-mode))
-  (use-package rainbow-delimiters
-    :ensure t
-    :diminish (rainbow-delimiters-mode))
-  (use-package elisp-slime-nav
-    :ensure t
-    :diminish (elisp-slime-nav-mode))
+(use-package paredit
+  :hook (emacs-lisp-mode . paredit-mode)
+  :ensure t
+  :diminish (paredit-mode))
+
+(use-package rainbow-delimiters
+  :hook (emacs-lisp-mode . rainbow-delimiters-mode)
+  :ensure t
+  :diminish (rainbow-delimiters-mode))
+
+(use-package elisp-slime-nav
+  :hook (emacs-lisp-mode . elisp-slime-nav-mode)
+  :ensure t
+  :diminish (elisp-slime-nav-mode))
 
 (use-package emacs-lisp-mode
-  :defer t
-  :preface
-  (defun my-emacs-lisp-mode-hook ()
-    (paredit-mode)
-    (rainbow-delimiters-mode)
-    (elisp-slime-nav-mode))
-  (add-hook 'emacs-lisp-mode-hook 'my-emacs-lisp-mode-hook))
+  :mode "\\.el\\'")
+
+(use-package flyspell
+  :hook (haml-mode . flyspell-mode))
 
 (use-package haml-mode
   :ensure t
-  :mode "\\.haml\\'"
-  :config
-  (use-package flyspell)
-  (add-hook 'haml-mode-hook 'flyspell-mode))
+  :mode "\\.haml\\'")
 
 (use-package nix-mode
   :ensure t
@@ -172,32 +166,34 @@
 
 (use-package helm
   :ensure t
-  :demand t
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
          ("C-x f" . helm-recentf)
          ("M-y" . helm-show-kill-ring))
   :diminish (helm-mode)
-  :config (progn
-            (setq helm-buffers-fuzzy-matching t)
-            (helm-mode 1)))
+  :config
+  (setq helm-buffers-fuzzy-matching t)
+  (helm-mode 1))
+
+(use-package inf-ruby
+  :ensure t
+  :hook (ruby-mode . inf-ruby-minor-mode))
 
 (use-package ruby-mode
   :ensure t
   :mode "\\.rb\\'"
   :interpreter "ruby"
-  :config (progn
-            (setq ruby-deep-indent-paren-style nil)
-            (use-package inf-ruby :ensure t))
+  :config
+  (setq ruby-deep-indent-paren-style nil)
   :init (defun ruby-send-whole-buffer ()
           (interactive)
           (save-buffer)
           (ruby-load-file (buffer-file-name (current-buffer)))))
-  ;; :bind (("C-M-l" . ruby-forward-sexp)
-  ;;        ("C-M-j" . ruby-backward-sexp)
-  ;;        ("C-x e" . ruby-send-whole-buffer)
-  ;;        ("C-x C-e" . ruby-send-whole-buffer)))
+;; :bind (("C-M-l" . ruby-forward-sexp)
+;;        ("C-M-j" . ruby-backward-sexp)
+;;        ("C-x e" . ruby-send-whole-buffer)
+;;        ("C-x C-e" . ruby-send-whole-buffer)))
 
 (use-package zeal-at-point
   :ensure t
@@ -305,7 +301,7 @@
 
 ;;; Post initialization
 
-(when (display-graphic-p)
+(unless noninteractive
   (let ((elapsed (float-time (time-subtract (current-time)
                                             emacs-start-time))))
     (message "Loading %s...done (%.3fs)" load-file-name elapsed))
@@ -317,5 +313,3 @@
                  (message "Loading %s...done (%.3fs) [after-init]"
                           ,load-file-name elapsed)))
             t))
-
-;;; init.el ends here
