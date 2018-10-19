@@ -91,19 +91,33 @@
 
   programs.emacs.enable = true;
   programs.emacs.extraPackages = epkgs: with epkgs; [
-    magit
-    color-theme-sanityinc-solarized
-    multiple-cursors
-    haskell-mode
-    flycheck-haskell
+    magit-annex
+    lxc
+    graphql-mode
     purescript-mode
-    yaml-mode
-    ledger-mode
-    markdown-mode
-    markdown-preview-mode
+    hindent
+    helm
+    csv-mode
+    dhall-mode
+    nix-mode
+    elisp-slime-nav
+    rainbow-delimiters
     paredit
-    haml-mode
     zeal-at-point
+    yaml-mode
+    use-package
+    powerline
+    multiple-cursors
+    markdown-preview-mode
+    magit
+    ledger-mode
+    inf-ruby
+    hi2
+    haml-mode
+    flycheck-haskell
+    fill-column-indicator
+    color-theme-sanityinc-solarized
+    bash-completion
   ];
 
   programs.git = {
@@ -153,5 +167,10 @@
       set-option -g renumber-windows on
     '';
   };
+
+  # systemd.user.services.ssh-agent = {
+  #   description = "SSH key agent";
+  #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
+  # };
 
 }
