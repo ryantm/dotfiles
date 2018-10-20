@@ -1,3 +1,6 @@
+(when (getenv "INSIDE_EMACS")
+  (kill-emacs))
+
 (defconst emacs-start-time (current-time))
 (unless noninteractive
   (message "Loading %s..." load-file-name))

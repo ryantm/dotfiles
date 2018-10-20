@@ -90,6 +90,24 @@
         git_check_user_config
         git config core.sshCommand = "ssh -i ~/.ssh/r-ryantm"
       }
+
+      # Track assembly
+      export TRACK_ASSEMBLY_DIRECTORY=$POLOLU_DIR/track_assembly
+      function track_assembly {
+        pushd .
+        cd $POLOLU_DIR/system2_for_track/website
+        /opt/pololu_rails_env/preview rails runner "script/track/track_assembly.rb"
+        popd
+      }
+
+      # Track users permissions
+      export TRACK_USERS_PERMISSIONS_DIRECTORY=$POLOLU_DIR/track_users_permissions
+      function track_users_permissions {
+        pushd .
+        cd $POLOLU_DIR/system2_for_track/website
+        /opt/pololu_rails_env/preview rails runner "script/track/track_users_permissions.rb"
+        popd
+      }
     '';
 
   };
@@ -146,6 +164,7 @@
       push.default = "simple";
     };
     ignores = [
+      "result"
       "*.elc"
       ".#*"
       ".stack-work/"
@@ -164,7 +183,10 @@
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".source = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
-
+    ".urxvt/ext/font-size".source = ./urxvt/font-size;
+    ".xinitrc".source = ./x/xinitrc;
+    ".Xresources".source = ./x/Xresources;
+    ".dir_colors".source = ./shell/dir_colors;
   };
 
   xdg.configFile.tmux = {
