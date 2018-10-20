@@ -159,7 +159,11 @@
 
 (use-package nix-mode
   :ensure t
-  :mode "\\.nix\\'")
+  :mode "\\.nix\\'"
+  :custom
+  (nix-indent-function #'nix-indent-line)
+  :init
+  (require 'subr-x))
 
 (use-package helm
   :ensure t

@@ -4,6 +4,9 @@
   programs.home-manager.enable = true;
   programs.home-manager.path = https://github.com/rycee/home-manager/archive/master.tar.gz;
 
+  nixpkgs.config = import ./nixpkgs-config.nix;
+  xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+
   home.packages = with pkgs; [
     cabal-install
     cabal2nix
@@ -43,6 +46,7 @@
       TERM = "screen-256color";
       EDITOR = "emacs";
       BROWSER="google-chrome-stable";
+      TMUX_TMPDIR="$XDG_RUNTIME_DIR";
 
       NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
 
@@ -158,7 +162,7 @@
     };
 
     ".gemrc".text = "gem: --no-ri --no-rdoc";
-    ".ghc/ghci.conf".text = '':set prompt "\ESC[34mλ> \ESC[m"'';
+    ".ghc/ghci.conf".text = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
 
   };
@@ -170,6 +174,11 @@
       bind-key C-z send-prefix
       set-option -g renumber-windows on
     '';
+  };
+
+  xdg.configFile."fonts" = {
+    source = ./config/fonts;
+    recursive = true;
   };
 
   # systemd.user.services.ssh-agent = {
