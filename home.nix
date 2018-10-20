@@ -162,7 +162,7 @@
     };
 
     ".gemrc".text = "gem: --no-ri --no-rdoc";
-    ".ghc/ghci.conf".text = ./ghc/ghci.conf;
+    ".ghc/ghci.conf".source = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
 
   };
