@@ -146,19 +146,20 @@
       ".#*"
       ".stack-work/"
       "#*"
+      ".markdown-preview.html"
     ];
   };
 
   home.file = {
 
     ".emacs.d" = {
-      source = ./emacs.d;
+      source = ./emacs;
       recursive = true;
     };
 
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".text = '':set prompt "\ESC[34mλ> \ESC[m"'';
-    ".stack/config.yaml".source = ../../../stack/.stack/config.yaml;
+    ".stack/config.yaml".source = ./stack/config.yaml;
 
   };
 
