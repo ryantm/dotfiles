@@ -158,6 +158,7 @@
 
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".text = '':set prompt "\ESC[34mλ> \ESC[m"'';
+    ".stack/config.yaml".source = ../../../stack/.stack/config.yaml;
 
   };
 
