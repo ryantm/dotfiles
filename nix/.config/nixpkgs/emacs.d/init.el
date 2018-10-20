@@ -2,10 +2,6 @@
 (unless noninteractive
   (message "Loading %s..." load-file-name))
 
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
-
 (when (not (window-system))
   (send-string-to-terminal "\033]12;black\007"))
 
@@ -15,24 +11,23 @@
   (defvar use-package-verbose t)
   (require 'use-package))
 
-;; Shortcut bindings
-(require 'bind-key)
-;; Make minor modes less obvious in mode line
-(require 'diminish nil t)
-;; Use path to uniquely name buffers with the same name
-(require 'uniquify)
+(use-package bind-key)
+(use-package diminish)
+(use-package uniquify
+  :defer 5)
 
-;; broken on nixos
-;; (use-package bash-completion
-;;   :ensure t
-;;   :config
-;;   (bash-completion-setup))
+(use-package mule
+  :custom
+  (set-terminal-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  :config
+  (setq locale-coding-system 'utf-8))
 
-;; broken in emacs 25
-;; (use-package spu
-;;   :ensure t
-;;   :defer 5 ;; defer package loading for 5 second
-;;   :config (spu-package-upgrade-daily))
+(use-package bash-completion
+  :disabled
+  :ensure t
+  :config
+  (bash-completion-setup))
 
 (use-package autorevert
   :defer 5
@@ -91,9 +86,13 @@
   :hook (haskell-mode . turn-on-hi2)
   :ensure t)
 
+(use-package haskell-doc-mode
+  :hook (haskell-mode))
+
+(use-package haskell-indentation-mode
+  :hook (haskell-mode))
+
 (use-package haskell-mode
-  :hook ((haskell-mode . haskell-doc-mode)
-         (haskell-mode . haskell-indentation-mode))
   :mode "\\.l?hs\\'"
   :ensure t
   :bind ("C-c ," . haskell-mode-format-imports))
@@ -110,13 +109,11 @@
   :mode "\\.ledger\\'"
   :ensure t)
 
-(use-package markdown-mode
-  :ensure t
-  :mode (("\\`README\\.md\\'" . gfm-mode)
-         ("\\.md\\'"          . markdown-mode)
-         ("\\.markdown\\'"    . markdown-mode)))
-
 (use-package markdown-preview-mode
+  :ensure t
+  :hook (gfm-mode markdown-mode))
+
+(use-package markdown-mode
   :ensure t
   :mode (("\\`README\\.md\\'" . gfm-mode)
          ("\\.md\\'"          . markdown-mode)
@@ -172,9 +169,8 @@
          ("C-x f" . helm-recentf)
          ("M-y" . helm-show-kill-ring))
   :diminish (helm-mode)
-  :config
-  (setq helm-buffers-fuzzy-matching t)
-  (helm-mode 1))
+  :custom
+  (helm-buffers-fuzzy-matching t))
 
 (use-package inf-ruby
   :ensure t
@@ -184,8 +180,9 @@
   :ensure t
   :mode "\\.rb\\'"
   :interpreter "ruby"
+  :custom
+  (ruby-deep-indent-paren-style nil)
   :config
-  (setq ruby-deep-indent-paren-style nil)
   :init (defun ruby-send-whole-buffer ()
           (interactive)
           (save-buffer)
@@ -205,19 +202,10 @@
 (setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
 (load custom-file)
 
-(when (display-graphic-p)
+(unless noninteractive
   (let ((elapsed (float-time (time-subtract (current-time)
                                             custom-file-start-time))))
-    (message "Loading custom-file...done (%.3fs)" elapsed))
-
-  (add-hook 'after-init-hook
-            `(lambda ()
-               (let ((elapsed (float-time (time-subtract
-                                           (current-time)
-                                           custom-file-start-time))))
-                 (message "Loading custom-file...done (%.3fs) [after-init]"
-                          elapsed)))
-            t))
+    (message "Loading custom-file...done (%.3fs)" elapsed)))
 
 
 ;; Write backup and autosave files to their own directories

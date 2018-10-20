@@ -5,30 +5,31 @@
   programs.home-manager.path = https://github.com/rycee/home-manager/archive/master.tar.gz;
 
   home.packages = with pkgs; [
-    rxvt_unicode
-    openvpn
-    google-chrome
-    firefox
-    ledger
-    thunderbird
-    remmina
-    vlc
-    scrot
-    gimp
-    calibre
-    libreoffice
-    qbittorrent
-    fbreader
-    usbutils
-    zsnes
-    ruby
-    python
-    evince
-    yubikey-personalization-gui
-    steam
     cabal-install
     cabal2nix
+    calibre
+    evince
+    fbreader
+    firefox
+    gimp
+    google-chrome
     haskellPackages.hpack
+    ledger
+    libreoffice
+    openvpn
+    python
+    qbittorrent
+    remmina
+    ruby
+    rxvt_unicode
+    scrot
+    steam
+    thunderbird
+    usbutils
+    vlc
+    yubikey-personalization-gui
+    zeal
+    zsnes
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -91,33 +92,34 @@
 
   programs.emacs.enable = true;
   programs.emacs.extraPackages = epkgs: with epkgs; [
-    magit-annex
-    lxc
-    graphql-mode
-    purescript-mode
-    hindent
-    helm
-    csv-mode
-    dhall-mode
-    nix-mode
-    elisp-slime-nav
-    rainbow-delimiters
-    paredit
-    zeal-at-point
-    yaml-mode
-    use-package
-    powerline
-    multiple-cursors
-    markdown-preview-mode
-    magit
-    ledger-mode
-    inf-ruby
-    hi2
-    haml-mode
-    flycheck-haskell
-    fill-column-indicator
-    color-theme-sanityinc-solarized
     bash-completion
+    color-theme-sanityinc-solarized
+    csv-mode
+    diminish
+    dhall-mode
+    elisp-slime-nav
+    fill-column-indicator
+    flycheck-haskell
+    graphql-mode
+    haml-mode
+    helm
+    hi2
+    hindent
+    inf-ruby
+    ledger-mode
+    lxc
+    magit
+    magit-annex
+    markdown-preview-mode
+    multiple-cursors
+    nix-mode
+    paredit
+    powerline
+    purescript-mode
+    rainbow-delimiters
+    use-package
+    yaml-mode
+    zeal-at-point
   ];
 
   programs.git = {
