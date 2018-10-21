@@ -191,6 +191,7 @@
     ".xinitrc".source = ./x/xinitrc;
     ".Xresources".source = ./x/Xresources;
     ".dir_colors".source = ./shell/dir_colors;
+    ".asoundrc".source = ./alsa/asoundrc;
   };
 
   xdg.configFile.tmux = {
