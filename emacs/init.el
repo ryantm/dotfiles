@@ -11,8 +11,10 @@
 (eval-when-compile
   (require 'package)
   (package-initialize)
-  (defvar use-package-verbose t)
-  (require 'use-package))
+  (defvar use-package-verbose t))
+
+(require 'use-package)
+(setq use-package-compute-statistics t)
 
 (use-package bind-key)
 (use-package diminish)
@@ -28,7 +30,6 @@
 
 (use-package bash-completion
   :disabled
-  :ensure t
   :config
   (bash-completion-setup))
 
@@ -47,16 +48,12 @@
    [tab ?p tab ?\C-l ?\C-l])
 
 (use-package magit
-  :ensure t
   :bind (("C-x g" . magit-status)
          :map magit-status-mode-map
          ("C-M-n" . magit-rtm-down)
-         ("C-M-p" . magit-rtm-up))
-  :init
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+         ("C-M-p" . magit-rtm-up)))
 
 (use-package whitespace
-  :ensure t
   :defer 5
   :bind (("C-c w" . global-whitespace-mode))
   :diminish (global-whitespace-mode
@@ -66,108 +63,86 @@
   (global-whitespace-mode))
 
 
-(use-package color-theme-sanityinc-solarized
-  :defer t
-  :ensure t)
+(use-package color-theme-sanityinc-solarized)
 
 (use-package multiple-cursors
-  :defer t
-  :ensure t)
+  :defer t)
 
 (use-package flycheck
-  :defer t
-  :ensure t)
+  :defer t)
 
-(use-package c-mode :mode "\\.ino\\'")
+(use-package cc-mode
+  :mode ("\\.ino\\'" . c-mode))
 
 
 (use-package flycheck-haskell
-  :hook (haskell-mode . flycheck-haskell-setup)
-  :ensure t)
+  :hook (haskell-mode . flycheck-haskell-setup))
 
 (use-package hi2
-  :hook (haskell-mode . turn-on-hi2)
-  :ensure t)
-
-(use-package haskell-doc-mode
-  :hook (haskell-mode))
-
-(use-package haskell-indentation-mode
-  :hook (haskell-mode))
+  :hook (haskell-mode . turn-on-hi2))
 
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
-  :ensure t
+  :hook ((haskell-mode . haskell-doc-mode)
+         (haskell-mode . haskell-indentation-mode))
   :bind ("C-c ," . haskell-mode-format-imports))
 
 (use-package purescript-mode
-  :mode "\\.purs\\'"
-  :ensure t)
+  :mode "\\.purs\\'")
 
 (use-package yaml-mode
-  :mode "\\.ya?ml\\'"
-  :ensure t)
+  :mode "\\.ya?ml\\'")
 
 (use-package ledger-mode
-  :mode "\\.ledger\\'"
-  :ensure t)
+  :mode "\\.ledger\\'")
 
 (use-package markdown-preview-mode
-  :ensure t
   :hook (gfm-mode markdown-mode))
 
 (use-package markdown-mode
-  :ensure t
   :mode (("\\`README\\.md\\'" . gfm-mode)
          ("\\.md\\'"          . markdown-mode)
          ("\\.markdown\\'"    . markdown-mode)))
 
 (use-package paren
-  :ensure t
   :hook (prog-mode . show-paren-mode))
 
-(use-package dirtrack-mode
-  :hook shell-mode)
+(use-package dirtrack
+ :hook (shell-mode . dirtrack-mode))
 
 (use-package shell
   :commands shell
-  :ensure t
   :config
   (setq tab-width 8))
 
 (use-package paredit
   :hook (emacs-lisp-mode . paredit-mode)
-  :ensure t
   :diminish (paredit-mode))
 
 (use-package rainbow-delimiters
   :hook (emacs-lisp-mode . rainbow-delimiters-mode)
-  :ensure t
   :diminish (rainbow-delimiters-mode))
 
 (use-package elisp-slime-nav
   :hook (emacs-lisp-mode . elisp-slime-nav-mode)
-  :ensure t
   :diminish (elisp-slime-nav-mode))
 
-(use-package emacs-lisp-mode
-  :mode "\\.el\\'")
+(use-package elisp-mode
+ :mode ("\\.el\\'" . emacs-lisp-mode))
 
 (use-package flyspell
   :hook (haml-mode . flyspell-mode))
 
 (use-package haml-mode
-  :ensure t
   :mode "\\.haml\\'")
 
 (use-package nix-mode
-  :ensure t
   :mode "\\.nix\\'"
+  :functions nix-indent-line
   :custom
   (nix-indent-function #'nix-indent-line))
 
 (use-package helm
-  :ensure t
   :bind (("M-x" . helm-M-x)
          ("C-x C-f" . helm-find-files)
          ("C-x b" . helm-buffers-list)
@@ -178,33 +153,21 @@
   (helm-buffers-fuzzy-matching t))
 
 (use-package inf-ruby
-  :ensure t
   :hook (ruby-mode . inf-ruby-minor-mode))
 
 (use-package ruby-mode
-  :ensure t
   :mode "\\.rb\\'"
   :interpreter "ruby"
   :custom
-  (ruby-deep-indent-paren-style nil)
-  :config
-  :init (defun ruby-send-whole-buffer ()
-          (interactive)
-          (save-buffer)
-          (ruby-load-file (buffer-file-name (current-buffer)))))
-;; :bind (("C-M-l" . ruby-forward-sexp)
-;;        ("C-M-j" . ruby-backward-sexp)
-;;        ("C-x e" . ruby-send-whole-buffer)
-;;        ("C-x C-e" . ruby-send-whole-buffer)))
+  (ruby-deep-indent-paren-style nil))
 
 (use-package zeal-at-point
-  :ensure t
   :bind ("C-c d" . zeal-at-point))
 
 ;; Customizations
 (defconst custom-file-start-time (current-time))
 
-(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
+(setq custom-file (expand-file-name "custom-file.elc" user-emacs-directory))
 (load custom-file)
 
 (unless noninteractive
@@ -266,27 +229,23 @@
 (global-set-key [C-mouse-5] #'scale-down)
 (global-set-key (kbd "M-m") 'mc/edit-lines)
 
-(setq my-rebinds '(
-                     ("C-x C-l" goto-line)
+(let ((rebindings '(("C-x C-l" goto-line)
                      ("C-x l" goto-line)
                      ("C-x e" eval-last-sexp)
                      ("<C-tab>" next-buffer)
                      ("<C-S-iso-lefttab>" previous-buffer)
                      ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep)))
-
-(defun do-rebindings (rebindings)
+                     ("C-x C-r" rgrep))))
   (dolist (element rebindings)
     (let  ((keyboard-string (nth 0 element))
            (function (nth 1 element)))
       (global-set-key (read-kbd-macro keyboard-string) function))))
-(do-rebindings my-rebinds)
 
 (setq enable-local-variables :safe)
 
 ;;; Tabs
-(setq indent 2)
 (setq js-indent-level 2)
+(setq tab-width 2)
 
 ;;; Appearance
 (global-font-lock-mode t)

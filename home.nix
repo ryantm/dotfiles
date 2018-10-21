@@ -178,6 +178,10 @@
     ".emacs.d" = {
       source = ./emacs;
       recursive = true;
+      onChange = ''
+        emacs --batch --eval '(byte-compile-file "~/.emacs.d/init.el")'
+        emacs --batch --eval '(byte-compile-file "~/.emacs.d/custom-file.el")'
+      '';
     };
 
     ".gemrc".text = "gem: --no-ri --no-rdoc";
