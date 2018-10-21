@@ -11,10 +11,9 @@
 (eval-when-compile
   (require 'package)
   (package-initialize)
-  (defvar use-package-verbose t))
+  (defvar use-package-verbose t)
+  (require 'use-package))
 
-(require 'use-package)
-(setq use-package-compute-statistics t)
 
 (use-package bind-key)
 (use-package diminish)
@@ -40,12 +39,12 @@
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
-; Macro for browsing a large magit commit history
+;; Macro for browsing a large magit commit history
 (fset 'magit-rtm-down
-   [tab ?n tab ?\C-l ?\C-l])
+      [tab ?n tab ?\C-l ?\C-l])
 
 (fset 'magit-rtm-up
-   [tab ?p tab ?\C-l ?\C-l])
+      [tab ?p tab ?\C-l ?\C-l])
 
 (use-package magit
   :bind (("C-x g" . magit-status)
@@ -108,7 +107,7 @@
   :hook (prog-mode . show-paren-mode))
 
 (use-package dirtrack
- :hook (shell-mode . dirtrack-mode))
+  :hook (shell-mode . dirtrack-mode))
 
 (use-package shell
   :commands shell
@@ -128,7 +127,7 @@
   :diminish (elisp-slime-nav-mode))
 
 (use-package elisp-mode
- :mode ("\\.el\\'" . emacs-lisp-mode))
+  :mode ("\\.el\\'" . emacs-lisp-mode))
 
 (use-package flyspell
   :hook (haml-mode . flyspell-mode))
@@ -178,13 +177,13 @@
 
 ;; Write backup and autosave files to their own directories
 (setq
-   backup-by-copying t
-   backup-directory-alist '(("." . "~/.saves"))
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t
-   vc-make-backup-files t)
+ backup-by-copying t
+ backup-directory-alist '(("." . "~/.saves"))
+ delete-old-versions t
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t
+ vc-make-backup-files t)
 
 ;; (setq backup-directory-alist
 ;;       `((".*" . ,(expand-file-name
@@ -202,10 +201,10 @@
 
 ;; Rebindings
 
-(global-unset-key (kbd "C-x C-b")) ;; Annoying Key (because it gets in
-                                   ;; the way of switching buffers)
+;; Annoying Key (because it gets in the way of switching buffers)
+(global-unset-key (kbd "C-x C-b"))
 
-; mousewheel and C-+ C-- scrolling
+;; mousewheel and C-+ C-- scrolling
 (defun scale-to (f)
   (set-face-attribute 'default nil :height
                       (round f)))
@@ -214,13 +213,13 @@
   (scale-to (* f (face-attribute 'default :height))))
 
 (defun scale-up () (interactive)
-  (scale-by 1.1))
+       (scale-by 1.1))
 
 (defun scale-down () (interactive)
-  (scale-by (/ 1 1.1)))
+       (scale-by (/ 1 1.1)))
 
 (defun scale-reset () (interactive)
-  (scale-to 100))
+       (scale-to 100))
 
 (global-set-key (kbd "C-=") #'scale-up)
 (global-set-key (kbd "C--") #'scale-down)
@@ -230,12 +229,12 @@
 (global-set-key (kbd "M-m") 'mc/edit-lines)
 
 (let ((rebindings '(("C-x C-l" goto-line)
-                     ("C-x l" goto-line)
-                     ("C-x e" eval-last-sexp)
-                     ("<C-tab>" next-buffer)
-                     ("<C-S-iso-lefttab>" previous-buffer)
-                     ("M-i" ido-goto-symbol)
-                     ("C-x C-r" rgrep))))
+                    ("C-x l" goto-line)
+                    ("C-x e" eval-last-sexp)
+                    ("<C-tab>" next-buffer)
+                    ("<C-S-iso-lefttab>" previous-buffer)
+                    ("M-i" ido-goto-symbol)
+                    ("C-x C-r" rgrep))))
   (dolist (element rebindings)
     (let  ((keyboard-string (nth 0 element))
            (function (nth 1 element)))
