@@ -96,7 +96,7 @@
       function track_assembly {
         pushd .
         cd $POLOLU_DIR/system2_for_track/website
-        /opt/pololu_rails_env/preview rails runner "script/track/track_assembly.rb"
+        nix-shell --run "pololu-rails-env-preview rails runner script/track/track_assembly.rb"
         popd
       }
 
@@ -105,7 +105,7 @@
       function track_users_permissions {
         pushd .
         cd $POLOLU_DIR/system2_for_track/website
-        /opt/pololu_rails_env/preview rails runner "script/track/track_users_permissions.rb"
+        nix-shell --run "pololu-rails-env-preview rails runner script/track/track_users_permissions.rb"
         popd
       }
     '';
