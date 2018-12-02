@@ -30,6 +30,7 @@
     usbutils
     vlc
     yubikey-personalization-gui
+    yubikey-manager
     zeal
     zsnes
   ];
