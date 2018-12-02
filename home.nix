@@ -12,7 +12,6 @@
     cabal2nix
     calibre
     evince
-    fbreader
     firefox
     gimp
     google-chrome
