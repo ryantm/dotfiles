@@ -16,6 +16,8 @@
     gimp
     google-chrome
     haskellPackages.hpack
+#    haskellPackages.intero
+    haskellPackages.ghcid
     ledger
     libreoffice
     openvpn
@@ -142,6 +144,7 @@
     use-package
     yaml-mode
     zeal-at-point
+    intero
   ];
 
   programs.git = {

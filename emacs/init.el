@@ -73,18 +73,14 @@
 (use-package cc-mode
   :mode ("\\.ino\\'" . c-mode))
 
-
-(use-package flycheck-haskell
-  :hook (haskell-mode . flycheck-haskell-setup))
-
-(use-package hi2
-  :hook (haskell-mode . turn-on-hi2))
+;; (use-package intero
+;;   :custom
+;;   (intero-global-mode 1))
 
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
-  :hook ((haskell-mode . haskell-doc-mode)
-         (haskell-mode . haskell-indentation-mode))
-  :bind ("C-c ," . haskell-mode-format-imports))
+  :bind ("C-c ," . haskell-mode-format-imports)
+  :hook (before-save . hindent-reformat-buffer))
 
 (use-package purescript-mode
   :mode "\\.purs\\'")
