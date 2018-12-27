@@ -12,11 +12,12 @@
     cabal2nix
     calibre
     evince
-    fbreader
     firefox
     gimp
     google-chrome
     haskellPackages.hpack
+#    haskellPackages.intero
+    haskellPackages.ghcid
     ledger
     libreoffice
     openvpn
@@ -30,6 +31,7 @@
     usbutils
     vlc
     yubikey-personalization-gui
+    yubikey-manager
     zeal
     zsnes
   ];
@@ -141,6 +143,7 @@
     use-package
     yaml-mode
     zeal-at-point
+    intero
   ];
 
   programs.git = {
