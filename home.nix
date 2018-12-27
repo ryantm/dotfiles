@@ -23,10 +23,9 @@
     python
     qbittorrent
     remmina
-    ruby
     rxvt_unicode
     scrot
-    steam
+#    steam
     thunderbird
     usbutils
     vlc
