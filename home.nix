@@ -24,11 +24,10 @@
     python
     qbittorrent
     remmina
-    ruby
     rxvt_unicode
     st
     scrot
-    steam
+#    steam
     thunderbird
     usbutils
     vlc
@@ -67,6 +66,18 @@
     };
 
     initExtra = ''
+
+      function settitle {
+        printf "\033k$1\033\\"
+      }
+
+      # Set terminal title during ssh session
+      function ssh {
+        settitle "$*"
+        command ssh "$@"
+        settitle "bash"
+      }
+
       # Git user configuration scripts
       function git_config_user {
         git config --replace-all user.name "$1"
