@@ -81,7 +81,8 @@
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :bind ("C-c ," . haskell-mode-format-imports)
-  :hook (before-save . hindent-reformat-buffer))
+;;  :hook (before-save . hindent-reformat-buffer)
+  )
 
 (use-package purescript-mode
   :mode "\\.purs\\'")
