@@ -47,6 +47,7 @@
       [tab ?p tab ?\C-l ?\C-l])
 
 (use-package magit
+  :commands (magit-status)
   :bind (("C-x g" . magit-status)
          :map magit-status-mode-map
          ("C-M-n" . magit-rtm-down)
