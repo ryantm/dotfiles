@@ -26,6 +26,7 @@
     remmina
     ruby
     rxvt_unicode
+    st
     scrot
     steam
     thunderbird
