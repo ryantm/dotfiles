@@ -67,7 +67,7 @@
     initExtra = ''
 
       function settitle {
-        printf "\033k$1\033\\"
+        tmux rename-window "$1"
       }
 
       # Set terminal title during ssh session
