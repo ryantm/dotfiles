@@ -47,6 +47,7 @@
       [tab ?p tab ?\C-l ?\C-l])
 
 (use-package magit
+  :commands (magit-status)
   :bind (("C-x g" . magit-status)
          :map magit-status-mode-map
          ("C-M-n" . magit-rtm-down)
@@ -77,10 +78,14 @@
 ;;   :custom
 ;;   (intero-global-mode 1))
 
+(defun my-haskell-mode-before-save-hook ()
+  (when (eq major-mode 'haskell-mode)
+    (hindent-reformat-buffer)))
+
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :bind ("C-c ," . haskell-mode-format-imports)
-  :hook (before-save . hindent-reformat-buffer))
+  :hook (before-save . my-haskell-mode-before-save-hook))
 
 (use-package purescript-mode
   :mode "\\.purs\\'")

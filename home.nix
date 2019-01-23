@@ -23,8 +23,11 @@
     openvpn
     python
     qbittorrent
+    ranger
+    w3m
     remmina
     rxvt_unicode
+    st
     scrot
 #    steam
     thunderbird
@@ -221,6 +224,11 @@
     source = ./config/fonts;
     recursive = true;
   };
+
+  xdg.configFile."ranger/rc.conf".text = ''
+    set preview_images true
+    set preview_images_method urxvt
+  '';
 
   # systemd.user.services.ssh-agent = {
   #   description = "SSH key agent";
