@@ -29,7 +29,9 @@
     rxvt_unicode
     st
     scrot
-#    steam
+    steam
+    minecraft
+    tmux
     thunderbird
     usbutils
     vlc
