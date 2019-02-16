@@ -18,6 +18,7 @@
     haskellPackages.hpack
 #    haskellPackages.intero
     haskellPackages.ghcid
+    inkscape
     ledger
     libreoffice
     openvpn
