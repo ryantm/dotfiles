@@ -10,6 +10,8 @@
  '(auto-save-file-name-transforms
    (quote
     (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
+ '(ledger-default-date-format ledger-iso-date-format)
+ '(ledger-reconcile-default-date-format "%Y-%m-%d")
  '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
