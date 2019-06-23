@@ -18,6 +18,7 @@
     haskellPackages.hpack
 #    haskellPackages.intero
     haskellPackages.ghcid
+    inkscape
     ledger
     libreoffice
     openvpn
@@ -29,7 +30,9 @@
     rxvt_unicode
     st
     scrot
-#    steam
+    steam
+    minecraft
+    tmux
     thunderbird
     usbutils
     vlc
@@ -70,7 +73,7 @@
     initExtra = ''
 
       function settitle {
-        printf "\033k$1\033\\"
+        tmux rename-window "$1"
       }
 
       # Set terminal title during ssh session
