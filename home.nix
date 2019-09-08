@@ -19,6 +19,7 @@
 #    haskellPackages.intero
     haskellPackages.ghcid
     inkscape
+    keybase-gui
     ledger
     libreoffice
     openvpn
@@ -238,4 +239,11 @@
   #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
   # };
 
+  services.keybase.enable = true;
+
+  services.redshift = {
+    enable = true;
+    latitude = "36.10";
+    longitude = "115.8";
+  };
 }
