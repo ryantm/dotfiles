@@ -1,9 +1,10 @@
 let
   pinnedNixpkgs =
     import (fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz) {
-        config = {
-            allowUnfree = true;
-        };
+      config = {
+        allowUnfree = true;
+        minecraft.alsa = true;
+      };
     };
 in
 {
