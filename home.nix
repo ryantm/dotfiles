@@ -241,9 +241,4 @@
 
   services.keybase.enable = true;
 
-  services.redshift = {
-    enable = true;
-    latitude = "36.10";
-    longitude = "115.8";
-  };
 }
