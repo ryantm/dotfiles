@@ -62,9 +62,6 @@
   :config
   (global-whitespace-mode))
 
-
-(use-package color-theme-sanityinc-solarized)
-
 (use-package multiple-cursors
   :defer t)
 
