@@ -51,7 +51,7 @@
     historyIgnore = [ "ls" ];
 
     sessionVariables = {
-      TERM = "screen-256color";
+      TERM = "xterm-256color";
       EDITOR = "emacs";
       BROWSER="google-chrome-stable";
       TMUX_TMPDIR="$XDG_RUNTIME_DIR";
