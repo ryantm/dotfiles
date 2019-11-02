@@ -239,6 +239,4 @@
   #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
   # };
 
-  services.keybase.enable = true;
-
 }
