@@ -1,8 +1,9 @@
-{ pkgs, config, ... } :
+{ pkgs, config, ... }:
 
 {
   programs.home-manager.enable = true;
-  programs.home-manager.path = https://github.com/rycee/home-manager/archive/master.tar.gz;
+  programs.home-manager.path =
+    "https://github.com/rycee/home-manager/archive/master.tar.gz";
 
   nixpkgs.config = import ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
@@ -16,7 +17,7 @@
     gimp
     google-chrome
     haskellPackages.hpack
-#    haskellPackages.intero
+    #    haskellPackages.intero
     haskellPackages.ghcid
     inkscape
     keybase-gui
@@ -41,20 +42,21 @@
     yubikey-manager
     zeal
     zsnes
+    nixfmt
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
 
   programs.bash = {
     enable = true;
-    historyControl = ["ignoredups"];
+    historyControl = [ "ignoredups" ];
     historyIgnore = [ "ls" ];
 
     sessionVariables = {
       TERM = "xterm-256color";
       EDITOR = "emacs";
-      BROWSER="google-chrome-stable";
-      TMUX_TMPDIR="$XDG_RUNTIME_DIR";
+      BROWSER = "google-chrome-stable";
+      TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
 
       NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
 
@@ -133,47 +135,52 @@
   };
 
   programs.emacs.enable = true;
-  programs.emacs.extraPackages = epkgs: with epkgs; [
-    bash-completion
-    color-theme-sanityinc-solarized
-    csv-mode
-    diminish
-    dhall-mode
-    elisp-slime-nav
-    fill-column-indicator
-    flycheck-haskell
-    graphql-mode
-    haml-mode
-    helm
-    hi2
-    hindent
-    inf-ruby
-    ledger-mode
-    lxc
-    magit
-    magit-annex
-    markdown-preview-mode
-    multiple-cursors
-    nix-mode
-    paredit
-    powerline
-    purescript-mode
-    rainbow-delimiters
-    use-package
-    yaml-mode
-    zeal-at-point
-    intero
-  ];
+  programs.emacs.extraPackages = epkgs:
+    with epkgs; [
+      bash-completion
+      counsel
+      csv-mode
+      dhall-mode
+      diminish
+      elisp-slime-nav
+      fill-column-indicator
+      flycheck-haskell
+      forge
+      forge
+      graphql-mode
+      haml-mode
+      hi2
+      hindent
+      inf-ruby
+      ivy
+      ledger-mode
+      lxc
+      magit
+      magit-annex
+      markdown-preview-mode
+      multiple-cursors
+      nix-mode
+      paredit
+      powerline
+      purescript-mode
+      rainbow-delimiters
+      swiper
+      use-package
+      yaml-mode
+      zeal-at-point
+    ];
 
   programs.git = {
     userEmail = "";
     userName = "";
     enable = true;
     aliases = {
-      review = "!sh -c 'git fetch -a && gitk origin/review/$1 --not origin/$2' -";
+      review =
+        "!sh -c 'git fetch -a && gitk origin/review/$1 --not origin/$2' -";
       unmerged = "!git branch -a --no-merged | grep remotes/";
       sync = "!git fetch --all --prune && git fetch --tags";
-      delbranch = "!sh -c 'git branch -d dev/ryantm/$1 && git push origin :dev/ryantm/$1' -";
+      delbranch =
+        "!sh -c 'git branch -d dev/ryantm/$1 && git push origin :dev/ryantm/$1' -";
     };
     extraConfig = {
       user.useConfigOnly = true;
@@ -184,14 +191,8 @@
       };
       push.default = "simple";
     };
-    ignores = [
-      "result"
-      "*.elc"
-      ".#*"
-      ".stack-work/"
-      "#*"
-      ".markdown-preview.html"
-    ];
+    ignores =
+      [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
   };
 
   home.file = {
