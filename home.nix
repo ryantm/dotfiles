@@ -190,6 +190,7 @@
         branch = "auto";
       };
       push.default = "simple";
+      github.user = "ryantm";
     };
     ignores =
       [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
