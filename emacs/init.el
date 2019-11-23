@@ -53,6 +53,9 @@
          ("C-M-n" . magit-rtm-down)
          ("C-M-p" . magit-rtm-up)))
 
+(use-package forge
+  :after magit)
+
 (use-package whitespace
   :defer 5
   :bind (("C-c w" . global-whitespace-mode))
@@ -74,6 +77,9 @@
 ;; (use-package intero
 ;;   :custom
 ;;   (intero-global-mode 1))
+
+
+(declare-function hindent-reformat-buffer "hindent" ())
 
 (defun my-haskell-mode-before-save-hook ()
   (when (eq major-mode 'haskell-mode)
@@ -139,15 +145,27 @@
   :custom
   (nix-indent-function #'nix-indent-line))
 
-(use-package helm
-  :bind (("M-x" . helm-M-x)
-         ("C-x C-f" . helm-find-files)
-         ("C-x b" . helm-buffers-list)
-         ("C-x f" . helm-recentf)
-         ("M-y" . helm-show-kill-ring))
-  :diminish (helm-mode)
+(declare-function ivy-mode "ivy" ())
+(use-package ivy
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+         ("C-x B" . ivy-switch-buffer-other-window))
   :custom
-  (helm-buffers-fuzzy-matching t))
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  :config (ivy-mode))
+
+(declare-function counsel-mode "counsel" ())
+(use-package counsel
+  :after ivy
+  :diminish
+  :config (counsel-mode))
+
+(use-package swiper
+  :after ivy
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
 
 (use-package inf-ruby
   :hook (ruby-mode . inf-ruby-minor-mode))
@@ -247,6 +265,14 @@
 ;;; Appearance
 (global-font-lock-mode t)
 (setq inhibit-splash-screen t)
+
+(defun nixfmt ()
+  "Run nixfmt on current buffer."
+  (interactive)
+  ()
+  (save-buffer)
+  (shell-command (concat "nixfmt " (buffer-file-name)))
+  (revert-buffer t t t))
 
 ;;; Post initialization
 
