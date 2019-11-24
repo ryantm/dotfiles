@@ -153,6 +153,7 @@
       hindent
       inf-ruby
       ivy
+      ivy-hydra
       ledger-mode
       lxc
       magit
