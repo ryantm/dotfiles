@@ -17,7 +17,6 @@
     gimp
     google-chrome
     haskellPackages.hpack
-    #    haskellPackages.intero
     haskellPackages.ghcid
     inkscape
     keybase-gui
@@ -211,7 +210,6 @@
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".source = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
-    ".urxvt/ext/font-size".source = ./urxvt/font-size;
     ".xinitrc".source = ./x/xinitrc;
     ".Xresources".source = ./x/Xresources;
     ".dir_colors".source = ./shell/dir_colors;
