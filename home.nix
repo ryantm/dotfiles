@@ -159,6 +159,7 @@
     yaml-mode
     zeal-at-point
     intero
+    graphviz-dot-mode
   ];
 
   programs.git = {
