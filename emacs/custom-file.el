@@ -10,15 +10,12 @@
  '(auto-save-file-name-transforms
    (quote
     (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
+ '(ledger-reconcile-default-date-format "%Y-%m-%d")
  '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
  '(create-lockfiles nil)
- '(custom-enabled-themes (quote (sanityinc-solarized-light)))
  '(custom-file "~/.emacs.d/custom-file.el")
- '(custom-safe-themes
-   (quote
-    ("4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" default)))
  '(dirtrack-list (quote ("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
@@ -34,7 +31,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ color-theme-sanityinc-solarized bash-completion)))
+    (magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion)))
  '(save-place-file "/home/ryantm/.emacs.d/.places")
  '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
@@ -85,7 +82,7 @@
      (tab-mark 9
                [32 9]
                [32 9]))))
- '(whitespace-global-modes (quote (not dired-mode magit-mode shell-mode)))
+ '(whitespace-global-modes (quote (not dired-mode magit-mode magit-log-mode shell-mode)))
  '(whitespace-style
    (quote
     (face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark))))
