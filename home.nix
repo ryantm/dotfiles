@@ -193,6 +193,7 @@
       };
       push.default = "simple";
       github.user = "ryantm";
+      merge.conflictstyle = "diff3";
     };
     ignores =
       [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
