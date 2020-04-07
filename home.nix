@@ -1,6 +1,32 @@
 { pkgs, config, ... }:
 
 {
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+
+    (# This overlay adds Ormolu straight from GitHub.
+    self: super:
+
+    let source = super.fetchFromGitHub {
+      owner = "tweag";
+      repo = "ormolu";
+      rev = "9dbba5300aef65849b0dadfdf7548b45c4eeb70e"; # update as necessary
+      sha256 = "1ndwx918rx6vkwc3pva8zbzn33brlxp04gdpkzwqrnq535nx23f8"; # as well
+    };
+    ormolu = import source { pkgs = self; };
+    in {
+      haskell = super.haskell // {
+        packages = super.haskell.packages // {
+          "${ormolu.ormoluCompiler}" = super.haskell.packages.${ormolu.ormoluCompiler}.override {
+            overrides = ormolu.ormoluOverlay;
+          };
+        };
+      };
+    })
+  ];
+
   programs.home-manager.enable = true;
   programs.home-manager.path =
     "https://github.com/rycee/home-manager/archive/master.tar.gz";
@@ -15,6 +41,8 @@
     evince
     firefox
     gimp
+    git-crypt
+    gnupg
     google-chrome
     haskellPackages.hpack
     haskellPackages.ghcid
@@ -28,7 +56,6 @@
     ranger
     w3m
     remmina
-    rxvt_unicode
     st
     scrot
     steam
@@ -42,6 +69,7 @@
     zeal
     zsnes
     nixfmt
+    haskellPackages.ormolu
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -160,6 +188,7 @@
       markdown-preview-mode
       multiple-cursors
       nix-mode
+      ormolu
       paredit
       powerline
       purescript-mode
@@ -239,5 +268,15 @@
   #   description = "SSH key agent";
   #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
   # };
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+    '';
+    pinentryFlavor = "gnome3";
+    verbose = true;
+  };
 
 }
