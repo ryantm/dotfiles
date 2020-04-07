@@ -175,6 +175,7 @@
       forge
       forge
       graphql-mode
+      graphviz-dot-mode
       haml-mode
       hi2
       hindent
@@ -220,6 +221,7 @@
       };
       push.default = "simple";
       github.user = "ryantm";
+      merge.conflictstyle = "diff3";
     };
     ignores =
       [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
