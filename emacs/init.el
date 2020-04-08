@@ -78,17 +78,10 @@
 ;;   :custom
 ;;   (intero-global-mode 1))
 
-
-(declare-function hindent-reformat-buffer "hindent" ())
-
-(defun my-haskell-mode-before-save-hook ()
-  (when (eq major-mode 'haskell-mode)
-    (hindent-reformat-buffer)))
-
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
-  :bind ("C-c ," . haskell-mode-format-imports)
-  :hook (before-save . my-haskell-mode-before-save-hook))
+  :hook (ormolu-format-on-save-mode))
+;;  :bind ("C-c ," . haskell-mode-format-imports)
 
 (use-package purescript-mode
   :mode "\\.purs\\'")

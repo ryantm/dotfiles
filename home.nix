@@ -1,6 +1,32 @@
 { pkgs, config, ... }:
 
 {
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
+    }))
+
+    (# This overlay adds Ormolu straight from GitHub.
+    self: super:
+
+    let source = super.fetchFromGitHub {
+      owner = "tweag";
+      repo = "ormolu";
+      rev = "9dbba5300aef65849b0dadfdf7548b45c4eeb70e"; # update as necessary
+      sha256 = "1ndwx918rx6vkwc3pva8zbzn33brlxp04gdpkzwqrnq535nx23f8"; # as well
+    };
+    ormolu = import source { pkgs = self; };
+    in {
+      haskell = super.haskell // {
+        packages = super.haskell.packages // {
+          "${ormolu.ormoluCompiler}" = super.haskell.packages.${ormolu.ormoluCompiler}.override {
+            overrides = ormolu.ormoluOverlay;
+          };
+        };
+      };
+    })
+  ];
+
   programs.home-manager.enable = true;
   programs.home-manager.path =
     "https://github.com/rycee/home-manager/archive/master.tar.gz";
@@ -15,9 +41,10 @@
     evince
     firefox
     gimp
+    git-crypt
+    gnupg
     google-chrome
     haskellPackages.hpack
-    #    haskellPackages.intero
     haskellPackages.ghcid
     inkscape
     keybase-gui
@@ -29,7 +56,6 @@
     ranger
     w3m
     remmina
-    rxvt_unicode
     st
     scrot
     steam
@@ -43,6 +69,7 @@
     zeal
     zsnes
     nixfmt
+    haskellPackages.ormolu
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -148,6 +175,7 @@
       forge
       forge
       graphql-mode
+      graphviz-dot-mode
       haml-mode
       hi2
       hindent
@@ -161,6 +189,7 @@
       markdown-preview-mode
       multiple-cursors
       nix-mode
+      ormolu
       paredit
       powerline
       purescript-mode
@@ -192,6 +221,7 @@
       };
       push.default = "simple";
       github.user = "ryantm";
+      merge.conflictstyle = "diff3";
     };
     ignores =
       [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
@@ -211,7 +241,6 @@
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".source = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
-    ".urxvt/ext/font-size".source = ./urxvt/font-size;
     ".xinitrc".source = ./x/xinitrc;
     ".Xresources".source = ./x/Xresources;
     ".dir_colors".source = ./shell/dir_colors;
@@ -241,5 +270,15 @@
   #   description = "SSH key agent";
   #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
   # };
+
+  services.gpg-agent = {
+    enable = true;
+    extraConfig = ''
+      allow-emacs-pinentry
+      allow-loopback-pinentry
+    '';
+    pinentryFlavor = "gnome3";
+    verbose = true;
+  };
 
 }
