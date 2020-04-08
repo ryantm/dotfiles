@@ -1,35 +1,16 @@
 { pkgs, config, ... }:
 
+let
+  sources = import ./nix/sources.nix;
+in
+
 {
   nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-    }))
-
-    (# This overlay adds Ormolu straight from GitHub.
-    self: super:
-
-    let source = super.fetchFromGitHub {
-      owner = "tweag";
-      repo = "ormolu";
-      rev = "9dbba5300aef65849b0dadfdf7548b45c4eeb70e"; # update as necessary
-      sha256 = "1ndwx918rx6vkwc3pva8zbzn33brlxp04gdpkzwqrnq535nx23f8"; # as well
-    };
-    ormolu = import source { pkgs = self; };
-    in {
-      haskell = super.haskell // {
-        packages = super.haskell.packages // {
-          "${ormolu.ormoluCompiler}" = super.haskell.packages.${ormolu.ormoluCompiler}.override {
-            overrides = ormolu.ormoluOverlay;
-          };
-        };
-      };
-    })
+    (import sources.emacs-overlay)
   ];
 
   programs.home-manager.enable = true;
-  programs.home-manager.path =
-    "https://github.com/rycee/home-manager/archive/master.tar.gz";
+  programs.home-manager.path = "${sources.home-manager}/bin/home-manager";
 
   nixpkgs.config = import ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
@@ -60,6 +41,7 @@
     scrot
     steam
     minecraft
+    sources.ormolu
     tmux
     thunderbird
     usbutils
@@ -90,8 +72,6 @@
       LEDGER_FILE = "~ledger/mulligan.ledger";
       LEDGER_STRICT = "true";
       LEDGER_PEDANTIC = "true";
-
-      POLOLU_DIR = "$HOME/p/pololu";
     };
 
     shellAliases = {
@@ -101,7 +81,6 @@
     };
 
     initExtra = ''
-
       function settitle {
         tmux rename-window "$1"
       }
@@ -138,24 +117,6 @@
         git_config_user "R. RyanTM" "ryantm+bot@ryantm.com"
         git_check_user_config
         git config core.sshCommand = "ssh -i ~/.ssh/r-ryantm"
-      }
-
-      # Track assembly
-      export TRACK_ASSEMBLY_DIRECTORY=$POLOLU_DIR/track_assembly
-      function track_assembly {
-        pushd .
-        cd $POLOLU_DIR/system2_for_track/website
-        nix-shell --run "pololu-rails-env-preview rails runner script/track/track_assembly.rb"
-        popd
-      }
-
-      # Track users permissions
-      export TRACK_USERS_PERMISSIONS_DIRECTORY=$POLOLU_DIR/track_users_permissions
-      function track_users_permissions {
-        pushd .
-        cd $POLOLU_DIR/system2_for_track/website
-        nix-shell --run "pololu-rails-env-preview rails runner script/track/track_users_permissions.rb"
-        popd
       }
     '';
 
