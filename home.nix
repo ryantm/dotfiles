@@ -51,7 +51,6 @@ in
     zeal
     zsnes
     nixfmt
-    haskellPackages.ormolu
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -134,7 +133,6 @@ in
       graphviz-dot-mode
       haml-mode
       hi2
-      hindent
       inf-ruby
       ivy
       ivy-hydra
