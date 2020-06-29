@@ -113,11 +113,6 @@ in
         git_config_user "Ryan Mulligan" "ryan@ryantm.com"
         git_check_user_config
       }
-      function git_bot {
-        git_config_user "R. RyanTM" "ryantm+bot@ryantm.com"
-        git_check_user_config
-        git config core.sshCommand = "ssh -i ~/.ssh/r-ryantm"
-      }
     '';
 
   };
