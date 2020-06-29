@@ -92,8 +92,8 @@
 (use-package ledger-mode
   :mode "\\.ledger\\'")
 
-(use-package markdown-preview-mode
-  :hook (gfm-mode markdown-mode))
+;; (use-package markdown-preview-mode
+;;   :hook (gfm-mode markdown-mode))
 
 (use-package markdown-mode
   :mode (("\\`README\\.md\\'" . gfm-mode)
