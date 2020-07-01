@@ -41,6 +41,7 @@ in
     scrot
     steam
     minecraft
+    (import sources.nixdu).nixdu
     (import sources.ormolu {}).ormolu
     tmux
     thunderbird
