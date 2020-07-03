@@ -1,12 +1,11 @@
-{ pkgs, config, ... }:
-
-let
-  sources = import ./nix/sources.nix;
-in
+{ pkgs, config, sources, ... }:
 
 {
-  nixpkgs.overlays = [
-    (import sources.emacs-overlay)
+
+  _module.args.sources = import ./nix/sources.nix;
+
+  imports = [
+    ./emacs
   ];
 
   programs.home-manager.enable = true;
@@ -30,19 +29,19 @@ in
     inkscape
     keybase-gui
     ledger
+    lf
     libreoffice
     openvpn
     python
     qbittorrent
-    ranger
     w3m
     remmina
     st
     scrot
     steam
     minecraft
-    (import sources.nixdu).nixdu
-    (import sources.ormolu {}).ormolu
+    (import sources.nix-tree).nix-tree
+    (import sources.ormolu { }).ormolu
     tmux
     thunderbird
     usbutils
@@ -52,6 +51,15 @@ in
     zeal
     zsnes
     nixfmt
+    (pkgs.writeScriptBin "rdp" ''
+      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper
+    '')
+    (pkgs.writeScriptBin "hms" ''
+      nix-shell --run "home-manager switch"
+    '')
+    (pkgs.writeScriptBin "hmud" ''
+      nix-shell --run "niv update"
+    '')
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -63,7 +71,6 @@ in
 
     sessionVariables = {
       TERM = "xterm-256color";
-      EDITOR = "emacs";
       BROWSER = "google-chrome-stable";
       TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
 
@@ -117,56 +124,10 @@ in
 
   };
 
-  programs.emacs.enable = true;
-  programs.emacs.extraPackages = epkgs:
-    with epkgs; [
-      bash-completion
-      counsel
-      csv-mode
-      dhall-mode
-      diminish
-      elisp-slime-nav
-      fill-column-indicator
-      flycheck-haskell
-      forge
-      forge
-      graphql-mode
-      graphviz-dot-mode
-      haml-mode
-      hi2
-      inf-ruby
-      ivy
-      ivy-hydra
-      ledger-mode
-      lxc
-      magit
-      magit-annex
-      markdown-preview-mode
-      multiple-cursors
-      nix-mode
-      ormolu
-      paredit
-      powerline
-      purescript-mode
-      rainbow-delimiters
-      swiper
-      use-package
-      yaml-mode
-      zeal-at-point
-    ];
-
   programs.git = {
     userEmail = "";
     userName = "";
     enable = true;
-    aliases = {
-      review =
-        "!sh -c 'git fetch -a && gitk origin/review/$1 --not origin/$2' -";
-      unmerged = "!git branch -a --no-merged | grep remotes/";
-      sync = "!git fetch --all --prune && git fetch --tags";
-      delbranch =
-        "!sh -c 'git branch -d dev/ryantm/$1 && git push origin :dev/ryantm/$1' -";
-    };
     extraConfig = {
       user.useConfigOnly = true;
       color = {
@@ -215,11 +176,6 @@ in
     source = ./config/fonts;
     recursive = true;
   };
-
-  xdg.configFile."ranger/rc.conf".text = ''
-    set preview_images true
-    set preview_images_method urxvt
-  '';
 
   # systemd.user.services.ssh-agent = {
   #   description = "SSH key agent";

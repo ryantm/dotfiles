@@ -35,16 +35,16 @@
         "url": "https://github.com/nmattia/niv/archive/f73bf8d584148677b01859677a63191c31911eae.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixdu": {
+    "nix-tree": {
         "branch": "master",
         "description": "Interactively browse the dependency graph of your Nix derivations.",
         "homepage": "",
         "owner": "utdemir",
-        "repo": "nixdu",
-        "rev": "b1e09cbd120e6b713a81dee4e1c64dda4a17b6da",
-        "sha256": "1l6h0k2qyzxbgjbq84lcjxgiyw3x5vj83kni94cgm2iwsjxmi5i7",
+        "repo": "nix-tree",
+        "rev": "c3c77ede124e91c3275a994f9e57cab360e6a13a",
+        "sha256": "0nyln9cxybqdcp9pdh5qjhhmbl0bn8f9ghh4cn0q2wmsldqpl0ai",
         "type": "tarball",
-        "url": "https://github.com/utdemir/nixdu/archive/b1e09cbd120e6b713a81dee4e1c64dda4a17b6da.tar.gz",
+        "url": "https://github.com/utdemir/nix-tree/archive/c3c77ede124e91c3275a994f9e57cab360e6a13a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
