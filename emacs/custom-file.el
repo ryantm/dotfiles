@@ -11,11 +11,11 @@
    (quote
     (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
  '(ledger-reconcile-default-date-format "%Y-%m-%d")
- '(backup-directory-alist (quote (("." . "/home/ryantm/.emacs.d/backups/"))))
+ '(backup-directory-alist (quote (("." . "~/.config/emacs/backups/"))))
  '(column-number-mode t)
  '(confirm-kill-emacs (quote y-or-n-p))
  '(create-lockfiles nil)
- '(custom-file "~/.emacs.d/custom-file.el")
+ '(custom-file "~/.config/emacs/custom-file.el")
  '(dirtrack-list (quote ("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1)))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
@@ -32,7 +32,7 @@
  '(package-selected-packages
    (quote
     (magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion)))
- '(save-place-file "/home/ryantm/.emacs.d/.places")
+ '(save-place-file "~/.config/emacs/.places")
  '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
  '(selection-coding-system (quote utf-8))

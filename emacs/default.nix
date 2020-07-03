@@ -2,12 +2,14 @@
 
 {
 
-  nixpkgs.overlays = [ (import sources.emacs-overlay) ];
+  nixpkgs.overlays = [
+    (import sources.emacs-overlay)
+  ];
 
   programs.bash.sessionVariables.EDITOR = "emacs";
 
   programs.emacs.enable = true;
-  programs.emacs.extraPackages = epkgs:
+  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsUnstable-nox).emacsWithPackages (epkgs:
     with epkgs; [
       bash-completion
       counsel
@@ -42,14 +44,13 @@
       use-package
       yaml-mode
       zeal-at-point
-    ];
+    ]);
 
-  home.file.".emacs.d" = {
+  xdg.configFile."emacs" = {
     source = ./.;
     recursive = true;
     onChange = ''
-      emacs --batch --eval '(byte-compile-file "~/.emacs.d/init.el")'
-      emacs --batch --eval '(byte-compile-file "~/.emacs.d/custom-file.el")'
+      emacs --batch --eval '(byte-recompile-directory (expand-file-name "~/.config/emacs") 0)'
     '';
   };
 
