@@ -55,10 +55,14 @@
       xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper
     '')
     (pkgs.writeScriptBin "hms" ''
+      pushd ~/p/dotfiles
       nix-shell --run "home-manager switch"
+      popd
     '')
     (pkgs.writeScriptBin "hmud" ''
+      pushd ~/p/dotfiles
       nix-shell --run "niv update"
+      popd
     '')
   ];
 
