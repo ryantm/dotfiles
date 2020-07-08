@@ -251,6 +251,8 @@
 
 (setq enable-local-variables :safe)
 
+(setq auth-sources '("~/.config/emacs/authinfo.gpg"))
+
 ;;; Tabs
 (setq js-indent-level 2)
 (setq tab-width 2)
