@@ -6,6 +6,7 @@
 
   imports = [
     ./emacs
+    ./tmux
   ];
 
   programs.home-manager.enable = true;
@@ -20,6 +21,7 @@
     calibre
     evince
     firefox
+    fractal
     gimp
     git-crypt
     gnupg
@@ -42,7 +44,6 @@
     minecraft
     (import sources.nix-tree).nix-tree
     (import sources.ormolu { }).ormolu
-    tmux
     thunderbird
     usbutils
     vlc
@@ -76,7 +77,6 @@
     sessionVariables = {
       TERM = "xterm-256color";
       BROWSER = "google-chrome-stable";
-      TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
 
       NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
 
@@ -88,7 +88,6 @@
     shellAliases = {
       ls = "ls --color=auto";
       grep = "grep --color=auto";
-      tmux = "tmux -f ~/${config.xdg.configFile.tmux.target}";
     };
 
     initExtra = ''
@@ -158,14 +157,6 @@
     ".asoundrc".source = ./alsa/asoundrc;
   };
 
-  xdg.configFile.tmux = {
-    target = "tmux/tmux.conf";
-    text = ''
-      set-option -g prefix C-z
-      bind-key C-z send-prefix
-      set-option -g renumber-windows on
-    '';
-  };
 
   xdg.configFile."fonts" = {
     source = ./config/fonts;
