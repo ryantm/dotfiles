@@ -19,6 +19,7 @@
     cabal-install
     cabal2nix
     calibre
+    (import sources.comma { inherit pkgs; })
     evince
     firefox
     fractal
