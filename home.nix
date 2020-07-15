@@ -77,7 +77,6 @@
 
     sessionVariables = {
       TERM = "xterm-256color";
-      BAT_THEME = "GitHub";
       BROWSER = "google-chrome-stable";
 
       NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
@@ -129,8 +128,10 @@
 
   };
 
-  programs.bat.enable = true;
-
+  programs.bat = {
+    enable = true;
+    config.theme = "GitHub";
+  };
 
   programs.git = {
     userEmail = "";
