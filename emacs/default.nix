@@ -8,6 +8,9 @@
 
   programs.bash.sessionVariables.EDITOR = "emacs";
 
+  services.emacs.enable = true;
+  services.emacs.client.enable = true;
+
   programs.emacs.enable = true;
   programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsUnstable-nox).emacsWithPackages (epkgs:
     with epkgs; [
