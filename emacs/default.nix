@@ -6,7 +6,10 @@
     (import sources.emacs-overlay)
   ];
 
-  programs.bash.sessionVariables.EDITOR = "emacs";
+  programs.bash = {
+    sessionVariables.EDITOR = "emacsclient -t";
+    shellAliases.e = "emacsclient -t";
+  };
 
   services.emacs.enable = true;
   services.emacs.client.enable = true;
