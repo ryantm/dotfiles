@@ -184,4 +184,15 @@
     verbose = true;
   };
 
+  programs.beets = {
+    enable = true;
+    settings = {
+      directory = "/data/music";
+      library = "/data/music/musiclibrary.db";
+      "import" = {
+        move = "yes";
+      };
+    };
+  };
+
 }
