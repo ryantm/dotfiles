@@ -253,6 +253,13 @@
 
 (setq auth-sources '("~/.config/emacs/authinfo.gpg"))
 
+(dir-locals-set-class-variables 'huge-git-repository
+   '((nil . ((magit-refresh-buffers . nil)))))
+
+(dir-locals-set-directory-class
+   "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
+
+
 ;;; Tabs
 (setq js-indent-level 2)
 (setq tab-width 2)
