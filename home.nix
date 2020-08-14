@@ -55,7 +55,7 @@
     zsnes
     nixfmt
     (pkgs.writeScriptBin "rdp" ''
-      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper
+      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper +auto-reconnect
     '')
     (pkgs.writeScriptBin "hms" ''
       pushd ~/p/dotfiles
