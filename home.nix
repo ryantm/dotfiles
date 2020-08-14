@@ -20,6 +20,7 @@
     cabal2nix
     calibre
     (import sources.comma { inherit pkgs; })
+    cmus
     evince
     firefox
     fractal
