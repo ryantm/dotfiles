@@ -6,7 +6,6 @@
 
   imports = [
     ./emacs
-    ./tmux
   ];
 
   programs.home-manager.enable = true;
@@ -20,9 +19,9 @@
     cabal2nix
     calibre
     (import sources.comma { inherit pkgs; })
+    cmus
     evince
     firefox
-    fractal
     gimp
     git-crypt
     gnupg
@@ -45,6 +44,7 @@
     minecraft
     (import sources.nix-tree).nix-tree
     (import sources.ormolu { }).ormolu
+    tmux
     thunderbird
     usbutils
     vlc
@@ -54,7 +54,7 @@
     zsnes
     nixfmt
     (pkgs.writeScriptBin "rdp" ''
-      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper
+      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper +auto-reconnect
     '')
     (pkgs.writeScriptBin "hms" ''
       pushd ~/p/dotfiles
@@ -78,6 +78,7 @@
     sessionVariables = {
       TERM = "xterm-256color";
       BROWSER = "google-chrome-stable";
+      TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
 
       NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
 
@@ -89,6 +90,7 @@
     shellAliases = {
       ls = "ls --color=auto";
       grep = "grep --color=auto";
+      tmux = "tmux -f ~/${config.xdg.configFile.tmux.target}";
     };
 
     initExtra = ''
@@ -163,6 +165,14 @@
     ".asoundrc".source = ./alsa/asoundrc;
   };
 
+  xdg.configFile.tmux = {
+    target = "tmux/tmux.conf";
+    text = ''
+      set-option -g prefix C-z
+      bind-key C-z send-prefix
+      set-option -g renumber-windows on
+    '';
+  };
 
   xdg.configFile."fonts" = {
     source = ./config/fonts;
@@ -182,6 +192,17 @@
     '';
     pinentryFlavor = "tty";
     verbose = true;
+  };
+
+  programs.beets = {
+    enable = true;
+    settings = {
+      directory = "/data/music";
+      library = "/data/music/musiclibrary.db";
+      "import" = {
+        move = "yes";
+      };
+    };
   };
 
 }
