@@ -70,22 +70,22 @@
 
   home.keyboard.options = [ "ctrl:nocaps" ];
 
+  systemd.user.sessionVariables = {
+    TERM = "xterm-256color";
+    BROWSER = "google-chrome-stable";
+    TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
+
+    NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
+
+    LEDGER_FILE = "~ledger/mulligan.ledger";
+    LEDGER_STRICT = "true";
+    LEDGER_PEDANTIC = "true";
+  };
+
   programs.bash = {
     enable = true;
     historyControl = [ "ignoredups" ];
     historyIgnore = [ "ls" ];
-
-    sessionVariables = {
-      TERM = "xterm-256color";
-      BROWSER = "google-chrome-stable";
-      TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
-
-      NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
-
-      LEDGER_FILE = "~ledger/mulligan.ledger";
-      LEDGER_STRICT = "true";
-      LEDGER_PEDANTIC = "true";
-    };
 
     shellAliases = {
       ls = "ls --color=auto";
