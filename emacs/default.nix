@@ -6,16 +6,19 @@
     (import sources.emacs-overlay)
   ];
 
+  home.sessionVariables = {
+    EDITOR = "e";
+  };
+
   programs.bash = {
-    sessionVariables.EDITOR = "emacsclient -t";
     shellAliases.e = "emacsclient -t";
   };
 
   services.emacs.enable = true;
-  services.emacs.client.enable = true;
+  #services.emacs.client.enable = true;
 
   programs.emacs.enable = true;
-  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsUnstable-nox).emacsWithPackages (epkgs:
+  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsGcc).emacsWithPackages (epkgs:
     with epkgs; [
       bash-completion
       counsel
@@ -35,6 +38,8 @@
       ivy
       ivy-hydra
       ledger-mode
+      lsp-ivy
+      lsp-mode
       lxc
       magit
       magit-annex

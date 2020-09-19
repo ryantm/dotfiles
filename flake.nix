@@ -5,6 +5,8 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+#  inputs.rnix-lsp.url = "github:nix-community/rnix-lsp";
+
   inputs.home-manager = {
     type = "github";
     owner = "rycee";

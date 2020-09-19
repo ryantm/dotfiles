@@ -70,7 +70,9 @@
 
   home.keyboard.options = [ "ctrl:nocaps" ];
 
-  systemd.user.sessionVariables = {
+  systemd.user.sessionVariables = config.home.sessionVariables;
+
+  home.sessionVariables = {
     TERM = "xterm-256color";
     BROWSER = "google-chrome-stable";
     TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
@@ -81,6 +83,13 @@
     LEDGER_STRICT = "true";
     LEDGER_PEDANTIC = "true";
   };
+
+  # Get systemd environment variables for ssh login shell too
+  # home.sessionVariablesExtra = ''
+  #   set -a
+  #   eval $(/run/current-system/sw/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+  #   set +a
+  # '';
 
   programs.bash = {
     enable = true;
