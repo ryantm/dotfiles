@@ -66,6 +66,14 @@
       nix-shell --run "niv update"
       popd
     '')
+    (pkgs.writeScriptBin "nr" ''
+      pushd ~/p/nixpkgs
+      nixpkgs-review pr "$1"
+      popd
+    '')
+    (pkgs.writeScriptBin "pr" ''
+      nixpkgs-review post-result
+    '')
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
