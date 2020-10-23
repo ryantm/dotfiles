@@ -107,7 +107,6 @@
     shellAliases = {
       ls = "ls --color=auto";
       grep = "grep --color=auto";
-      tmux = "tmux -f ~/${config.xdg.configFile.tmux.target}";
     };
 
     initExtra = ''
@@ -185,9 +184,10 @@
   xdg.configFile.tmux = {
     target = "tmux/tmux.conf";
     text = ''
-      set-option -g prefix C-z
+      set -g default-terminal "tmux-256color"
+      set -g prefix C-z
       bind-key C-z send-prefix
-      set-option -g renumber-windows on
+      set -g renumber-windows on
     '';
   };
 

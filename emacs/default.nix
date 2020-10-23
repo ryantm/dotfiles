@@ -18,7 +18,7 @@
   #services.emacs.client.enable = true;
 
   programs.emacs.enable = true;
-  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsGcc).emacsWithPackages (epkgs:
+  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsGit).emacsWithPackages (epkgs:
     with epkgs; [
       bash-completion
       counsel
@@ -60,9 +60,6 @@
   xdg.configFile."emacs" = {
     source = ./.;
     recursive = true;
-    onChange = ''
-      emacs --batch --eval '(byte-recompile-directory (expand-file-name "~/.config/emacs") 0)'
-    '';
   };
 
 }
