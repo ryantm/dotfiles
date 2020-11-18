@@ -17,7 +17,6 @@
   home.packages = with pkgs; [
     cabal-install
     cabal2nix
-    calibre
     (import sources.comma { inherit pkgs; })
     cmus
     evince
@@ -29,7 +28,7 @@
     haskellPackages.hpack
     haskellPackages.ghcid
     inkscape
-    keybase-gui
+    jumpapp
     ledger
     lf
     libreoffice
@@ -53,8 +52,10 @@
     zeal
     zsnes
     nixfmt
+    xterm
     (pkgs.writeScriptBin "rdp" ''
-      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper +auto-reconnect
+      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper +auto-reconnect \
+        /p:$(${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text)
     '')
     (pkgs.writeScriptBin "hms" ''
       pushd ~/p/dotfiles
@@ -194,6 +195,13 @@
   xdg.configFile."fonts" = {
     source = ./config/fonts;
     recursive = true;
+  };
+
+  xdg.configFile."cmus/rc" = {
+    text = ''
+      set format_title=cmus: %t
+      set altformat_title=cmus: %t
+    '';
   };
 
   # systemd.user.services.ssh-agent = {
