@@ -15,6 +15,7 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
+    beancount
     cabal-install
     cabal2nix
     (import sources.comma { inherit pkgs; })

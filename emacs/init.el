@@ -173,6 +173,12 @@
 (use-package zeal-at-point
   :bind ("C-c d" . zeal-at-point))
 
+
+(add-to-list 'load-path "/home/ryantm/.config/emacs/")
+(use-package beancount
+  :mode "\\.beancount\\'"
+  :config (beancount-mode))
+
 ;; Customizations
 (defconst custom-file-start-time (current-time))
 
