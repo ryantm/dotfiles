@@ -8,46 +8,45 @@
  '(ansi-color-names-vector
    (vector "#657b83" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"))
  '(auto-save-file-name-transforms
-   (quote
-    (("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t))))
- '(ledger-reconcile-default-date-format "%Y-%m-%d")
- '(backup-directory-alist (quote (("." . "~/.config/emacs/backups/"))))
+   '(("\\\\`/[^/]*:\\\\([^/]*/\\\\)*\\\\([^/]*\\\\)\\\\'" "/tmp/\\\\2" t)))
+ '(backup-directory-alist '(("." . "~/.config/emacs/backups/")))
+ '(beancount-number-alignment-column 59)
  '(column-number-mode t)
- '(confirm-kill-emacs (quote y-or-n-p))
+ '(confirm-kill-emacs 'y-or-n-p)
  '(create-lockfiles nil)
- '(custom-file "~/.config/emacs/custom-file.el")
- '(dirtrack-list (quote ("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1)))
+ '(custom-file "/home/ryantm/p/dotfiles/emacs/custom-file.el")
+ '(dirtrack-list '("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1))
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
  '(fci-rule-column 80)
+ '(frame-background-mode 'light)
  '(git-commit-summary-max-length 80)
  '(global-whitespace-mode t)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)
- '(initial-major-mode (quote fundamental-mode))
+ '(initial-major-mode 'fundamental-mode)
  '(initial-scratch-message nil)
- '(keyboard-coding-system (quote utf-8-unix))
+ '(keyboard-coding-system 'utf-8-unix)
+ '(ledger-reconcile-default-date-format "%Y-%m-%d")
  '(menu-bar-mode nil)
  '(package-selected-packages
-   (quote
-    (magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion)))
+   '(magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion))
  '(save-place-file "~/.config/emacs/.places")
  '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
- '(selection-coding-system (quote utf-8))
- '(send-mail-function (quote mailclient-send-it))
+ '(selection-coding-system 'utf-8)
+ '(send-mail-function 'mailclient-send-it)
  '(show-paren-mode t)
  '(sort-fold-case t t)
  '(split-height-threshold 9999)
  '(split-width-threshold 9999)
  '(tab-width 2)
  '(tool-bar-mode nil)
- '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(uniquify-buffer-name-style 'forward nil (uniquify))
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
-   (quote
-    ((20 . "#dc322f")
+   '((20 . "#dc322f")
      (40 . "#cb4b16")
      (60 . "#b58900")
      (80 . "#859900")
@@ -64,14 +63,13 @@
      (300 . "#d33682")
      (320 . "#6c71c4")
      (340 . "#dc322f")
-     (360 . "#cb4b16"))))
+     (360 . "#cb4b16")))
  '(vc-annotate-very-old-color nil)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(visual-line-fringe-indicators (quote (left-curly-arrow right-curly-arrow)))
+ '(visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
  '(whitespace-display-mappings
-   (quote
-    ((space-mark 32
+   '((space-mark 32
                  [32]
                  [32])
      (space-mark 160
@@ -81,11 +79,10 @@
                    [32 10])
      (tab-mark 9
                [32 9]
-               [32 9]))))
- '(whitespace-global-modes (quote (not dired-mode magit-mode magit-log-mode shell-mode)))
+               [32 9])))
+ '(whitespace-global-modes '(not dired-mode magit-mode magit-log-mode shell-mode))
  '(whitespace-style
-   (quote
-    (face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark))))
+   '(face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

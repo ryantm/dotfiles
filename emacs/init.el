@@ -6,8 +6,7 @@
   (message "Loading %s..." load-file-name))
 
 (when (not (window-system))
-  (send-string-to-terminal "\033]12;black\007")
-  (let ((frame-background-mode 'light)) (frame-set-background-mode nil)))
+  (send-string-to-terminal "\033]12;black\007"))
 
 (eval-when-compile
   (require 'package)
@@ -174,7 +173,7 @@
   :bind ("C-c d" . zeal-at-point))
 
 
-(add-to-list 'load-path "/home/ryantm/.config/emacs/")
+(add-to-list 'load-path "/home/ryantm/.config/emacs/lisp/")
 (use-package beancount
   :mode "\\.beancount\\'"
   :config (beancount-mode))
@@ -182,8 +181,9 @@
 ;; Customizations
 (defconst custom-file-start-time (current-time))
 
-(setq custom-file (expand-file-name "custom-file.elc" user-emacs-directory))
+(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
 (load custom-file)
+(setq custom-file "/home/ryantm/p/dotfiles/emacs/custom-file.el")
 
 (unless noninteractive
   (let ((elapsed (float-time (time-subtract (current-time)
