@@ -15,47 +15,52 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    beancount
-    cabal-install
-    cabal2nix
     (import sources.comma { inherit pkgs; })
+    nix-tree
+    (import sources.ormolu { }).ormolu
+    beancount
     cmus
     evince
     firefox
+    freerdp
     gimp
     git-crypt
+    gitAndTools.gh
+    (import sources.nixpkgs-master { }).gitAndTools.git-delete-merged-branches
     gnupg
     google-chrome
-    haskellPackages.hpack
     haskellPackages.ghcid
+    haskellPackages.hpack
+    hydra-check
     inkscape
     jumpapp
     ledger
     lf
     libreoffice
+    minecraft
+    meld
+    niv
+    nixfmt
+    nixpkgs-review
     openvpn
     python
     qbittorrent
-    w3m
     remmina
-    st
     scrot
+    st
     steam
-    minecraft
-    (import sources.nix-tree).nix-tree
-    (import sources.ormolu { }).ormolu
-    tmux
     thunderbird
+    tmux
     usbutils
     vlc
-    yubikey-personalization-gui
+    w3m
+    xterm
     yubikey-manager
+    yubikey-personalization-gui
     zeal
     zsnes
-    nixfmt
-    xterm
     (pkgs.writeScriptBin "rdp" ''
-      xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /f /sound +fonts -wallpaper +auto-reconnect \
+      ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /floatbar /f /sound +fonts -wallpaper +auto-reconnect \
         /p:$(${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text)
     '')
     (pkgs.writeScriptBin "hms" ''
@@ -86,8 +91,6 @@
     TERM = "xterm-256color";
     BROWSER = "google-chrome-stable";
     TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
-
-    NIX_PATH = "nixpkgs=$HOME/p/nixpkgs";
 
     LEDGER_FILE = "~ledger/mulligan.ledger";
     LEDGER_STRICT = "true";
