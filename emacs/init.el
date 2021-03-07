@@ -283,6 +283,7 @@
   (shell-command (concat "nixfmt " (buffer-file-name)))
   (revert-buffer t t t))
 
+
 ;;; Post initialization
 
 (unless noninteractive

@@ -29,7 +29,6 @@
     (import sources.nixpkgs-master { }).gitAndTools.git-delete-merged-branches
     gnupg
     google-chrome
-    haskellPackages.ghcid
     haskellPackages.hpack
     hydra-check
     inkscape
@@ -52,6 +51,7 @@
     thunderbird
     tmux
     usbutils
+    virt-manager
     vlc
     w3m
     xterm
@@ -103,6 +103,42 @@
   #   eval $(/run/current-system/sw/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
   #   set +a
   # '';
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      window.dynamic_title = false;
+      font.size = 16;
+
+      # The 'GNOME Light" theme from GNOME terminal.
+      colors = {
+        primary = {
+          foreground = "#171421";
+          background = "#ffffff";
+        };
+        normal = {
+          black =   "#171421";
+          red =     "#c01c28";
+          green =   "#26a269";
+          yellow =  "#a2734c";
+          blue =    "#12488b";
+          magenta = "#a347ba";
+          cyan =    "#2aa1b3";
+          white =   "#d0cfcc";
+        };
+        bright = {
+          black =   "#5e5c64";
+          red =     "#f66151";
+          green =   "#33d17a";
+          yellow =  "#e9ad0c";
+          blue =    "#2a7bde";
+          magenta = "#c061cb";
+          cyan =    "#33c7de";
+          white =   "#ffffff";
+        };
+      };
+    };
+  };
 
   programs.bash = {
     enable = true;

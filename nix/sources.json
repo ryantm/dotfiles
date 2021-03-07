@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6625284c397b44bc9518a5a1567c1b5aae455c08",
-        "sha256": "1w0czzv53sg35gp7sr506facbmzd33jm34p6cg23fb9kz5rf5c89",
+        "rev": "5852a21819542e6809f68ba5a798600e69874e76",
+        "sha256": "05vqlnafz287wamy2a3kp6h32mmha1ahq8gzp7slihdci2ibcdx6",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/6625284c397b44bc9518a5a1567c1b5aae455c08.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/5852a21819542e6809f68ba5a798600e69874e76.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "ormolu": {

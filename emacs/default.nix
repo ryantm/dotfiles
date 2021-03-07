@@ -7,7 +7,7 @@
   ];
 
   home.sessionVariables = {
-    EDITOR = "e";
+    EDITOR = "emacsclient -t";
   };
 
   programs.bash = {
@@ -22,7 +22,7 @@
     with epkgs; [
       bash-completion
       counsel
-      csv-mode
+#      csv-mode
       dhall-mode
       diminish
       elisp-slime-nav
