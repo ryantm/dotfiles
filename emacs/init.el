@@ -6,7 +6,8 @@
   (message "Loading %s..." load-file-name))
 
 (when (not (window-system))
-  (send-string-to-terminal "\033]12;black\007"))
+  (send-string-to-terminal "\033]12;black\007")
+  (let ((frame-background-mode 'light)) (frame-set-background-mode nil)))
 
 (eval-when-compile
   (require 'package)
@@ -183,7 +184,7 @@
 
 (setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
 (load custom-file)
-(setq custom-file "/home/ryantm/p/dotfiles/emacs/custom-file.el")
+(setq custom-file (expand-file-name "~/p/dotfiles/emacs/custom-file.el"))
 
 (unless noninteractive
   (let ((elapsed (float-time (time-subtract (current-time)
@@ -261,10 +262,14 @@
 (setq auth-sources '("~/.config/emacs/authinfo.gpg"))
 
 (dir-locals-set-class-variables 'huge-git-repository
-   '((nil . ((magit-refresh-buffers . nil)))))
+                                '((nil . ((magit-refresh-buffers . nil)))
+                                  ((magit-status-mode
+                                    . ((eval . (magit-disable-section-inserter 'magit-insert-tags)))))))
 
 (dir-locals-set-directory-class
    "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
+(dir-locals-set-directory-class
+   "/home/p/pololu/it/system2/" 'huge-git-repository)
 
 
 ;;; Tabs
@@ -282,6 +287,7 @@
   (save-buffer)
   (shell-command (concat "nixfmt " (buffer-file-name)))
   (revert-buffer t t t))
+
 
 ;;; Post initialization
 
