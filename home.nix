@@ -61,8 +61,8 @@
     zeal
     zsnes
     (pkgs.writeScriptBin "rdp" ''
-      ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330:3389 +clipboard /floatbar /f /sound +fonts -wallpaper +auto-reconnect \
-        /p:$(${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text)
+      ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
+        ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.internal:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
     '')
     (pkgs.writeScriptBin "hms" ''
       pushd ~/p/dotfiles
