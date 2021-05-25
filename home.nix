@@ -109,8 +109,12 @@
     enable = true;
     settings = {
       window.dynamic_title = false;
-      font.size = 16;
-
+      font = {
+        size = 16;
+        normal = {
+          family = "DejaVu Sans Mono";
+        };
+      };
       # The 'GNOME Light" theme from GNOME terminal.
       colors = {
         primary = {
