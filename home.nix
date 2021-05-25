@@ -48,7 +48,6 @@
     remmina
     scrot
     st
-    steam
     thunderbird
     tmux
     usbutils
