@@ -14,6 +14,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs 'y-or-n-p)
  '(create-lockfiles nil)
+ '(custom-enabled-themes '(tango))
  '(custom-file "/home/ryantm/p/dotfiles/emacs/custom-file.el")
  '(dirtrack-list '("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1))
  '(enable-local-variables :safe)
