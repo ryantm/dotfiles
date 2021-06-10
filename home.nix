@@ -1,7 +1,6 @@
 { pkgs, config, sources, ... }:
 
 {
-
   _module.args.sources = import ./nix/sources.nix;
 
   imports = [

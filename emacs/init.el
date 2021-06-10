@@ -21,6 +21,18 @@
 (use-package uniquify
   :defer 5)
 
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         (nix-mode . lsp)
+         (csharp-mode . lsp))
+  :commands lsp)
+
+(use-package lsp-ui :commands lsp-ui-mode)
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+
 (use-package mule
   :custom
   (set-terminal-coding-system 'utf-8)
@@ -131,15 +143,19 @@
   :mode "\\.haml\\'")
 
 (use-package csharp-mode
-  :mode "\\.cs\\'"
-  :hook lsp-mode)
+  :mode "\\.cs\\'")
 
 (use-package nix-mode
   :mode "\\.nix\\'"
   :functions nix-indent-line
   :custom
-  (nix-indent-function #'nix-indent-line)
-  :hook lsp-mode)
+  (nix-indent-function #'nix-indent-line))
+
+;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+;; (lsp-register-client
+;;  (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+;;                   :major-modes '(nix-mode)
+;;                   :server-id 'nix))
 
 (declare-function ivy-mode "ivy" ())
 (use-package ivy

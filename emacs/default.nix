@@ -24,44 +24,46 @@
   ];
 
   programs.emacs.enable = true;
-  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (epkgs:
-    with epkgs; [
-      bash-completion
-      counsel
-      csharp-mode
-#      csv-mode
-      dhall-mode
-      diminish
-      elisp-slime-nav
-      fill-column-indicator
-      flycheck-haskell
-      graphql-mode
-      graphviz-dot-mode
-      haml-mode
-      hi2
-      inf-ruby
-      ivy
-      ivy-hydra
-      ledger-mode
-      lsp-ivy
-      lsp-mode
-      lsp-ui
-      lxc
-      magit
-      magit-annex
-      markdown-preview-mode
-      multiple-cursors
-      nix-mode
-      ormolu
-      paredit
-      powerline
-      purescript-mode
-      rainbow-delimiters
-      swiper
-      use-package
-      yaml-mode
-      zeal-at-point
-    ]);
+  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (
+    epkgs:
+      with epkgs; [
+        bash-completion
+        counsel
+        csharp-mode
+        #      csv-mode
+        dhall-mode
+        diminish
+        elisp-slime-nav
+        fill-column-indicator
+        flycheck-haskell
+        graphql-mode
+        graphviz-dot-mode
+        haml-mode
+        hi2
+        inf-ruby
+        ivy
+        ivy-hydra
+        ledger-mode
+        lsp-ivy
+        lsp-mode
+        lsp-ui
+        lxc
+        magit
+        magit-annex
+        markdown-preview-mode
+        multiple-cursors
+        nix-mode
+        ormolu
+        paredit
+        powerline
+        purescript-mode
+        rainbow-delimiters
+        swiper
+        use-package
+        yaml-mode
+        zeal-at-point
+      ]
+  );
 
   xdg.configFile."emacs" = {
     source = ./.;
