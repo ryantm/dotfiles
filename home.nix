@@ -15,10 +15,10 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    (import sources.nixpkgs-update { })
+    (import sources.nixpkgs-update {})
     (import sources.comma { inherit pkgs; })
     nix-tree
-    (import sources.ormolu { }).ormolu
+    (import sources.ormolu {}).ormolu
     beancount
     cmus
     evince
@@ -27,7 +27,7 @@
     gimp
     git-crypt
     gitAndTools.gh
-    (import sources.nixpkgs-master { }).gitAndTools.git-delete-merged-branches
+    (import sources.nixpkgs-master {}).gitAndTools.git-delete-merged-branches
     gnupg
     google-chrome
     haskellPackages.hpack
@@ -59,28 +59,39 @@
     yubikey-personalization-gui
     zeal
     zsnes
-    (pkgs.writeScriptBin "rdp" ''
-      ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
-        ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.internal:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
-    '')
-    (pkgs.writeScriptBin "hms" ''
-      pushd ~/p/dotfiles
-      nix-shell --run "home-manager switch"
-      popd
-    '')
-    (pkgs.writeScriptBin "hmud" ''
-      pushd ~/p/dotfiles
-      nix-shell --run "niv update"
-      popd
-    '')
-    (pkgs.writeScriptBin "nr" ''
-      pushd ~/p/nixpkgs
-      nixpkgs-review pr "$1"
-      popd
-    '')
-    (pkgs.writeScriptBin "pr" ''
-      nixpkgs-review post-result
-    '')
+    (
+      pkgs.writeScriptBin "rdp" ''
+        ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
+          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.internal:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
+      ''
+    )
+    (
+      pkgs.writeScriptBin "hms" ''
+        pushd ~/p/dotfiles
+        nix develop -c home-manager switch
+        popd
+      ''
+    )
+    (
+      pkgs.writeScriptBin "hmud" ''
+        pushd ~/p/dotfiles
+        rm -rf flake.lock
+        nix flake update
+        popd
+      ''
+    )
+    (
+      pkgs.writeScriptBin "nr" ''
+        pushd ~/p/nixpkgs
+        nixpkgs-review pr "$1"
+        popd
+      ''
+    )
+    (
+      pkgs.writeScriptBin "pr" ''
+        nixpkgs-review post-result
+      ''
+    )
   ];
 
   home.keyboard.options = [ "ctrl:nocaps" ];
@@ -121,24 +132,24 @@
           background = "#ffffff";
         };
         normal = {
-          black =   "#171421";
-          red =     "#c01c28";
-          green =   "#26a269";
-          yellow =  "#a2734c";
-          blue =    "#12488b";
+          black = "#171421";
+          red = "#c01c28";
+          green = "#26a269";
+          yellow = "#a2734c";
+          blue = "#12488b";
           magenta = "#a347ba";
-          cyan =    "#2aa1b3";
-          white =   "#d0cfcc";
+          cyan = "#2aa1b3";
+          white = "#d0cfcc";
         };
         bright = {
-          black =   "#5e5c64";
-          red =     "#f66151";
-          green =   "#33d17a";
-          yellow =  "#e9ad0c";
-          blue =    "#2a7bde";
+          black = "#5e5c64";
+          red = "#f66151";
+          green = "#33d17a";
+          yellow = "#e9ad0c";
+          blue = "#2a7bde";
           magenta = "#c061cb";
-          cyan =    "#33c7de";
-          white =   "#ffffff";
+          cyan = "#33c7de";
+          white = "#ffffff";
         };
       };
     };

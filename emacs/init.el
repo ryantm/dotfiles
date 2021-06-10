@@ -54,9 +54,6 @@
          ("C-M-n" . magit-rtm-down)
          ("C-M-p" . magit-rtm-up)))
 
-(use-package forge
-  :after magit)
-
 (use-package whitespace
   :defer 5
   :bind (("C-c w" . global-whitespace-mode))
@@ -133,11 +130,16 @@
 (use-package haml-mode
   :mode "\\.haml\\'")
 
+(use-package csharp-mode
+  :mode "\\.cs\\'"
+  :hook lsp-mode)
+
 (use-package nix-mode
   :mode "\\.nix\\'"
   :functions nix-indent-line
   :custom
-  (nix-indent-function #'nix-indent-line))
+  (nix-indent-function #'nix-indent-line)
+  :hook lsp-mode)
 
 (declare-function ivy-mode "ivy" ())
 (use-package ivy

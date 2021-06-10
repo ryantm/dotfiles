@@ -17,19 +17,24 @@
   services.emacs.enable = true;
   #services.emacs.client.enable = true;
 
+  home.packages = with pkgs; [
+    nixpkgs-fmt
+    rnix-lsp
+    omnisharp-roslyn
+  ];
+
   programs.emacs.enable = true;
-  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacsGit).emacsWithPackages (epkgs:
+  programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-nox).emacsWithPackages (epkgs:
     with epkgs; [
       bash-completion
       counsel
+      csharp-mode
 #      csv-mode
       dhall-mode
       diminish
       elisp-slime-nav
       fill-column-indicator
       flycheck-haskell
-      forge
-      forge
       graphql-mode
       graphviz-dot-mode
       haml-mode
@@ -40,6 +45,7 @@
       ledger-mode
       lsp-ivy
       lsp-mode
+      lsp-ui
       lxc
       magit
       magit-annex
