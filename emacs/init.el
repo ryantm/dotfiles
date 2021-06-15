@@ -5,9 +5,9 @@
 (unless noninteractive
   (message "Loading %s..." load-file-name))
 
-(when (not (window-system))
-  (send-string-to-terminal "\033]12;black\007")
-  (let ((frame-background-mode 'light)) (frame-set-background-mode nil)))
+;; (when (not (window-system))
+;;   (send-string-to-terminal "\033]12;black\007")
+;;   (let ((frame-background-mode 'light)) (frame-set-background-mode nil)))
 
 (eval-when-compile
   (require 'package)
