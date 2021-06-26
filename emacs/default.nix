@@ -58,6 +58,7 @@
         powerline
         purescript-mode
         rainbow-delimiters
+        rust-mode
         swiper
         use-package
         yaml-mode

@@ -145,6 +145,9 @@
 (use-package csharp-mode
   :mode "\\.cs\\'")
 
+(use-package rust-mode
+  :mode "\\.rs\\'")
+
 (use-package nix-mode
   :mode "\\.nix\\'"
   :functions nix-indent-line
