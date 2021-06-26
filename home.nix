@@ -23,10 +23,10 @@
     evince
     firefox
     freerdp
+    gh
     gimp
     git-crypt
-    gitAndTools.gh
-    (import sources.nixpkgs-master {}).gitAndTools.git-delete-merged-branches
+    git-delete-merged-branches
     gnupg
     google-chrome
     haskellPackages.hpack
