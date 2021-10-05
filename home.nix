@@ -243,6 +243,9 @@
       set -g prefix C-z
       bind-key C-z send-prefix
       set -g renumber-windows on
+      set -g bell-action none
+      set -g visual-bell off
+      set -g monitor-bell off
     '';
   };
 
