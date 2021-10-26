@@ -220,6 +220,7 @@
       push.default = "simple";
       github.user = "ryantm";
       merge.conflictstyle = "diff3";
+      init.defaultBranch = "main";
     };
     ignores =
       [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
