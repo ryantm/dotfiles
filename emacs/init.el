@@ -25,7 +25,6 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook (
-         (nix-mode . lsp)
          (csharp-mode . lsp))
   :commands lsp)
 
