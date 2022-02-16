@@ -17,7 +17,7 @@
     (import sources.nixpkgs-update {})
     (import sources.comma { inherit pkgs; })
     nix-tree
-    (import sources.ormolu {}).ormolu
+    #(import sources.ormolu {}).ormolu
     beancount
     cmus
     evince
@@ -61,7 +61,7 @@
     (
       pkgs.writeScriptBin "rdp" ''
         ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
-          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.internal:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
+          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.work:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
       ''
     )
     (
