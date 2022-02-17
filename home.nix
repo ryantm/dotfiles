@@ -11,7 +11,7 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    (import nixpkgs-update {})
+    # (import nixpkgs-update {})
     (import comma { inherit pkgs; })
     nix-tree
     beancount
@@ -62,7 +62,7 @@
     )
     (
       pkgs.writeScriptBin "hms" ''
-        home-manager switch --flake /home/ryantm/p/dotfiles#ryantm --impure
+        home-manager switch --flake /home/ryantm/p/dotfiles#ryantm
       ''
     )
     (
