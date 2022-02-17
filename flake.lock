@@ -1,5 +1,52 @@
 {
   "nodes": {
+    "comma": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1641144881,
+        "narHash": "sha256-WBIQmwlkb/GMoOq+Dnyrk8YmgiM/wJnc5HYZP8Uw72E=",
+        "owner": "Shopify",
+        "repo": "comma",
+        "rev": "02e3e5545b0c62595a77f3d5de1223c536af0614",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Shopify",
+        "repo": "comma",
+        "type": "github"
+      }
+    },
+    "emacs-overlay": {
+      "locked": {
+        "lastModified": 1645067062,
+        "narHash": "sha256-8RVN/vOtaZYXKz7UAJEUISni2ZdmEF6X9BkfSl7wi1g=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "9fb18d58b0072db9ef1d2488401bf69c66d4376d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1627913399,
+        "narHash": "sha256-hY8g6H2KFL8ownSiFeMOjwPC8P0ueXpCVEbxgda3pko=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "12c64ca55c1014cdc1b16ed5a804aa8576601ff2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1644229661,
@@ -10,24 +57,61 @@
         "type": "github"
       },
       "original": {
+        "id": "flake-utils",
+        "type": "indirect"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1610051610,
+        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
+        "type": "github"
+      },
+      "original": {
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
       }
     },
     "home-manager": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
       "locked": {
         "lastModified": 1645055728,
         "narHash": "sha256-Zan1EIGTytXvcSamaLN/JM9JIQCT1qICe2NKe/5NXWg=",
-        "owner": "rycee",
+        "owner": "nix-community",
         "repo": "home-manager",
         "rev": "810e5f36131c6b6eb1bcc1e3cff23cc604e82887",
         "type": "github"
       },
       "original": {
-        "owner": "rycee",
+        "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "mmdoc": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs-for-manual": "nixpkgs-for-manual"
+      },
+      "locked": {
+        "lastModified": 1626736992,
+        "narHash": "sha256-pgD5wGNKPrAO5ThfQjmdyezpc0RIXUeXyU/oFJRBfa0=",
+        "owner": "ryantm",
+        "repo": "mmdoc",
+        "rev": "9793387e2d7c04fe8e35209de6da0b3b6e551fea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "repo": "mmdoc",
         "type": "github"
       }
     },
@@ -47,11 +131,110 @@
         "type": "github"
       }
     },
+    "nixpkgs-for-manual": {
+      "locked": {
+        "lastModified": 1617080427,
+        "narHash": "sha256-4en5vjUto7I3FBWKU+NjhS33K0Z5yk+zxCtGcIgaRjs=",
+        "owner": "ryantm",
+        "repo": "nixpkgs",
+        "rev": "46fd6f0a282fdcebfeba221dba45adf12503afad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ryantm",
+        "ref": "minman",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-review": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1629814514,
+        "narHash": "sha256-iBNBw+gh6CiXyeaTfm46g7DxYQ3fLKyHcPWHPxF5Xfc=",
+        "owner": "mic92",
+        "repo": "nixpkgs-review",
+        "rev": "561ba2fff1993d5b71c12f90a5090507bfadf25e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "nixpkgs-review",
+        "type": "github"
+      }
+    },
+    "nixpkgs-update": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "mmdoc": "mmdoc",
+        "nixpkgs": "nixpkgs_3",
+        "nixpkgs-review": "nixpkgs-review"
+      },
+      "locked": {
+        "lastModified": 1644511060,
+        "narHash": "sha256-CsdY0w/LxHKo3YB27LfTzPD0HduJVMt0yv5kYQzQ3r0=",
+        "type": "git",
+        "url": "file:///home/ryantm/p/nixpkgs-update"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/ryantm/p/nixpkgs-update"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1620788202,
+        "narHash": "sha256-MupOww6wQHG2LiF7ALeT+TxvgzS1ROQy7dChZX5ohiA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c8750770c4f59b0825bf2b7b914c343543958a80",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1629859457,
+        "narHash": "sha256-JlAU1EboVCOJeMXNLJusf+0vnx++xK1Y4DW5y80zMfY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "12613bf6d91543db59de89e231eafab72f4dc2e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1613848021,
+        "narHash": "sha256-9JICogf6yTscjE3bmeX13vks+omv8408I3B7gWIau5U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1c5ca28030c459fc10d69b8608c66ed3a45f8fe9",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "root": {
       "inputs": {
+        "comma": "comma",
+        "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-update": "nixpkgs-update"
       }
     }
   },

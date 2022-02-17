@@ -1,23 +1,19 @@
-{ pkgs, config, sources, ... }:
+{ pkgs, config, nixpkgs-update, home-manager, comma, ... }:
 
 {
-  _module.args.sources = import ./nix/sources.nix;
-
   imports = [
     ./emacs
   ];
 
   programs.home-manager.enable = true;
-  programs.home-manager.path = "${sources.home-manager}/bin/home-manager";
 
   nixpkgs.config = import ./nixpkgs-config.nix;
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    (import sources.nixpkgs-update {})
-    (import sources.comma { inherit pkgs; })
+    (import nixpkgs-update {})
+    (import comma { inherit pkgs; })
     nix-tree
-    #(import sources.ormolu {}).ormolu
     beancount
     cmus
     evince
@@ -61,20 +57,17 @@
     (
       pkgs.writeScriptBin "rdp" ''
         ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
-          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:RYANTM0J330.pololu.work:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
+          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:192.168.138.15:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
       ''
     )
     (
       pkgs.writeScriptBin "hms" ''
-        pushd ~/p/dotfiles
-        nix develop -c home-manager switch
-        popd
+        home-manager switch --flake /home/ryantm/p/dotfiles#ryantm --impure
       ''
     )
     (
       pkgs.writeScriptBin "hmud" ''
         pushd ~/p/dotfiles
-        rm -rf flake.lock
         nix flake update
         popd
       ''

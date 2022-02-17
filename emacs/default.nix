@@ -1,9 +1,9 @@
-{ pkgs, config, sources, ... }:
+{ pkgs, config, emacs-overlay, ... }:
 
 {
 
   nixpkgs.overlays = [
-    (import sources.emacs-overlay)
+    (import emacs-overlay)
   ];
 
   home.sessionVariables = {
