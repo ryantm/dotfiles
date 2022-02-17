@@ -1,7 +1,10 @@
-{ pkgs, config, emacs-overlay, ... }:
-
 {
-
+  pkgs,
+  config,
+  emacs-overlay,
+  ...
+}:
+{
   nixpkgs.overlays = [
     (import emacs-overlay)
   ];
@@ -70,5 +73,4 @@
     source = ./.;
     recursive = true;
   };
-
 }

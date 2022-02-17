@@ -1,5 +1,12 @@
-{ pkgs, config, nixpkgs-update, home-manager, comma, ... }:
-
+{
+  pkgs,
+  config,
+  nixpkgs-update,
+  home-manager,
+  comma,
+  alejandra,
+  ...
+}:
 {
   imports = [
     ./emacs
@@ -11,7 +18,8 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    # (import nixpkgs-update {})
+    alejandra.defaultPackage."x86_64-linux"
+    nixpkgs-update.defaultPackage."x86_64-linux"
     (import comma { inherit pkgs; })
     nix-tree
     beancount
@@ -86,7 +94,7 @@
     )
   ];
 
-  home.keyboard.options = [ "ctrl:nocaps" ];
+  home.keyboard.options = ["ctrl:nocaps"];
 
   systemd.user.sessionVariables = config.home.sessionVariables;
 
@@ -149,8 +157,8 @@
 
   programs.bash = {
     enable = true;
-    historyControl = [ "ignoredups" ];
-    historyIgnore = [ "ls" ];
+    historyControl = ["ignoredups"];
+    historyIgnore = ["ls"];
 
     shellAliases = {
       ls = "ls --color=auto";
@@ -191,7 +199,6 @@
         git_check_user_config
       }
     '';
-
   };
 
   programs.bat = {
@@ -216,11 +223,10 @@
       init.defaultBranch = "main";
     };
     ignores =
-      [ "result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html" ];
+      ["result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html"];
   };
 
   home.file = {
-
     ".gemrc".text = "gem: --no-ri --no-rdoc";
     ".ghc/ghci.conf".source = ./ghc/ghci.conf;
     ".stack/config.yaml".source = ./stack/config.yaml;
@@ -280,5 +286,4 @@
       };
     };
   };
-
 }
