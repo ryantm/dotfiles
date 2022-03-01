@@ -6,8 +6,7 @@
   comma,
   alejandra,
   ...
-}:
-{
+}: {
   imports = [
     ./emacs
   ];
@@ -20,7 +19,7 @@
   home.packages = with pkgs; [
     alejandra.defaultPackage."x86_64-linux"
     nixpkgs-update.defaultPackage."x86_64-linux"
-    (import comma { inherit pkgs; })
+    (import comma {inherit pkgs;})
     nix-tree
     beancount
     cmus
@@ -222,8 +221,7 @@
       merge.conflictstyle = "diff3";
       init.defaultBranch = "main";
     };
-    ignores =
-      ["result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html"];
+    ignores = ["result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html"];
   };
 
   home.file = {

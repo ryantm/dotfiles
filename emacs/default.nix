@@ -3,8 +3,7 @@
   config,
   emacs-overlay,
   ...
-}:
-{
+}: {
   nixpkgs.overlays = [
     (import emacs-overlay)
   ];
