@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   nixpkgs-update,
   home-manager,
@@ -117,7 +118,10 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      window.dynamic_title = false;
+      window = {
+        startup_mode = "Fullscreen";
+        dynamic_title = false;
+      };
       font = {
         size = 16;
         normal = {
@@ -256,6 +260,18 @@
     text = ''
       set format_title=cmus: %t
       set altformat_title=cmus: %t
+    '';
+  };
+
+  xdg.configFile."run-or-raise/shortcuts.conf" = {
+    text = ''
+      # window classes with Alt+f2 run `lg` go to windows
+      <Super>f,firefox,,
+      <Super>c,google-chrome-stable,Google-chrome,/Google Chrome$/
+      <Super>a,google-chrome-stable --app=https://mattermost.pololu.work,Google-chrome,/Pololu Mattermost$/
+      <Super>e,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
+      <Super>t,alacritty --title alacritty-pololu -e mosh nix-ryantm -- tmux new -As 0,,alacritty-pololu
+      <Super>r,rdp,,
     '';
   };
 
