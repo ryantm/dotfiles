@@ -119,7 +119,7 @@
     enable = true;
     settings = {
       window = {
-        startup_mode = "Fullscreen";
+        startup_mode = "Maximized";
         dynamic_title = false;
       };
       font = {
