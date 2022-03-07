@@ -5,10 +5,12 @@
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
+  inputs.emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nixpkgs-update.url = "/home/ryantm/p/nixpkgs-update";
   inputs.comma.url = "github:Shopify/comma";
   inputs.comma.flake = false;
   inputs.alejandra.url = "github:kamadorueda/alejandra";
+  inputs.alejandra.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
     self,
