@@ -25,22 +25,17 @@
     beancount
     cmus
     evince
-    firefox
     freerdp
     gh
     gimp
-    git-crypt
     git-delete-merged-branches
     gnupg
     google-chrome
     haskellPackages.hpack
     hydra-check
     inkscape
-    jumpapp
     ledger
     lf
-    libreoffice
-    minecraft
     meld
     niv
     nixfmt
@@ -51,7 +46,6 @@
     remmina
     scrot
     st
-    thunderbird
     tmux
     usbutils
     virt-manager
@@ -61,7 +55,6 @@
     yubikey-manager
     yubikey-personalization-gui
     zeal
-    zsnes
     (
       pkgs.writeScriptBin "rdp" ''
         ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
@@ -116,7 +109,7 @@
   # '';
 
   programs.alacritty = {
-    enable = true;
+    # enable = true;
     settings = {
       window = {
         startup_mode = "Maximized";
@@ -300,4 +293,5 @@
       };
     };
   };
+
 }
