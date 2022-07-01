@@ -6,6 +6,8 @@
   home-manager,
   comma,
   alejandra,
+  nixpkgs,
+  system,
   ...
 }: {
   imports = [
@@ -15,12 +17,13 @@
   programs.home-manager.enable = true;
 
   nixpkgs.config = import ./nixpkgs-config.nix;
+
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
     alejandra.defaultPackage."x86_64-linux"
     nixpkgs-update.defaultPackage."x86_64-linux"
-    (import comma {inherit pkgs;})
+    #(import comma {inherit pkgs;})
     nix-tree
     beancount
     cmus

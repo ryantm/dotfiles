@@ -51,7 +51,6 @@
         lsp-ui
         lxc
         magit
-        magit-annex
         markdown-preview-mode
         multiple-cursors
         nix-mode

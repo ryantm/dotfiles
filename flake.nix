@@ -25,12 +25,16 @@
     username = "ryantm";
   in {
     homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      configuration = import ./home.nix;
-      inherit username;
-      system = "x86_64-linux";
-      homeDirectory = "/home/${username}";
-      stateVersion = "21.11";
-      extraSpecialArgs = {inherit comma emacs-overlay nixpkgs-update alejandra;};
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [
+        ./home.nix
+        {
+          home.username = username;
+          home.homeDirectory = "/home/${username}";
+          home.stateVersion = "22.05";
+        }
+      ];
+      extraSpecialArgs = {inherit comma emacs-overlay nixpkgs-update alejandra nixpkgs;};
     };
   };
 }
