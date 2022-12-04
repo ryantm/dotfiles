@@ -58,6 +58,7 @@
     yubikey-manager
     yubikey-personalization-gui
     zeal
+    zoom-us
     (
       pkgs.writeScriptBin "rdp" ''
         ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
