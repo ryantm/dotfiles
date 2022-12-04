@@ -111,15 +111,25 @@
   #   set +a
   # '';
 
+  # copied from home-manager because we don't want to install alacritty program, just configure it
+  xdg.configFile."alacritty/alacritty.yml" = {
+    # TODO: Replace by the generate function but need to figure out how to
+    # handle the escaping first.
+    #
+    # source = yamlFormat.generate "alacritty.yml" cfg.settings;
+
+    text =
+      lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON config.programs.alacritty.settings);
+  };
+
   programs.alacritty = {
-    # enable = true;
     settings = {
       window = {
         startup_mode = "Maximized";
         dynamic_title = false;
       };
       font = {
-        size = 16;
+        size = 20;
         normal = {
           family = "DejaVu Sans Mono";
         };
@@ -262,12 +272,8 @@
   xdg.configFile."run-or-raise/shortcuts.conf" = {
     text = ''
       # window classes with Alt+f2 run `lg` go to windows
-      <Super>f,firefox,,
-      <Super>c,google-chrome-stable,Google-chrome,/Google Chrome$/
-      <Super>a,google-chrome-stable --app=https://mattermost.pololu.work,Google-chrome,/Pololu Mattermost$/
-      <Super>e,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
-      <Super>t,alacritty --title alacritty-pololu -e mosh nix-ryantm -- tmux new -As 0,,alacritty-pololu
-      <Super>r,rdp,,
+      <Super>f,brave,,
+      <Super>d,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
     '';
   };
 
