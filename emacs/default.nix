@@ -23,6 +23,8 @@
     nixpkgs-fmt
     rnix-lsp
     omnisharp-roslyn
+    nodejs
+    nodePackages.prettier
   ];
 
   programs.emacs.enable = true;
@@ -38,6 +40,7 @@
         elisp-slime-nav
         fill-column-indicator
         flycheck-haskell
+        go-mode
         graphql-mode
         graphviz-dot-mode
         haml-mode
@@ -57,10 +60,12 @@
         ormolu
         paredit
         powerline
+        prettier
         purescript-mode
         rainbow-delimiters
         rust-mode
         swiper
+        typescript-mode
         use-package
         yaml-mode
         zeal-at-point
