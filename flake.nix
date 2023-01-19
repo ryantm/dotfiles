@@ -12,7 +12,7 @@
   inputs.alejandra.url = "github:kamadorueda/alejandra";
   inputs.alejandra.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = {
+  outputs = inputs @ {
     self,
     flake-utils,
     nixpkgs,
@@ -34,7 +34,7 @@
           home.stateVersion = "22.05";
         }
       ];
-      extraSpecialArgs = {inherit comma emacs-overlay nixpkgs-update alejandra nixpkgs;};
+      extraSpecialArgs = inputs;
     };
   };
 }
