@@ -66,6 +66,7 @@
         rust-mode
         swiper
         typescript-mode
+        unisonlang-mode
         use-package
         yaml-mode
         zeal-at-point
