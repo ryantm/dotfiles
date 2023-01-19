@@ -21,8 +21,8 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
-    alejandra.defaultPackage."x86_64-linux"
-    nixpkgs-update.defaultPackage."x86_64-linux"
+    alejandra.defaultPackage.x86_64-linux
+    nixpkgs-update.packages.x86_64-linux.default
     #(import comma {inherit pkgs;})
     nix-tree
     beancount
@@ -30,7 +30,6 @@
     evince
     freerdp
     gh
-    gimp
     git-delete-merged-branches
     gnupg
     google-chrome
@@ -44,7 +43,6 @@
     nixfmt
     nixpkgs-review
     openvpn
-    python
     qbittorrent
     remmina
     scrot
@@ -59,12 +57,6 @@
     yubikey-personalization-gui
     zeal
     zoom-us
-    (
-      pkgs.writeScriptBin "rdp" ''
-        ${pkgs.gnome3.zenity}/bin/zenity --entry --title="Pololu\\RyanTM password" --text "Enter your _password:" --hide-text | \
-          ${pkgs.freerdp}/bin/xfreerdp /u:Pololu\\RyanTM /v:192.168.138.15:3389 +clipboard /cert:tofu /floatbar /f /sound +fonts -wallpaper +auto-reconnect /from-stdin
-      ''
-    )
     (
       pkgs.writeScriptBin "hms" ''
         home-manager switch --flake /home/ryantm/p/dotfiles#ryantm
@@ -99,10 +91,6 @@
     TERM = "xterm-256color";
     BROWSER = "google-chrome-stable";
     TMUX_TMPDIR = "$XDG_RUNTIME_DIR";
-
-    LEDGER_FILE = "~ledger/mulligan.ledger";
-    LEDGER_STRICT = "true";
-    LEDGER_PEDANTIC = "true";
   };
 
   # Get systemd environment variables for ssh login shell too
@@ -186,28 +174,6 @@
         command ssh "$@"
         settitle "bash"
       }
-
-      # Git user configuration scripts
-      function git_config_user {
-        git config --replace-all user.name "$1"
-        git config --replace-all user.email "$2"
-      }
-      function git_check_user_config {
-        echo "Name: `git config user.name`"
-        echo "Email: `git config user.email`"
-      }
-      function git_work_private {
-        git_config_user "Ryan Mulligan" "ryantm@pololu.com"
-        git_check_user_config
-      }
-      function git_work_public {
-        git_config_user "RyanTM (Pololu)" "dev-ryantm@pololu.com"
-        git_check_user_config
-      }
-      function git_personal {
-        git_config_user "Ryan Mulligan" "ryan@ryantm.com"
-        git_check_user_config
-      }
     '';
   };
 
@@ -217,10 +183,10 @@
   };
 
   programs.git = {
-    userEmail = "";
-    userName = "";
     enable = true;
     extraConfig = {
+      user.name = "Ryan Mulligan";
+      user.email = "ryan@ryantm.com";
       user.useConfigOnly = true;
       color = {
         diff = "auto";
@@ -275,6 +241,7 @@
       # window classes with Alt+f2 run `lg` go to windows
       <Super>f,brave,,
       <Super>d,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
+      <Super>s,code,,
     '';
   };
 
