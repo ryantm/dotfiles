@@ -185,6 +185,7 @@
   programs.git = {
     enable = true;
     extraConfig = {
+      core.fsmonitor = true;
       user.name = "Ryan Mulligan";
       user.email = "ryan@ryantm.com";
       user.useConfigOnly = true;
@@ -229,13 +230,6 @@
     recursive = true;
   };
 
-  xdg.configFile."cmus/rc" = {
-    text = ''
-      set format_title=cmus: %t
-      set altformat_title=cmus: %t
-    '';
-  };
-
   xdg.configFile."run-or-raise/shortcuts.conf" = {
     text = ''
       # window classes with Alt+f2 run `lg` go to windows
@@ -249,25 +243,4 @@
   #   description = "SSH key agent";
   #   environment.SSH_AUTH_SOCK = "%t/ssh-agent";
   # };
-
-  services.gpg-agent = {
-    enable = true;
-    extraConfig = ''
-      allow-emacs-pinentry
-      allow-loopback-pinentry
-    '';
-    pinentryFlavor = "tty";
-    verbose = true;
-  };
-
-  programs.beets = {
-    enable = true;
-    settings = {
-      directory = "/data/music";
-      library = "/data/music/musiclibrary.db";
-      "import" = {
-        move = "yes";
-      };
-    };
-  };
 }

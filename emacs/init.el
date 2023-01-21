@@ -282,15 +282,17 @@
 (setq auth-sources '("~/.config/emacs/authinfo.gpg"))
 
 (dir-locals-set-class-variables 'huge-git-repository
-                                '((nil . ((magit-refresh-buffers . nil)))
+                                '((nil
+                                   . ((magit-refresh-buffers . nil)
+                                      (magit-revision-insert-related-refs . nil)))
                                   ((magit-status-mode
-                                    . ((eval . (magit-disable-section-inserter 'magit-insert-tags)))))))
+                                    . (
+                                       (eval . (magit-disable-section-inserter 'magit-insert-tags))
+                                       (eval . (magit-disable-section-inserter 'magit-insert-unpulled-from-upstream))
+                                       (eval . (magit-disable-section-inserter 'magit-insert-unpusehd-to-upstream-or-recent))
+                                       )))))
 
-(dir-locals-set-directory-class
-   "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
-(dir-locals-set-directory-class
-   "/home/p/pololu/it/system2/" 'huge-git-repository)
-
+(dir-locals-set-directory-class "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
 
 ;;; Tabs
 (setq js-indent-level 2)
