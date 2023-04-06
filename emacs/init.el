@@ -281,18 +281,24 @@
 
 (setq auth-sources '("~/.config/emacs/authinfo.gpg"))
 
-(dir-locals-set-class-variables 'huge-git-repository
-                                '((nil
-                                   . ((magit-refresh-buffers . nil)
-                                      (magit-revision-insert-related-refs . nil)))
-                                  ((magit-status-mode
-                                    . (
-                                       (eval . (magit-disable-section-inserter 'magit-insert-tags))
-                                       (eval . (magit-disable-section-inserter 'magit-insert-unpulled-from-upstream))
-                                       (eval . (magit-disable-section-inserter 'magit-insert-unpusehd-to-upstream-or-recent))
-                                       )))))
+(dir-locals-set-class-variables
+ 'huge-git-repository
+ '((nil
+    . ((magit-refresh-buffers . nil)
+       (magit-revision-insert-related-refs . nil)))
+   (magit-status-mode
+      . ((eval . (magit-disable-section-inserter 'magit-insert-tags-header))
+         (eval . (magit-disable-section-inserter 'magit-insert-recent-commits))
+         (eval . (magit-disable-section-inserter 'magit-insert-unpushed-to-pushremote))
+         (eval . (magit-disable-section-inserter 'magit-insert-unpushed-to-upstream-or-recent))
+         (eval . (magit-disable-section-inserter 'magit-insert-unpulled-from-pushremote))
+         (eval . (magit-disable-section-inserter 'magit-insert-unpulled-from-pushremote))
+         (eval . (magit-disable-section-inserter 'magit-insert-unpulled-from-upstream))
+         ))
+))
 
-(dir-locals-set-directory-class "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
+(dir-locals-set-directory-class
+   "/home/ryantm/p/nixpkgs/" 'huge-git-repository)
 
 ;;; Tabs
 (setq js-indent-level 2)
