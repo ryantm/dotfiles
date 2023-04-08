@@ -111,6 +111,8 @@
       lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON config.programs.alacritty.settings);
   };
 
+  programs.direnv.enable = true;
+
   programs.alacritty = {
     settings = {
       window = {
