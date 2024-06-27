@@ -15,6 +15,9 @@
   (defvar use-package-verbose t)
   (require 'use-package))
 
+(defun seq-keep (function sequence)
+  "Apply FUNCTION to SEQUENCE and return the list of all the non-nil results."
+  (delq nil (seq-map function sequence)))
 
 (use-package bind-key)
 (use-package diminish)
@@ -25,12 +28,16 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook (
-         (csharp-mode . lsp))
+         (csharp-mode . lsp)
+         ;; (nix-mode . lsp)
+         (go-mode . lsp)
+         (rust-mode . lsp)
+         (typescript-mode . lsp))
   :commands lsp)
-
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(use-package lsp-angular)
 
 (use-package mule
   :custom
@@ -51,19 +58,11 @@
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode))
 
-;; Macro for browsing a large magit commit history
-(fset 'magit-rtm-down
-      [tab ?n tab ?\C-l ?\C-l])
-
-(fset 'magit-rtm-up
-      [tab ?p tab ?\C-l ?\C-l])
-
 (use-package magit
   :commands (magit-status)
   :bind (("C-x g" . magit-status)
          :map magit-status-mode-map
-         ("C-M-n" . magit-rtm-down)
-         ("C-M-p" . magit-rtm-up)))
+         ))
 
 (use-package whitespace
   :defer 5
@@ -86,6 +85,8 @@
 ;; (use-package intero
 ;;   :custom
 ;;   (intero-global-mode 1))
+
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
@@ -152,12 +153,6 @@
   :functions nix-indent-line
   :custom
   (nix-indent-function #'nix-indent-line))
-
-;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-;; (lsp-register-client
-;;  (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-;;                   :major-modes '(nix-mode)
-;;                   :server-id 'nix))
 
 (declare-function ivy-mode "ivy" ())
 (use-package ivy

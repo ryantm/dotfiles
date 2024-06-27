@@ -24,10 +24,10 @@
  '(initial-scratch-message nil)
  '(keyboard-coding-system 'utf-8-unix)
  '(ledger-reconcile-default-date-format "%Y-%m-%d")
- '(ruby-insert-encoding-magic-comment nil)
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion))
+ '(ruby-insert-encoding-magic-comment nil)
  '(save-place-file "~/.config/emacs/.places")
  '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)

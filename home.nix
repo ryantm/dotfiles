@@ -2,12 +2,7 @@
   pkgs,
   lib,
   config,
-  nixpkgs-update,
-  home-manager,
-  comma,
   alejandra,
-  nixpkgs,
-  system,
   ...
 }: {
   imports = [
@@ -21,8 +16,10 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
+    _1password-gui
+
     alejandra.defaultPackage.x86_64-linux
-    nixpkgs-update.packages.x86_64-linux.default
+    #nixpkgs-update.packages.x86_64-linux.default
     #(import comma {inherit pkgs;})
     nix-tree
     beancount
@@ -32,19 +29,25 @@
     gh
     git-delete-merged-branches
     gnupg
-    google-chrome
+    go
+    gopls
     haskellPackages.hpack
     hydra-check
     inkscape
+    jq
     ledger
     lf
     meld
+    nil
     niv
     nixfmt
     nixpkgs-review
     openvpn
     qbittorrent
     remmina
+    cargo
+    rustc
+    rust-analyzer
     scrot
     st
     tmux
@@ -100,23 +103,16 @@
   #   set +a
   # '';
 
-  # copied from home-manager because we don't want to install alacritty program, just configure it
-  xdg.configFile."alacritty/alacritty.yml" = {
-    # TODO: Replace by the generate function but need to figure out how to
-    # handle the escaping first.
-    #
-    # source = yamlFormat.generate "alacritty.yml" cfg.settings;
-
-    text =
-      lib.replaceStrings [ "\\\\" ] [ "\\" ] (builtins.toJSON config.programs.alacritty.settings);
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
   };
 
-  programs.direnv.enable = true;
-
   programs.alacritty = {
+    enable = true;
     settings = {
       window = {
-        startup_mode = "Maximized";
         dynamic_title = false;
       };
       font = {
@@ -235,10 +231,19 @@
   xdg.configFile."run-or-raise/shortcuts.conf" = {
     text = ''
       # window classes with Alt+f2 run `lg` go to windows
-      <Super>f,brave,,
+      <Super>f,google-chrome,,
       <Super>d,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
-      <Super>s,code,,
     '';
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-livesplit-one
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+    ];
   };
 
   # systemd.user.services.ssh-agent = {
