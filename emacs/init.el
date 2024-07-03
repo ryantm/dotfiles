@@ -121,6 +121,10 @@
   :config
   (setq tab-width 8))
 
+(use-package typescript-mode
+  :config
+  (setq typescript-indent-level 2))
+
 (use-package paredit
   :hook (emacs-lisp-mode . paredit-mode)
   :diminish (paredit-mode))
