@@ -46,6 +46,7 @@
     qbittorrent
     remmina
     cargo
+    ruff-lsp
     rustc
     rust-analyzer
     scrot
