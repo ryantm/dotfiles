@@ -17,6 +17,7 @@
  '(frame-background-mode 'light)
  '(git-commit-summary-max-length 80)
  '(global-whitespace-mode t)
+ '(go-ts-mode-indent-offset 2)
  '(haskell-indent-offset 2)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen nil)

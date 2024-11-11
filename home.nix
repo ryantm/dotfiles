@@ -23,6 +23,7 @@
     #(import comma {inherit pkgs;})
     nix-tree
     beancount
+    basedpyright
     cmus
     evince
     freerdp
@@ -46,12 +47,13 @@
     qbittorrent
     remmina
     cargo
-    ruff-lsp
+    ruff
     rustc
     rust-analyzer
     scrot
     st
     tmux
+    typescript-language-server
     usbutils
     virt-manager
     vlc
@@ -110,8 +112,19 @@
     nix-direnv.enable = true;
   };
 
+  xdg.configFile."alacritty/alacritty.toml" = lib.mkIf (config.programs.alacritty.settings != { }) {
+    source = ((pkgs.formats.toml { }).generate "alacritty.toml" config.programs.alacritty.settings).overrideAttrs
+    (finalAttrs: prevAttrs: {
+      buildCommand = lib.concatStringsSep "\n" [
+        prevAttrs.buildCommand
+        # TODO: why is this needed? Is there a better way to retain escape sequences?
+        "substituteInPlace $out --replace '\\\\' '\\'"
+      ];
+    });
+  };
+
   programs.alacritty = {
-    enable = true;
+    #enable = true;
     settings = {
       window = {
         dynamic_title = false;

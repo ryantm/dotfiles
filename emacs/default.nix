@@ -81,6 +81,7 @@ in {
         lsp-ivy
         lsp-mode
         lsp-ui
+        lsp-pyright
         lxc
         magit
         markdown-preview-mode
@@ -91,10 +92,13 @@ in {
         powerline
         prettier
         purescript-mode
+        pytest
         rainbow-delimiters
         rust-mode
         seq
         swiper
+        tide
+        treesit-grammars.with-all-grammars
         typescript-mode
         unisonlang-mode
         use-package

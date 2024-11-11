@@ -1,7 +1,7 @@
 {
   description = "ryantm's dotfiles";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay";
@@ -31,7 +31,7 @@
         {
           home.username = username;
           home.homeDirectory = "/home/${username}";
-          home.stateVersion = "22.05";
+          home.stateVersion = "24.05";
         }
       ];
       extraSpecialArgs = inputs;

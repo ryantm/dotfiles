@@ -19,25 +19,50 @@
   "Apply FUNCTION to SEQUENCE and return the list of all the non-nil results."
   (delq nil (seq-map function sequence)))
 
+(setq major-mode-remap-alist
+ '((yaml-mode . yaml-ts-mode)
+   (bash-mode . bash-ts-mode)
+   (go-mode . go-ts-mode)
+   (typescript-mode . typescript-ts-mode)
+   (json-mode . json-ts-mode)
+   (css-mode . css-ts-mode)
+   (python-mode . python-ts-mode)))
+
 (use-package bind-key)
 (use-package diminish)
 (use-package uniquify
   :defer 5)
 
-(use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook (
-         (csharp-mode . lsp)
-         ;; (nix-mode . lsp)
-         (go-mode . lsp)
-         (rust-mode . lsp)
-         (typescript-mode . lsp))
-  :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-(use-package lsp-angular)
+(use-package editorconfig
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
+(use-package eglot
+ :hook (prog-mode . eglot-ensure)
+ :config
+ (setq eglot-server-programs
+       '((typescript-ts-mode . ("typescript-language-server" "--stdio"))
+         (tsx-ts-mode . ("typescript-language-server" "--stdio"))
+         (go-ts-mode . ("gopls")))))
+
+(use-package lsp-pyright
+  :ensure t
+  :custom (lsp-pyright-langserver-command "basedpyright")
+  :hook (python-ts-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))
+
+(use-package python-ts-mode
+  :hook (python-ts-mode . eglot-ensure))
+
+
+(defun eglot-format-buffer-on-save ()
+  (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+
+(use-package go-ts-mode
+  :hook ((go-ts-mode . eglot-ensure)
+         (go-ts-mode . eglot-format-buffer-on-save)))
 
 (use-package mule
   :custom
@@ -86,8 +111,6 @@
 ;;   :custom
 ;;   (intero-global-mode 1))
 
-(add-hook 'before-save-hook #'gofmt-before-save)
-
 (use-package haskell-mode
   :mode "\\.l?hs\\'"
   :hook (ormolu-format-on-save-mode))
@@ -121,9 +144,24 @@
   :config
   (setq tab-width 8))
 
-(use-package typescript-mode
+(defun prettier ()
+  (add-hook 'before-save-hook #'prettier-prettify -10 t))
+
+
+(use-package typescript-ts-mode
   :config
-  (setq typescript-indent-level 2))
+  (setq typescript-indent-level 2)
+  :hook (typescript-ts-mode . prettier))
+
+(use-package company
+  :hook (prog-mode . company-mode))
+
+(use-package tide
+  :ensure t
+  :after (company flycheck)
+  :hook ((typescript-ts-mode . tide-setup)
+         (tsx-ts-mode . tide-setup)
+         (typescript-ts-mode . tide-hl-identifier-mode)))
 
 (use-package paredit
   :hook (emacs-lisp-mode . paredit-mode)
@@ -167,8 +205,10 @@
   :custom
   (ivy-count-format "(%d/%d) ")
   (ivy-use-virtual-buffers t)
+  (counsel-find-file-at-point t)
   :config (ivy-mode))
 
+(setq counsel-find-file-at-point t)
 (declare-function counsel-mode "counsel" ())
 (use-package counsel
   :after ivy
@@ -266,6 +306,8 @@
 
 (let ((rebindings '(("C-x C-l" goto-line)
                     ("C-x l" goto-line)
+                    ("M-n" flycheck-next-error)
+                    ("M-p" flycheck-previous-error)
                     ("C-x e" eval-last-sexp)
                     ("<C-tab>" next-buffer)
                     ("<C-S-iso-lefttab>" previous-buffer)
@@ -301,6 +343,7 @@
 
 ;;; Tabs
 (setq js-indent-level 2)
+(setq typescript-ts-mode-indent-offset 2)
 (setq tab-width 2)
 
 ;;; Appearance
