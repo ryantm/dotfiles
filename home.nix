@@ -17,10 +17,6 @@
 
   home.packages = with pkgs; [
     _1password-gui
-
-    alejandra.defaultPackage.x86_64-linux
-    #nixpkgs-update.packages.x86_64-linux.default
-    #(import comma {inherit pkgs;})
     nix-tree
     beancount
     basedpyright
@@ -32,15 +28,12 @@
     gnupg
     go
     gopls
-    haskellPackages.hpack
     hydra-check
     inkscape
     jq
     ledger
-    lf
     meld
     nil
-    niv
     nixfmt
     nixpkgs-review
     openvpn
@@ -50,14 +43,12 @@
     ruff
     rustc
     rust-analyzer
-    scrot
-    st
     tmux
     typescript-language-server
+    nodePackages.prettier
     usbutils
     virt-manager
     vlc
-    w3m
     xterm
     yubikey-manager
     yubikey-personalization-gui
