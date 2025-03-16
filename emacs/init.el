@@ -1,13 +1,18 @@
-(when (getenv "INSIDE_EMACS")
-  (kill-emacs))
-
 (defconst emacs-start-time (current-time))
 (unless noninteractive
   (message "Loading %s..." load-file-name))
 
-;; (when (not (window-system))
-;;   (send-string-to-terminal "\033]12;black\007")
-;;   (let ((frame-background-mode 'light)) (frame-set-background-mode nil)))
+;; Customizations
+(defconst custom-file-start-time (current-time))
+
+(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
+(load custom-file)
+(setq custom-file (expand-file-name "~/p/dotfiles/emacs/custom-file.el"))
+
+(unless noninteractive
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            custom-file-start-time))))
+    (message "Loading custom-file...done (%.3fs)" elapsed)))
 
 (eval-when-compile
   (require 'package)
@@ -15,9 +20,7 @@
   (defvar use-package-verbose t)
   (require 'use-package))
 
-(defun seq-keep (function sequence)
-  "Apply FUNCTION to SEQUENCE and return the list of all the non-nil results."
-  (delq nil (seq-map function sequence)))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq major-mode-remap-alist
  '((yaml-mode . yaml-ts-mode)
@@ -44,21 +47,28 @@
  (setq eglot-server-programs
        '((typescript-ts-mode . ("typescript-language-server" "--stdio"))
          (tsx-ts-mode . ("typescript-language-server" "--stdio"))
-         (go-ts-mode . ("gopls")))))
+         (go-ts-mode . ("gopls"))
+         (json-ts-mode . ("vscode-json-languageserver" "--stdio"))
+         (js-json-mode . ("vscode-json-languageserver" "--stdio"))
+         (python-ts-mode . ("basedpyright-langserver" "--stdio"))
+         (c++-mode . ("clangd"))))
+ (setq-default
+       eglot-workspace-configuration
+       '(:basedpyright.analysis (
+           :diagnosticMode "openFilesOnly"))))
 
-(use-package lsp-pyright
-  :ensure t
-  :custom (lsp-pyright-langserver-command "basedpyright")
-  :hook (python-ts-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))
+(use-package c++-mode
+  :hook (c++-mode . eglot-ensure))
 
-(use-package python-ts-mode
-  :hook (python-ts-mode . eglot-ensure))
-
+(setq font-lock-maximum-decoration t)
+(setq-default show-trailing-whitespace nil)
 
 (defun eglot-format-buffer-on-save ()
   (add-hook 'before-save-hook #'eglot-format-buffer -10 t))
+
+(use-package python-ts-mode
+  :hook (python-ts-mode . eglot-ensure)
+        (python-ts-mode . eglot-format-buffer-on-save))
 
 (use-package go-ts-mode
   :hook ((go-ts-mode . eglot-ensure)
@@ -104,29 +114,8 @@
 (use-package flycheck
   :defer t)
 
-(use-package cc-mode
-  :mode ("\\.ino\\'" . c-mode))
-
-;; (use-package intero
-;;   :custom
-;;   (intero-global-mode 1))
-
-(use-package haskell-mode
-  :mode "\\.l?hs\\'"
-  :hook (ormolu-format-on-save-mode))
-;;  :bind ("C-c ," . haskell-mode-format-imports)
-
-(use-package purescript-mode
-  :mode "\\.purs\\'")
-
 (use-package yaml-mode
   :mode "\\.ya?ml\\'")
-
-(use-package ledger-mode
-  :mode "\\.ledger\\'")
-
-;; (use-package markdown-preview-mode
-;;   :hook (gfm-mode markdown-mode))
 
 (use-package markdown-mode
   :mode (("\\`README\\.md\\'" . gfm-mode)
@@ -147,21 +136,17 @@
 (defun prettier ()
   (add-hook 'before-save-hook #'prettier-prettify -10 t))
 
-
 (use-package typescript-ts-mode
   :config
-  (setq typescript-indent-level 2)
+  (setq typescript-indent-level 2
+        typescript-ts-mode-indent-offset 2)
   :hook (typescript-ts-mode . prettier))
 
 (use-package company
+  :config
+  (setq company-minimum-prefix-length 1
+        company-idle-delay 0.0)
   :hook (prog-mode . company-mode))
-
-(use-package tide
-  :ensure t
-  :after (company flycheck)
-  :hook ((typescript-ts-mode . tide-setup)
-         (tsx-ts-mode . tide-setup)
-         (typescript-ts-mode . tide-hl-identifier-mode)))
 
 (use-package paredit
   :hook (emacs-lisp-mode . paredit-mode)
@@ -178,21 +163,13 @@
 (use-package elisp-mode
   :mode ("\\.el\\'" . emacs-lisp-mode))
 
-(use-package flyspell
-  :hook (haml-mode . flyspell-mode))
-
-(use-package haml-mode
-  :mode "\\.haml\\'")
-
-(use-package csharp-mode
-  :mode "\\.cs\\'")
-
 (use-package rust-mode
   :mode "\\.rs\\'")
 
 (use-package nix-mode
   :mode "\\.nix\\'"
   :functions nix-indent-line
+  :hook (nix-mode . nixfmt-on-save-mode)
   :custom
   (nix-indent-function #'nix-indent-line))
 
@@ -220,35 +197,15 @@
   :bind (("C-s" . swiper)
          ("C-r" . swiper)))
 
-(use-package inf-ruby
-  :hook (ruby-mode . inf-ruby-minor-mode))
-
-(use-package ruby-mode
-  :mode "\\.rb\\'"
-  :interpreter "ruby"
-  :custom
-  (ruby-deep-indent-paren-style nil))
-
 (use-package zeal-at-point
   :bind ("C-c d" . zeal-at-point))
 
 
-(add-to-list 'load-path "/home/ryantm/.config/emacs/lisp/")
+;; (add-to-list 'load-path "/home/ryantm/.config/emacs/lisp/")
 (use-package beancount
   :mode "\\.beancount\\'"
   :config (beancount-mode))
 
-;; Customizations
-(defconst custom-file-start-time (current-time))
-
-(setq custom-file (expand-file-name "custom-file.el" user-emacs-directory))
-(load custom-file)
-(setq custom-file (expand-file-name "~/p/dotfiles/emacs/custom-file.el"))
-
-(unless noninteractive
-  (let ((elapsed (float-time (time-subtract (current-time)
-                                            custom-file-start-time))))
-    (message "Loading custom-file...done (%.3fs)" elapsed)))
 
 
 ;; Write backup and autosave files to their own directories
@@ -306,8 +263,8 @@
 
 (let ((rebindings '(("C-x C-l" goto-line)
                     ("C-x l" goto-line)
-                    ("M-n" flycheck-next-error)
-                    ("M-p" flycheck-previous-error)
+                    ("M-n" flymake-goto-next-error)
+                    ("M-p" flymake-goto-prev-error)
                     ("C-x e" eval-last-sexp)
                     ("<C-tab>" next-buffer)
                     ("<C-S-iso-lefttab>" previous-buffer)
@@ -343,21 +300,11 @@
 
 ;;; Tabs
 (setq js-indent-level 2)
-(setq typescript-ts-mode-indent-offset 2)
 (setq tab-width 2)
 
 ;;; Appearance
 (global-font-lock-mode t)
 (setq inhibit-splash-screen t)
-
-(defun nixfmt ()
-  "Run nixfmt on current buffer."
-  (interactive)
-  ()
-  (save-buffer)
-  (shell-command (concat "nixfmt " (buffer-file-name)))
-  (revert-buffer t t t))
-
 
 ;;; Post initialization
 

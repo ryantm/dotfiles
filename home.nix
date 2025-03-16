@@ -16,6 +16,7 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
+    clang-tools
     _1password-gui
     nix-tree
     beancount
@@ -34,7 +35,7 @@
     ledger
     meld
     nil
-    nixfmt
+    nixfmt-rfc-style
     nixpkgs-review
     openvpn
     qbittorrent
@@ -46,6 +47,7 @@
     tmux
     typescript-language-server
     nodePackages.prettier
+    nodePackages.vscode-json-languageserver
     usbutils
     virt-manager
     vlc
@@ -166,7 +168,10 @@
       grep = "grep --color=auto";
     };
 
-    initExtra = ''
+    initExtra = '' 
+     export PATH="/home/ryantm/.local/bin:$PATH"
+     eval "$(_RPL_COMPLETE=bash_source rpl)"
+
       function settitle {
         tmux rename-window "$1"
       }
@@ -236,10 +241,20 @@
   xdg.configFile."run-or-raise/shortcuts.conf" = {
     text = ''
       # window classes with Alt+f2 run `lg` go to windows
-      <Super>f,google-chrome,,
-      <Super>d,alacritty --title alacritty-home -e tmux new -As 0,,alacritty-home
+      # shortcut,command,[wm_class],[title]
+      #<Super>f,firefox,,
+      <Super>f,google-chrome-stable,google-chrome,
+      <Super>s,ghostty,com.mitchellh.ghostty,
+      <Super>d,emacsclient --create-frame,Emacs,
     '';
   };
+
+# bind = $mainMod, S, exec, raise --class "com.mitchellh.ghostty" --launch "ghostty"
+# bind = $mainMod, D, exec, raise --class "Emacs" --launch "emacsclient -t"
+# bind = $mainMod, F, exec, raise --class "firefox" --launch "firefox"
+# bind = $mainMod, C, exec, raise --class "google-chrome" --launch "google-chrome-stable"
+
+
 
   programs.obs-studio = {
     enable = true;

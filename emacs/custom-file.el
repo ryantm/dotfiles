@@ -8,7 +8,7 @@
  '(column-number-mode t)
  '(confirm-kill-emacs 'y-or-n-p)
  '(create-lockfiles nil)
- '(custom-enabled-themes '(tango))
+ '(custom-enabled-themes '(modus-operandi))
  '(custom-file "/home/ryantm/p/dotfiles/emacs/custom-file.el")
  '(dirtrack-list '("^[0-9a-z@-]* \\(.*\\) .*[$#]" 1))
  '(enable-local-variables :safe)
@@ -28,6 +28,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    '(magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion))
+ '(ring-bell-function 'ignore)
  '(ruby-insert-encoding-magic-comment nil)
  '(save-place-file "~/.config/emacs/.places")
  '(save-place-mode t nil (saveplace))
@@ -58,7 +59,7 @@
                [32 9])))
  '(whitespace-global-modes '(not dired-mode magit-mode magit-log-mode shell-mode))
  '(whitespace-style
-   '(face trailing tabs spaces lines-tail newline empty indentation space-after-tab space-before-tab space-mark tab-mark newline-mark)))
+   '(face trailing lines-tail newline empty space-after-tab space-before-tab space-mark newline-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -66,6 +67,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background nil :foreground nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "adobe" :family "Source Code Pro"))))
  '(ledger-font-xact-highlight-face ((t nil)) t)
+ '(whitespace-indentation ((t (:background "beige" :foreground "firebrick"))))
  '(whitespace-line ((t (:background "brightwhite"))))
  '(whitespace-newline ((t (:weight ultra-light))))
- '(whitespace-space ((t (:weight ultra-light)))))
+ '(whitespace-space ((t (:foreground "#624956" :weight thin))))
+ '(whitespace-tab ((t nil))))

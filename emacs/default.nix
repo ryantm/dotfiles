@@ -47,34 +47,22 @@ in {
   services.emacs.enable = true;
   #services.emacs.client.enable = true;
 
-  home.packages = with pkgs; [
-    nixpkgs-fmt
-    omnisharp-roslyn
-    nodejs
-    nodePackages.prettier
-  ];
-
   programs.emacs.enable = true;
-  programs.emacs.package = ((pkgs.emacsPackagesFor pkgs.emacs-nox).overrideScope overrides).emacsWithPackages (
+  programs.emacs.package = ((pkgs.emacsPackagesFor pkgs.emacs30).overrideScope overrides).emacsWithPackages (
     epkgs:
       with epkgs; [
+        ccls
         bash-completion
         company
         company-go
         counsel
-        csharp-mode
-        #      csv-mode
         dhall-mode
         diminish
         elisp-slime-nav
         fill-column-indicator
-        flycheck-haskell
         go-mode
         graphql-mode
         graphviz-dot-mode
-        haml-mode
-        hi2
-        inf-ruby
         ivy
         ivy-hydra
         ledger-mode
@@ -87,11 +75,10 @@ in {
         markdown-preview-mode
         multiple-cursors
         nix-mode
-        ormolu
+        nixfmt
         paredit
         powerline
         prettier
-        purescript-mode
         pytest
         rainbow-delimiters
         rust-mode
@@ -100,7 +87,6 @@ in {
         tide
         treesit-grammars.with-all-grammars
         typescript-mode
-        unisonlang-mode
         use-package
         yasnippet
         yaml-mode
