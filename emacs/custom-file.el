@@ -14,6 +14,7 @@
  '(enable-local-variables :safe)
  '(fci-rule-color "#073642")
  '(fci-rule-column 80)
+ '(font-lock-maximum-decoration t)
  '(frame-background-mode 'light)
  '(git-commit-summary-max-length 80)
  '(global-whitespace-mode t)
@@ -27,7 +28,14 @@
  '(ledger-reconcile-default-date-format "%Y-%m-%d")
  '(menu-bar-mode nil)
  '(package-selected-packages
-   '(magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode dhall-mode nix-mode elisp-slime-nav rainbow-delimiters paredit zeal-at-point yaml-mode use-package powerline multiple-cursors markdown-preview-mode magit ledger-mode inf-ruby hi2 haml-mode flycheck-haskell fill-column-indicator cus-edit+ bash-completion))
+   '(magit-annex lxc graphql-mode purescript-mode hindent helm csv-mode
+                 dhall-mode nix-mode elisp-slime-nav
+                 rainbow-delimiters paredit zeal-at-point yaml-mode
+                 use-package powerline multiple-cursors
+                 markdown-preview-mode magit ledger-mode inf-ruby hi2
+                 haml-mode flycheck-haskell fill-column-indicator
+                 cus-edit+ bash-completion))
+ '(pytest-global-name "direnv exec . uv run pytest")
  '(ring-bell-function 'ignore)
  '(ruby-insert-encoding-magic-comment nil)
  '(save-place-file "~/.config/emacs/.places")
@@ -46,20 +54,12 @@
  '(vc-make-backup-files t)
  '(visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
  '(whitespace-display-mappings
-   '((space-mark 32
-                 [32]
-                 [32])
-     (space-mark 160
-                 [160]
-                 [160])
-     (newline-mark 10
-                   [32 10])
-     (tab-mark 9
-               [32 9]
-               [32 9])))
+   '((space-mark 32 [32] [32]) (space-mark 160 [160] [160])
+     (newline-mark 10 [32 10]) (tab-mark 9 [32 9] [32 9])))
  '(whitespace-global-modes '(not dired-mode magit-mode magit-log-mode shell-mode))
  '(whitespace-style
-   '(face trailing lines-tail newline empty space-after-tab space-before-tab space-mark newline-mark)))
+   '(face trailing lines-tail newline empty space-after-tab
+          space-before-tab space-mark newline-mark)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

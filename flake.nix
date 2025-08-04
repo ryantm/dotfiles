@@ -9,32 +9,32 @@
   inputs.nixpkgs-update.url = "github:ryantm/nixpkgs-update";
   inputs.comma.url = "github:Shopify/comma";
   inputs.comma.flake = false;
-  inputs.alejandra.url = "github:kamadorueda/alejandra";
-  inputs.alejandra.inputs.nixpkgs.follows = "nixpkgs";
 
-  outputs = inputs @ {
-    self,
-    flake-utils,
-    nixpkgs,
-    home-manager,
-    comma,
-    emacs-overlay,
-    nixpkgs-update,
-    alejandra,
-  }: let
-    username = "ryantm";
-  in {
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      modules = [
-        ./home.nix
-        {
-          home.username = username;
-          home.homeDirectory = "/home/${username}";
-          home.stateVersion = "24.05";
-        }
-      ];
-      extraSpecialArgs = inputs;
+  outputs =
+    inputs@{
+      self,
+      flake-utils,
+      nixpkgs,
+      home-manager,
+      comma,
+      emacs-overlay,
+      nixpkgs-update,
+    }:
+    let
+      username = "ryantm";
+    in
+    {
+      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          ./home.nix
+          {
+            home.username = username;
+            home.homeDirectory = "/home/${username}";
+            home.stateVersion = "24.05";
+          }
+        ];
+        extraSpecialArgs = inputs;
+      };
     };
-  };
 }

@@ -2,12 +2,12 @@
   pkgs,
   emacs-overlay,
   ...
-}: let
+}:
+let
   overrides = self: super: {
-    elpaPackages =
-      super.elpaPackages
-      // {
-        seq = self.callPackage ({
+    elpaPackages = super.elpaPackages // {
+      seq = self.callPackage (
+        {
           elpaBuild,
           fetchurl,
           lib,
@@ -20,18 +20,20 @@
             url = "https://elpa.gnu.org/packages/seq-2.24.tar";
             sha256 = "1w2cysad3qwnzdabhq9xipbslsjm528fcxkwnslhlkh8v07karml";
           };
-          packageRequires = [];
+          packageRequires = [ ];
           meta = {
             homepage = "https://elpa.gnu.org/packages/seq.html";
             license = lib.licenses.free;
           };
           # tests take a _long_ time to byte-compile, skip them
           postInstall = ''rm -r $out/share/emacs/site-lisp/elpa/${pname}-${version}/tests'';
-        }) {};
-      };
+        }
+      ) { };
+    };
   };
 
-in {
+in
+{
   nixpkgs.overlays = [
     (import emacs-overlay)
   ];
@@ -48,51 +50,50 @@ in {
   #services.emacs.client.enable = true;
 
   programs.emacs.enable = true;
-  programs.emacs.package = ((pkgs.emacsPackagesFor pkgs.emacs30).overrideScope overrides).emacsWithPackages (
-    epkgs:
-      with epkgs; [
-        ccls
-        bash-completion
-        company
-        company-go
-        counsel
-        dhall-mode
-        diminish
-        elisp-slime-nav
-        fill-column-indicator
-        go-mode
-        graphql-mode
-        graphviz-dot-mode
-        ivy
-        ivy-hydra
-        ledger-mode
-        lsp-ivy
-        lsp-mode
-        lsp-ui
-        lsp-pyright
-        lxc
-        magit
-        markdown-preview-mode
-        multiple-cursors
-        nix-mode
-        nixfmt
-        paredit
-        powerline
-        prettier
-        pytest
-        rainbow-delimiters
-        rust-mode
-        seq
-        swiper
-        tide
-        treesit-grammars.with-all-grammars
-        typescript-mode
-        use-package
-        yasnippet
-        yaml-mode
-        zeal-at-point
-      ]
-  );
+  programs.emacs.package =
+    ((pkgs.emacsPackagesFor pkgs.emacs30).overrideScope overrides).emacsWithPackages
+      (
+        epkgs: with epkgs; [
+          ccls
+          bash-completion
+          corfu
+          consult
+          dhall-mode
+          diminish
+          elisp-slime-nav
+          fill-column-indicator
+          go-mode
+          graphql-mode
+          graphviz-dot-mode
+          ledger-mode
+          lsp-mode
+          lsp-ui
+          lsp-pyright
+          lxc
+          magit
+          markdown-preview-mode
+          multiple-cursors
+          nix-mode
+          nixfmt
+          orderless
+          paredit
+          powerline
+          prettier
+          pytest
+          rainbow-delimiters
+          rust-mode
+          seq
+          swiper
+          tide
+          treesit-grammars.with-all-grammars
+          typescript-mode
+          use-package
+          vertico
+          yasnippet
+          yaml-mode
+          zeal-at-point
+        ]
+      );
 
   xdg.configFile."emacs" = {
     source = ./.;

@@ -2,9 +2,9 @@
   pkgs,
   lib,
   config,
-  alejandra,
   ...
-}: {
+}:
+{
   imports = [
     ./emacs
   ];
@@ -16,6 +16,9 @@
   xdg.configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
 
   home.packages = with pkgs; [
+    nodejs
+    code-cursor
+    claude-code
     clang-tools
     _1password-gui
     nix-tree
@@ -41,6 +44,7 @@
     qbittorrent
     remmina
     cargo
+    ripgrep
     ruff
     rustc
     rust-analyzer
@@ -53,36 +57,27 @@
     vlc
     xterm
     yubikey-manager
-    yubikey-personalization-gui
     zeal
     zoom-us
-    (
-      pkgs.writeScriptBin "hms" ''
-        home-manager switch --flake /home/ryantm/p/dotfiles#ryantm
-      ''
-    )
-    (
-      pkgs.writeScriptBin "hmud" ''
-        pushd ~/p/dotfiles
-        nix flake update
-        popd
-      ''
-    )
-    (
-      pkgs.writeScriptBin "nr" ''
-        pushd ~/p/nixpkgs
-        nixpkgs-review pr "$1"
-        popd
-      ''
-    )
-    (
-      pkgs.writeScriptBin "pr" ''
-        nixpkgs-review post-result
-      ''
-    )
+    (pkgs.writeScriptBin "hms" ''
+      home-manager switch --flake /home/ryantm/p/dotfiles#ryantm
+    '')
+    (pkgs.writeScriptBin "hmud" ''
+      pushd ~/p/dotfiles
+      nix flake update
+      popd
+    '')
+    (pkgs.writeScriptBin "nr" ''
+      pushd ~/p/nixpkgs
+      nixpkgs-review pr "$1"
+      popd
+    '')
+    (pkgs.writeScriptBin "pr" ''
+      nixpkgs-review post-result
+    '')
   ];
 
-  home.keyboard.options = ["ctrl:nocaps"];
+  home.keyboard.options = [ "ctrl:nocaps" ];
 
   systemd.user.sessionVariables = config.home.sessionVariables;
 
@@ -106,14 +101,17 @@
   };
 
   xdg.configFile."alacritty/alacritty.toml" = lib.mkIf (config.programs.alacritty.settings != { }) {
-    source = ((pkgs.formats.toml { }).generate "alacritty.toml" config.programs.alacritty.settings).overrideAttrs
-    (finalAttrs: prevAttrs: {
-      buildCommand = lib.concatStringsSep "\n" [
-        prevAttrs.buildCommand
-        # TODO: why is this needed? Is there a better way to retain escape sequences?
-        "substituteInPlace $out --replace '\\\\' '\\'"
-      ];
-    });
+    source =
+      ((pkgs.formats.toml { }).generate "alacritty.toml" config.programs.alacritty.settings).overrideAttrs
+        (
+          finalAttrs: prevAttrs: {
+            buildCommand = lib.concatStringsSep "\n" [
+              prevAttrs.buildCommand
+              # TODO: why is this needed? Is there a better way to retain escape sequences?
+              "substituteInPlace $out --replace '\\\\' '\\'"
+            ];
+          }
+        );
   };
 
   programs.alacritty = {
@@ -160,28 +158,26 @@
 
   programs.bash = {
     enable = true;
-    historyControl = ["ignoredups"];
-    historyIgnore = ["ls"];
+    historyControl = [ "ignoredups" ];
+    historyIgnore = [ "ls" ];
 
     shellAliases = {
       ls = "ls --color=auto";
       grep = "grep --color=auto";
     };
 
-    initExtra = '' 
-     export PATH="/home/ryantm/.local/bin:$PATH"
-     eval "$(_RPL_COMPLETE=bash_source rpl)"
+    initExtra = ''
+      export PATH="/home/ryantm/.local/bin:$PATH"
+       function settitle {
+         tmux rename-window "$1"
+       }
 
-      function settitle {
-        tmux rename-window "$1"
-      }
-
-      # Set terminal title during ssh session
-      function ssh {
-        settitle "$*"
-        command ssh "$@"
-        settitle "bash"
-      }
+       # Set terminal title during ssh session
+       function ssh {
+         settitle "$*"
+         command ssh "$@"
+         settitle "bash"
+       }
     '';
   };
 
@@ -207,7 +203,14 @@
       merge.conflictstyle = "diff3";
       init.defaultBranch = "main";
     };
-    ignores = ["result" "*.elc" ".#*" ".stack-work/" "#*" ".markdown-preview.html"];
+    ignores = [
+      "result"
+      "*.elc"
+      ".#*"
+      ".stack-work/"
+      "#*"
+      ".markdown-preview.html"
+    ];
   };
 
   home.file = {
@@ -249,12 +252,10 @@
     '';
   };
 
-# bind = $mainMod, S, exec, raise --class "com.mitchellh.ghostty" --launch "ghostty"
-# bind = $mainMod, D, exec, raise --class "Emacs" --launch "emacsclient -t"
-# bind = $mainMod, F, exec, raise --class "firefox" --launch "firefox"
-# bind = $mainMod, C, exec, raise --class "google-chrome" --launch "google-chrome-stable"
-
-
+  # bind = $mainMod, S, exec, raise --class "com.mitchellh.ghostty" --launch "ghostty"
+  # bind = $mainMod, D, exec, raise --class "Emacs" --launch "emacsclient -t"
+  # bind = $mainMod, F, exec, raise --class "firefox" --launch "firefox"
+  # bind = $mainMod, C, exec, raise --class "google-chrome" --launch "google-chrome-stable"
 
   programs.obs-studio = {
     enable = true;
