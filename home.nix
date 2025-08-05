@@ -48,7 +48,6 @@
     ruff
     rustc
     rust-analyzer
-    tmux
     typescript-language-server
     nodePackages.prettier
     nodePackages.vscode-json-languageserver
@@ -221,19 +220,6 @@
     ".Xresources".source = ./x/Xresources;
     ".dir_colors".source = ./shell/dir_colors;
     ".asoundrc".source = ./alsa/asoundrc;
-  };
-
-  xdg.configFile.tmux = {
-    target = "tmux/tmux.conf";
-    text = ''
-      set -g default-terminal "tmux-256color"
-      set -g prefix C-z
-      bind-key C-z send-prefix
-      set -g renumber-windows on
-      set -g bell-action none
-      set -g visual-bell off
-      set -g monitor-bell off
-    '';
   };
 
   xdg.configFile."fonts" = {
