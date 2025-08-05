@@ -167,16 +167,6 @@
 
     initExtra = ''
       export PATH="/home/ryantm/.local/bin:$PATH"
-       function settitle {
-         tmux rename-window "$1"
-       }
-
-       # Set terminal title during ssh session
-       function ssh {
-         settitle "$*"
-         command ssh "$@"
-         settitle "bash"
-       }
     '';
   };
 
